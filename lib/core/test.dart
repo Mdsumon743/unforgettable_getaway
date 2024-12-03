@@ -32,7 +32,14 @@ class TestScreen extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               const TextAndRadioButton(),
-              const ProfileCard(),
+              SizedBox(height: 10.h),
+              Row(
+                children: [
+                  const ProfileCard(),
+                  SizedBox(width: 10.h),
+                  // const ProfileCard(),
+                ],
+              ),
               const Expanded(child: ChipList())
             ],
           ),
