@@ -1,10 +1,32 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+  final String? name;
+  final String? age;
+  final String? profile;
+  final String? location;
+  final String? distance;
+  final String? conuntryCode;
+  final VoidCallback? onTap;
+  final VoidCallback? onTapFavorite;
+
+  const ProfileCard({
+    super.key,
+    this.name,
+    this.age,
+    this.profile,
+    this.location,
+    this.distance,
+    this.onTap,
+    this.onTapFavorite,
+    this.conuntryCode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +42,8 @@ class ProfileCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.r),
                   child: Image.network(
-                    'https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp',
+                    profile ??
+                        'https://a.storyblok.com/f/191576/1200x800/a3640fdc4c/profile_picture_maker_before.webp',
                     height: 300,
                     width: size * 0.57,
                     fit: BoxFit.cover,
@@ -37,22 +60,44 @@ class ProfileCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Leo Cole, 24 🇨🇦",
-                  style: textStyle(
-                    14.sp,
-                    AppColors.whiteColor,
-                    FontWeight.w600,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      name != null ? '$name,$age,' : 'Leo Cole, 24,',
+                      style: textStyle(
+                        14.sp,
+                        AppColors.whiteColor,
+                        FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 16.w),
+                    CountryFlag.fromLanguageCode(
+                      conuntryCode ?? 'en',
+                      width: 30.w,
+                      height: 16.h,
+                    ),
+                    SizedBox(width: 16.w),
+                    Container(
+                      width: 16.w,
+                      height: 16.h,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFF17B26A),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 5.h),
                 Row(
                   children: [
-                    const Icon(Icons.location_on,
-                        size: 16, color: AppColors.whiteColor),
+                    Image.asset(
+                      "assets/icons/location_town.png",
+                      width: 16.w,
+                      height: 16.h,
+                    ),
                     SizedBox(width: 5.w),
                     Text(
-                      "Toronto, Canada",
+                      location ?? "Toronto, Canada",
                       style: textStyle(
                         11.sp,
                         AppColors.whiteColor.withOpacity(0.9),
@@ -64,11 +109,15 @@ class ProfileCard extends StatelessWidget {
                 SizedBox(height: 5.h),
                 Row(
                   children: [
-                    const Icon(Icons.directions_walk,
-                        size: 16, color: AppColors.whiteColor),
+                    Image.asset(
+                      "assets/icons/distance.png",
+                      width: 16.w,
+                      height: 16.h,
+                      fit: BoxFit.contain,
+                    ),
                     const SizedBox(width: 5),
                     Text(
-                      "5 Km Away from you",
+                      distance ?? "5 Km Away from you",
                       style: textStyle(
                         11.sp,
                         AppColors.whiteColor.withOpacity(0.9),
@@ -88,14 +137,17 @@ class ProfileCard extends StatelessWidget {
           Positioned(
             top: 10,
             right: 40.w,
-            child: Container(
-              padding: EdgeInsets.all(8.sp),
-              decoration: BoxDecoration(
-                  color: AppColors.darkBrown.withOpacity(0.2),
-                  shape: BoxShape.circle),
-              child: const Icon(
-                Icons.favorite_border,
-                color: AppColors.whiteColor,
+            child: GestureDetector(
+              onTap: onTapFavorite,
+              child: Container(
+                padding: EdgeInsets.all(8.sp),
+                decoration: BoxDecoration(
+                    color: AppColors.darkBrown.withOpacity(0.2),
+                    shape: BoxShape.circle),
+                child: const Icon(
+                  Icons.favorite_border,
+                  color: AppColors.whiteColor,
+                ),
               ),
             ),
           ),
@@ -103,22 +155,4 @@ class ProfileCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class TrianglePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()..color = AppColors.yellowColor;
-
-    final Path path = Path()
-      ..moveTo(0, 0)
-      ..lineTo(size.width, size.height / 2)
-      ..lineTo(0, size.height)
-      ..close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
