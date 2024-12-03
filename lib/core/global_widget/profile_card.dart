@@ -48,7 +48,8 @@ class ProfileCard extends StatelessWidget {
                 SizedBox(height: 5.h),
                 Row(
                   children: [
-                    const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                    const Icon(Icons.location_on,
+                        size: 16, color: AppColors.whiteColor),
                     SizedBox(width: 5.w),
                     Text(
                       "Toronto, Canada",
@@ -64,7 +65,7 @@ class ProfileCard extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.directions_walk,
-                        size: 16, color: Colors.grey),
+                        size: 16, color: AppColors.whiteColor),
                     const SizedBox(width: 5),
                     Text(
                       "5 Km Away from you",
@@ -94,7 +95,7 @@ class ProfileCard extends StatelessWidget {
                   shape: BoxShape.circle),
               child: const Icon(
                 Icons.favorite_border,
-                color: Colors.grey,
+                color: AppColors.whiteColor,
               ),
             ),
           ),
