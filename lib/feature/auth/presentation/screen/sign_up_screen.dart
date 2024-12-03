@@ -7,33 +7,34 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
+import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        // primary: true,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            
             children: [
               SizedBox(height: 40.h),
               Image.asset('assets/images/logo_image_2.png'),
-              SizedBox(height: 40.h),
+              SizedBox(height: 25.h),
               Text(
-                "Login",
-                style:
-                    textStyle(24.sp, const Color(0xFF0D0D0C), FontWeight.w600),
+                "Sign up",
+                style: textStyle(
+                  24.sp,
+                  const Color(0xFF0D0D0C),
+                  FontWeight.w600,
+                ),
               ),
-              SizedBox(height: 40.h),
+               SizedBox(height: 25.h),
               Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -58,7 +59,24 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10.h),
-                  const CustomTextField(),
+                  const CustomTextField(
+                    hintText: '*********',
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Confirm Password',
+                    style: textStyle(
+                      16.sp,
+                      AppColors.darkBrown1,
+                      FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  const CustomTextField(
+                    hintText: '*********',
+                    obscureText: true,
+                  ),
                   SizedBox(height: 16.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -75,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   CustomButton(
-                    text: "Log in",
+                    text: "Sign Up",
                     textColor: const Color(0XFF0D0D0C),
                     onPressed: () {},
                     backgroundColor: const Color(0XFFFFDF00),
@@ -87,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Center(
                     child: Text(
-                      "Or Login with",
+                      "Or Sign up with",
                       style: textStyle(
                           14.sp, const Color(0xFF333329), FontWeight.w400),
                     ),
@@ -134,7 +152,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-               SizedBox(height: 40.h),
+              SizedBox(height: 16.h),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -145,7 +163,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: "Don’t have an account ?",
+                      text: "Already have an account?",
                       style: textStyle(
                         14.sp,
                         const Color(0xFF333329).withOpacity(0.85),
@@ -153,14 +171,14 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: ' Sign Up',
+                      text: ' Log In',
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF8C7B00),
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Get.to(() => const SignUpScreen());
+                          Get.to(() => const LoginScreen());
                         },
                     ),
                   ],
