@@ -4,7 +4,7 @@ import 'package:unforgettable_getaway/core/chip_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/global_widget/profile_card.dart';
-import 'package:unforgettable_getaway/core/global_widget/text_and_radi0_button.dart';
+import 'package:unforgettable_getaway/core/global_widget/text_and_radio_button.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
