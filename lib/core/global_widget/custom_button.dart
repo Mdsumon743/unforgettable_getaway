@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 
@@ -9,8 +10,8 @@ class CustomButton extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final VoidCallback? onPressed;
-  final Color backgroundColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? textColor;
   final double height;
   final double width;
   final double borderRadius;
@@ -24,8 +25,8 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.onPressed,
-    this.backgroundColor = Colors.blue,
-    this.textColor = Colors.white,
+    this.backgroundColor,
+    this.textColor,
     this.height = 48.0,
     this.width = double.infinity,
     this.borderRadius = 8.0,
@@ -43,14 +44,14 @@ class CustomButton extends StatelessWidget {
         width: width.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: backgroundColor ?? AppColors.darkGrey,
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),
         child: Text(
           text,
           style: textStyle(
             fontSize ?? 18.sp,
-            textColor,
+            textColor ?? AppColors.yellowColor,
             fontWeight ?? FontWeight.w500,
           ),
         ),
