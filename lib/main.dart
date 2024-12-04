@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/test.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/login_or_signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
