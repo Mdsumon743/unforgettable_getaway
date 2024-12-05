@@ -5,4 +5,6 @@ class Assetpath {
   static const String location = "assets/icons/location_on.png";
   static const String filter = "assets/icons/filter.png";
   static const String search = "assets/icons/search.png";
+  static const String women = "assets/images/pic.png";
+   static const String level = "assets/images/level.png";
 }
