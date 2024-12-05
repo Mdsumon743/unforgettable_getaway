@@ -41,7 +41,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                   backgroundColor: const Color(0XFFFFDF00),
                   borderRadius: 40,
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 40.h),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(

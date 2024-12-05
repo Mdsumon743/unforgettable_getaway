@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
@@ -13,7 +12,7 @@ class Onboarding extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [SvgPicture.asset(Assetpath.logoOnboarding)],
+          children: [Image.asset(Assetpath.logoOnboarding)],
         ),
       ),
     );

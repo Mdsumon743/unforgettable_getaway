@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/feature/onboarding/presentation/screen/onboarding.dart';
+import 'package:unforgettable_getaway/core/binding/binding.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const Onboarding (),
+            getPages: AppRoute.route,
+            initialBinding: AppBingding(),
+            initialRoute: AppRoute.onboarding,
           );
         });
   }
