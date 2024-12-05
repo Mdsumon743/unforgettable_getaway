@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
   final double width;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
-  final Icon? icon;
+  final IconData? icon;
   final bool isLoading;
 
   const CustomButton({
