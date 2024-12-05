@@ -6,7 +6,6 @@ import 'package:unforgettable_getaway/core/test.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
