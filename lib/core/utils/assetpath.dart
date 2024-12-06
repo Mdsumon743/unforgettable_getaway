@@ -9,5 +9,5 @@ class Assetpath {
   static const String level = "assets/images/level.png";
   static const String levelsvg = "assets/images/level.svg";
   static const String onLocation = "assets/icons/location_town.png";
-   static const String locationon = "assets/icons/location.png";
+  static const String locationon = "assets/icons/location.png";
 }

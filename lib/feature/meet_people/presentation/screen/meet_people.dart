@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_appbar.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_inter.dart';
-import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_profile_view_card.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_gridview_profile.dart';
 
 class MeetPeople extends StatelessWidget {
   const MeetPeople({super.key});
@@ -15,6 +15,7 @@ class MeetPeople extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(15.r),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextIner(
                 text: "Nearest people around you ⭐",
@@ -22,9 +23,9 @@ class MeetPeople extends StatelessWidget {
                 size: 16.sp,
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
-              const CustomProfileViewCard()
+              const CustomGridviewProfile()
             ],
           ),
         ),

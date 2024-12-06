@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 class CustomProfileViewCard extends StatelessWidget {
-  const CustomProfileViewCard({super.key});
+  final String? level;
+  final String? love;
+  final String? name;
+  final String? age;
+  final String? image;
+  final String? country;
+  final bool? status;
+  final String? adress;
+  final String? distance;
+  const CustomProfileViewCard(
+      {super.key,
+      this.level,
+      this.love,
+      this.name,
+      this.age,
+      this.country,
+      this.status,
+      this.adress,
+      this.distance,
+      this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +32,10 @@ class CustomProfileViewCard extends StatelessWidget {
       padding: EdgeInsets.all(5.r),
       decoration: const BoxDecoration(color: Colors.transparent),
       child: Stack(
-        alignment: Alignment.centerLeft,
         children: [
           SizedBox(
-            width: 180.w,
-            height: 240.h,
+            width: 170.w,
+            height: 230.h,
           ),
           Positioned(
             left: 3,
@@ -27,17 +45,18 @@ class CustomProfileViewCard extends StatelessWidget {
               padding: EdgeInsets.all(5.r),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  image: const DecorationImage(
-                      image: AssetImage(
-                        Assetpath.women,
-                      ),
+                  image: DecorationImage(
+                      repeat: ImageRepeat.repeat,
+                      image: AssetImage(image ?? "assets/images/pic.png"),
                       fit: BoxFit.fill)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [SvgPicture.asset('assets/images/love.svg')],
+                    children: [
+                      SvgPicture.asset(love ?? "assets/images/unlove.svg")
+                    ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,12 +65,13 @@ class CustomProfileViewCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomTextPopins(
-                            text: "Dakota Jonas, 21 🇦🇺 ",
+                            text: "$name$age $country",
                             fontWeight: FontWeight.w600,
                             size: 13.sp,
                             color: Colors.white,
                           ),
                           Container(
+                            margin: const EdgeInsets.only(left: 2),
                             width: 8.w,
                             height: 8.h,
                             decoration: const BoxDecoration(
@@ -65,7 +85,7 @@ class CustomProfileViewCard extends StatelessWidget {
                         children: [
                           Image.asset(Assetpath.onLocation),
                           CustomTextPopins(
-                            text: "Malbourne, Australia",
+                            text: "$adress",
                             size: 11.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.white,
@@ -76,7 +96,7 @@ class CustomProfileViewCard extends StatelessWidget {
                         children: [
                           Image.asset(Assetpath.locationon),
                           CustomTextPopins(
-                            text: "3 Km Away from you",
+                            text: "$distance",
                             size: 11.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.white,
@@ -90,9 +110,9 @@ class CustomProfileViewCard extends StatelessWidget {
             ),
           ),
           Positioned(
-              top: 20,
+              top: 10,
               left: -1,
-              child: SvgPicture.asset("assets/images/level.svg")),
+              child: SvgPicture.asset(level ?? "assets/images/level.svg")),
         ],
       ),
     );
