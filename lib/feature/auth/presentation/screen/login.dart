@@ -8,6 +8,8 @@ import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_list.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -93,7 +95,8 @@ class LoginScreen extends StatelessWidget {
                       backgroundColor: const Color(0XFFFFDF00),
                       borderRadius: 40,
                       onPressed: () {
-                        if (_loginFormKey.currentState!.validate()) {}
+                        // if (_loginFormKey.currentState!.validate()) {}
+                        Get.to(const NameBirthdayScreen());
                       },
                     ),
                     SizedBox(
