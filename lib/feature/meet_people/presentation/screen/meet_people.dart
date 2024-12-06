@@ -25,7 +25,6 @@ class MeetPeople extends StatelessWidget {
                 height: 20.h,
               ),
               const CustomProfileViewCard()
-               
             ],
           ),
         ),
