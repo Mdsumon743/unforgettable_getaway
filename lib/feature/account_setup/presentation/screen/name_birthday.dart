@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
