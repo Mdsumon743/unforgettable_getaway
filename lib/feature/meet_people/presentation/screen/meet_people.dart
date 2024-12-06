@@ -10,6 +10,7 @@ class MeetPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
