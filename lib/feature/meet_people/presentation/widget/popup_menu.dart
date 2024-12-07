@@ -92,4 +92,6 @@ class DropdownMenuController extends GetxController {
       ),
     );
   }
+
+  void toggleDropdown() {}
 }
