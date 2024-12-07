@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
@@ -16,7 +17,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
- 
+    final FilterController filterController = Get.put(FilterController());
+
     return AppBar(
       toolbarHeight: 165.h,
       backgroundColor: AppColors.darkBrown,
@@ -90,7 +92,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   hintText: 'Cartagena, Colombia',
                   color: Colors.white,
                   prefixIcon: Image.asset(Assetpath.search),
-                  suffixIcon: Image.asset(Assetpath.filter),
+                  suffixIcon: GestureDetector(
+                      onTap: () {
+                        filterController.showCountryPicker(context);
+                      },
+                      child: Image.asset(Assetpath.filter)),
                 ),
                 SizedBox(
                   height: 20.h,
