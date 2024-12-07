@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,13 +16,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
-
+    final FilterController filterController = Get.put(FilterController());
+    final TextEditingController textEditingController = TextEditingController();
     return AppBar(
-
       scrolledUnderElevation: 0,
+      toolbarHeight: 165.h,
       backgroundColor: AppColors.darkBrown,
       leading: const SizedBox(),
-
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(12.r),
@@ -29,9 +31,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           preferredSize: preferredSize,
           child: Container(
             padding: EdgeInsets.all(10.r),
-            decoration: const BoxDecoration(
-              color: AppColors.darkBrown,
-            ),
+            decoration: BoxDecoration(
+                color: AppColors.darkBrown,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(12.r),
+                    bottomRight: Radius.circular(12.r))),
             child: Column(
               children: [
                 Row(
@@ -80,6 +84,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     )
                   ],
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              CustomTextFieldSearch(
+                  fillColor: const Color(0xff302827),
+                  hintText: 'Cartagena, Colombia',
+                  color: Colors.white,
+                  controller: textEditingController,
+                  prefixIcon: Image.asset(Assetpath.search),
+                  suffixIcon: GestureDetector(
+                      onTap: () {
+                        filterController.showCountryPicker(context);
+                      },
+                      child: Image.asset(Assetpath.filter)),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
               ],
             ),
           )),
@@ -87,5 +109,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(80.h);
+  Size get preferredSize => Size.fromHeight(165.h);
 }
