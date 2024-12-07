@@ -7,6 +7,7 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 
 class LoginOrSignupScreen extends StatelessWidget {
   const LoginOrSignupScreen({super.key});
@@ -41,7 +42,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                   backgroundColor: const Color(0XFFFFDF00),
                   borderRadius: 40,
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 40.h),
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
@@ -76,7 +77,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            debugPrint('Navigate to Privacy Policy');
+                            Get.to(()=> const SearchLocation());
                           },
                       ),
                     ],
