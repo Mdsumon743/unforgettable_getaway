@@ -44,11 +44,9 @@ class FilterController extends GetxController {
             Container(
               height: 4.h,
               width: 86.w,
-              decoration:  BoxDecoration(
-                color: const Color(0xff333329),
-                borderRadius: BorderRadius.circular(25.r)
-              ),
-
+              decoration: BoxDecoration(
+                  color: const Color(0xff333329),
+                  borderRadius: BorderRadius.circular(25.r)),
             ),
             SizedBox(
               height: 20.h,
