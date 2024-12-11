@@ -8,6 +8,31 @@ import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/
 class NameBirthdayScreen extends StatelessWidget {
   const NameBirthdayScreen({super.key});
 
+  int calculateAgeInYearsMonthsDays(int year, int month, int day) {
+    final DateTime currentDate = DateTime.now();
+
+    int years = currentDate.year - year;
+
+    if (currentDate.month < month ||
+        (currentDate.month == month && currentDate.day < day)) {
+      years--;
+    }
+
+    int months = currentDate.month - month;
+    if (months < 0) {
+      months += 12;
+    }
+
+    int days = currentDate.day - day;
+    if (days < 0) {
+      final previousMonth = DateTime(currentDate.year, currentDate.month, 0);
+      days += previousMonth.day;
+    }
+
+    debugPrint('Age: $years years, $months months, $days days');
+    return years;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,30 +70,7 @@ class NameBirthdayScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16.h),
-            TextField(
-              decoration: InputDecoration(
-                fillColor: AppColors.semiTransparent.withOpacity(0.03),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(
-                    color: AppColors.semiTransparent.withOpacity(0.5),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(
-                    color: AppColors.semiTransparent.withOpacity(0.5),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(
-                    color: AppColors.semiTransparent.withOpacity(0.5),
-                  ),
-                ),
-              ),
-            ),
+            inputTextField(),
             SizedBox(height: 30.h),
             Text(
               'Your birthday',
