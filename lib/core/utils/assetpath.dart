@@ -10,4 +10,8 @@ class Assetpath {
   static const String levelsvg = "assets/images/level.svg";
   static const String onLocation = "assets/icons/location_town.png";
   static const String locationon = "assets/icons/location.png";
+  static const String toly = "assets/icons/toly_bag.png";
+  static const String people = "assets/icons/people.png";
+  static const String profile = "assets/icons/profile.png";
+  static const String near = "assets/icons/near_me.png";
 }
