@@ -36,134 +36,156 @@ class NameBirthdayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 40.h,
-          left: 16.w,
-          right: 16.w,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 8.h,
-            ),
-            const ProgressBar(
-              width: 0.25,
-            ),
-            SizedBox(height: 20.h),
-            Text(
-              'Oh hey! Let’s start \nwith an intro',
-              style: textStyle(
-                30.sp,
-                AppColors.darkBrown1,
-                FontWeight.w700,
+      backgroundColor: AppColors.darkBrown,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 50.h,
+            left: 16.w,
+            right: 16.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 8.h,
               ),
-            ),
-            SizedBox(height: 36.h),
-            Text(
-              'Your first name',
-              style: textStyle(
-                20.sp,
-                AppColors.darkBrown1,
-                FontWeight.w500,
+              const ProgressBar(
+                width: 0.25,
               ),
-            ),
-            SizedBox(height: 16.h),
-            inputTextField(),
-            SizedBox(height: 30.h),
-            Text(
-              'Your birthday',
-              style: textStyle(
-                20.sp,
-                AppColors.darkBrown1,
-                FontWeight.w500,
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Date',
-                        style: textStyle(
-                          14.sp,
-                          AppColors.mediumDarkGrey,
-                          FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      inputTextField(),
-                    ],
-                  ),
+              SizedBox(height: 20.h),
+              Text(
+                'Oh hey! Let’s start \nwith an intro',
+                style: textStyle(
+                  30.sp,
+                  AppColors.whiteColor,
+                  FontWeight.w700,
                 ),
-                SizedBox(width: 14.w),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Month',
-                        style: textStyle(
-                          14.sp,
-                          AppColors.mediumDarkGrey,
-                          FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      inputTextField(),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 14.w),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Year',
-                        style: textStyle(
-                          14.sp,
-                          AppColors.mediumDarkGrey,
-                          FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      inputTextField(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              'It’s never too early to count down',
-              style: textStyle(
-                16.sp,
-                AppColors.mediumDarkGrey,
-                FontWeight.w500,
               ),
-            ),
-            CustomButton(
-              text: 'Next',
-              textColor: AppColors.darkBrown1,
-              backgroundColor: AppColors.semiTransparent,
-              onPressed: () {},
-              borderRadius: 40,
-            )
-          ],
+              SizedBox(height: 36.h),
+              Text(
+                'Your first name',
+                style: textStyle(
+                  20.sp,
+                  AppColors.whiteColor.withOpacity(0.95),
+                  FontWeight.w500,
+                ),
+              ),
+              SizedBox(height: 16.h),
+             nameTextField(),
+              SizedBox(height: 30.h),
+              Text(
+                'Your birthday',
+                style: textStyle(
+                  20.sp,
+                  AppColors.whiteColor.withOpacity(0.95),
+                  FontWeight.w500,
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Date',
+                          style: textStyle(
+                            14.sp,
+                            AppColors.whiteColor.withOpacity(0.9),
+                            FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        inputTextField(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 14.w),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Month',
+                          style: textStyle(
+                            14.sp,
+                            AppColors.whiteColor.withOpacity(0.9),
+                            FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        inputTextField(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 14.w),
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Year',
+                          style: textStyle(
+                            14.sp,
+                            AppColors.whiteColor.withOpacity(0.9),
+                            FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        inputTextField(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                'It’s never too early to count down',
+                style: textStyle(
+                  16.sp,
+                  AppColors.whiteColor.withOpacity(0.8),
+                  FontWeight.w500,
+                ),
+              ),
+              SizedBox(height: 60.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.error_outline, color: Color(0xFFFF7167)),
+                  SizedBox(width: 5.w),
+                  Text(
+                    'You must be at least 18 years old to access\n \'Meet People\'',
+                    style: textStyle(
+                      14.sp,
+                      const Color(0xFFFF7167).withOpacity(0.8),
+                      FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 70.h),
+              CustomButton(
+                text: 'Next',
+                textColor: AppColors.darkBrown1,
+                backgroundColor: AppColors.whiteColor.withOpacity(0.5),
+                onPressed: () {},
+                borderRadius: 40,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -171,25 +193,65 @@ class NameBirthdayScreen extends StatelessWidget {
 
   inputTextField() {
     return TextField(
+      textAlign: TextAlign.center,
+      style: textStyle(
+        16.sp,
+        AppColors.whiteColor,
+        FontWeight.w400,
+      ),
       decoration: InputDecoration(
-        fillColor: AppColors.semiTransparent.withOpacity(0.03),
+        contentPadding: EdgeInsets.symmetric(horizontal: 30.sp),
+        fillColor: AppColors.whiteColor.withOpacity(0.01),
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
-            color: AppColors.semiTransparent.withOpacity(0.5),
+            color: AppColors.whiteColor.withOpacity(0.8),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
-            color: AppColors.semiTransparent.withOpacity(0.5),
+            color: AppColors.whiteColor.withOpacity(0.5),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
-            color: AppColors.semiTransparent.withOpacity(0.5),
+            color: AppColors.whiteColor.withOpacity(0.5),
+          ),
+        ),
+      ),
+    );
+  }
+
+  nameTextField() {
+    return TextField(
+      style: textStyle(
+        16.sp,
+        AppColors.whiteColor,
+        FontWeight.w400,
+      ),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 30.sp),
+        fillColor: AppColors.whiteColor.withOpacity(0.01),
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColors.whiteColor.withOpacity(0.8),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColors.whiteColor.withOpacity(0.5),
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.r),
+          borderSide: BorderSide(
+            color: AppColors.whiteColor.withOpacity(0.5),
           ),
         ),
       ),

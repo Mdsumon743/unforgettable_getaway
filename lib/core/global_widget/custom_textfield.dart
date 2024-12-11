@@ -38,27 +38,27 @@ class CustomTextField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: textStyle(14.sp, const Color(0xFF737268), FontWeight.w300),
+        hintStyle: textStyle(14.sp, AppColors.whiteColor.withOpacity(0.9).withOpacity(0.6), FontWeight.w300),
         filled: true,
-        fillColor: AppColors.darkBrown1.withOpacity(0.2),
+        fillColor: AppColors.yellowColor.withOpacity(0.01),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            color: const Color(0xFF737268),
+            color: AppColors.whiteColor.withOpacity(0.8),
             width: 1.w,
           ),
           borderRadius: BorderRadius.circular(8.r),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: const Color(0xFF737268),
+            color: AppColors.whiteColor.withOpacity(0.8),
             width: 1.w,
           ),
           borderRadius: BorderRadius.circular(8.r),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: const Color(0xFF737268),
+           color: AppColors.whiteColor.withOpacity(0.8),
             width: 1.w,
           ),
           borderRadius: BorderRadius.circular(8.r),

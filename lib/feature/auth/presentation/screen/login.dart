@@ -8,8 +8,8 @@ import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_list.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
+import 'package:unforgettable_getaway/feature/auth/presentation/screen/forget_password.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,20 +19,21 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _loginFormKey = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         // primary: true,
+
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(height: 40.h),
-              Image.asset('assets/images/logo_image_2.png'),
+              SizedBox(height: 60.h),
+              Image.asset('assets/images/logo_image.png'),
               SizedBox(height: 40.h),
               Text(
                 "Login",
-                style:
-                    textStyle(24.sp, const Color(0xFF0D0D0C), FontWeight.w600),
+                style: textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
               ),
               SizedBox(height: 40.h),
               Form(
@@ -45,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                       'E-mail',
                       style: textStyle(
                         16.sp,
-                        AppColors.darkBrown1,
+                        AppColors.whiteColor.withOpacity(0.9),
                         FontWeight.w500,
                       ),
                     ),
@@ -58,16 +59,16 @@ class LoginScreen extends StatelessWidget {
                             : 'Enter YOur emasil Address';
                       },
                     ),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 20.h),
                     Text(
                       'Password',
                       style: textStyle(
                         16.sp,
-                        AppColors.darkBrown1,
+                        AppColors.whiteColor.withOpacity(0.9),
                         FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 16.h),
                     CustomTextField(
                       hintText: '************',
                       validator: (value) {
@@ -78,17 +79,21 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "ForgotPassword?",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14.sp,
-                            decoration: TextDecoration.underline,
-                            color: const Color(0xFF8C7B00),
+                        GestureDetector(
+                          onTap: () => Get.to(() => const ForgetScreen()),
+                          child: Text(
+                            "ForgotPassword?",
+                            style: GoogleFonts.poppins(
+                              fontSize: 14.sp,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.yellowColor,
+                              color: AppColors.yellowColor,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 26.h),
                     CustomButton(
                       text: "Log in",
                       textColor: const Color(0XFF0D0D0C),
@@ -100,17 +105,20 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 15.h,
                     ),
                     SizedBox(height: 16.h),
                     Center(
                       child: Text(
                         "Or Login with",
                         style: textStyle(
-                            14.sp, const Color(0xFF333329), FontWeight.w400),
+                          14.sp,
+                          AppColors.whiteColor.withOpacity(0.85),
+                          FontWeight.w400,
+                        ),
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 25.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment
                           .center, // Center the icons horizontally
@@ -118,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(18.sp),
+                            padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1.sp, color: const Color(0xFF737268)),
@@ -134,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(18.sp),
+                            padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1.sp, color: const Color(0xFF737268)),
@@ -153,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 40.h),
+              SizedBox(height: 60.h),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -167,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                       text: "Don’t have an account ?",
                       style: textStyle(
                         14.sp,
-                        const Color(0xFF333329).withOpacity(0.85),
+                        AppColors.whiteColor.withOpacity(0.9).withOpacity(0.85),
                         FontWeight.w400,
                       ),
                     ),

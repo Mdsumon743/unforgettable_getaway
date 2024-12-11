@@ -13,9 +13,9 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 10.h,
+      height: 7.h,
       decoration: BoxDecoration(
-        color: AppColors.lightGray,
+        color: AppColors.whiteColor.withOpacity(0.2),
         borderRadius: BorderRadius.circular(50),
       ),
       child: Stack(
@@ -24,7 +24,7 @@ class ProgressBar extends StatelessWidget {
             builder: (context, constraints) => Container(
               width: constraints.maxWidth * width,
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(50),
               ),
             ),

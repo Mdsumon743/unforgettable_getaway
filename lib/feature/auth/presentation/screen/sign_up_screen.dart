@@ -17,20 +17,23 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _signInFormKey = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40.h),
-              Image.asset('assets/images/logo_image_2.png'),
+              Image.asset('assets/images/logo_image.png'),
               SizedBox(height: 25.h),
               Text(
                 "Sign up",
                 style: textStyle(
                   24.sp,
-                  const Color(0xFF0D0D0C),
+                  AppColors.whiteColor,
                   FontWeight.w600,
                 ),
               ),
@@ -45,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
                       'E-mail',
                       style: textStyle(
                         16.sp,
-                        AppColors.darkBrown1,
+                        AppColors.whiteColor.withOpacity(0.9),
                         FontWeight.w500,
                       ),
                     ),
@@ -63,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                       'Password',
                       style: textStyle(
                         16.sp,
-                        AppColors.darkBrown1,
+                        AppColors.whiteColor.withOpacity(0.9),
                         FontWeight.w500,
                       ),
                     ),
@@ -80,7 +83,7 @@ class SignUpScreen extends StatelessWidget {
                       'Confirm Password',
                       style: textStyle(
                         16.sp,
-                        AppColors.darkBrown1,
+                        AppColors.whiteColor.withOpacity(0.9),
                         FontWeight.w500,
                       ),
                     ),
@@ -92,21 +95,7 @@ class SignUpScreen extends StatelessWidget {
                         return FormValidation().isValidPassword(value!);
                       },
                     ),
-                    SizedBox(height: 16.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "ForgotPassword?",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14.sp,
-                            decoration: TextDecoration.underline,
-                            color: const Color(0xFF8C7B00),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 30.h),
                     CustomButton(
                       text: "Sign Up",
                       textColor: const Color(0XFF0D0D0C),
@@ -114,15 +103,16 @@ class SignUpScreen extends StatelessWidget {
                       backgroundColor: const Color(0XFFFFDF00),
                       borderRadius: 40,
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SizedBox(height: 16.h),
+                    
+                    SizedBox(height: 26.h),
                     Center(
                       child: Text(
                         "Or Sign up with",
                         style: textStyle(
-                            14.sp, const Color(0xFF333329), FontWeight.w400),
+                          14.sp,
+                          AppColors.whiteColor.withOpacity(0.85),
+                          FontWeight.w400,
+                        ),
                       ),
                     ),
                     SizedBox(height: 20.h),
@@ -130,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 50.h),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -144,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                       text: "Already have an account?",
                       style: textStyle(
                         14.sp,
-                        const Color(0xFF333329).withOpacity(0.85),
+                        AppColors.whiteColor.withOpacity(0.9).withOpacity(0.85),
                         FontWeight.w400,
                       ),
                     ),
@@ -153,6 +143,7 @@ class SignUpScreen extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF8C7B00),
                         decoration: TextDecoration.underline,
+                      
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
