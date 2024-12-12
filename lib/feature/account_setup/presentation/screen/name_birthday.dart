@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/gender_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
 
 class NameBirthdayScreen extends StatelessWidget {
@@ -46,15 +48,15 @@ class NameBirthdayScreen extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: 8.h,
+                height: 10.h,
               ),
               const ProgressBar(
                 width: 0.25,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 30.h),
               Text(
                 'Oh hey! Let’s start \nwith an intro',
                 style: textStyle(
@@ -73,7 +75,7 @@ class NameBirthdayScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-             nameTextField(),
+              nameTextField(),
               SizedBox(height: 30.h),
               Text(
                 'Your birthday',
@@ -159,7 +161,7 @@ class NameBirthdayScreen extends StatelessWidget {
                   FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 60.h),
+              SizedBox(height: 50.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,12 +178,14 @@ class NameBirthdayScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 70.h),
+              SizedBox(height: 130.h),
               CustomButton(
                 text: 'Next',
                 textColor: AppColors.darkBrown1,
                 backgroundColor: AppColors.whiteColor.withOpacity(0.5),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => const GenderSelectionScreen());
+                },
                 borderRadius: 40,
               )
             ],
