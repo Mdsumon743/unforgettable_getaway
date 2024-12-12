@@ -87,7 +87,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-              CustomTextFieldSearch(
+                CustomTextFieldSearch(
                   fillColor: const Color(0xff302827),
                   hintText: 'Cartagena, Colombia',
                   color: Colors.white,

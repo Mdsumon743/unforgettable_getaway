@@ -14,4 +14,6 @@ class Assetpath {
   static const String people = "assets/icons/people.png";
   static const String profile = "assets/icons/profile.png";
   static const String near = "assets/icons/near_me.png";
+  static const String profile1 = "assets/images/profile.png";
+   static const String verified = "assets/icons/verified.svg";
 }

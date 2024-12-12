@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/custom_textfeild_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
 
 class SearchLocation extends StatelessWidget {
@@ -9,22 +10,61 @@ class SearchLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final searchController = Get.put(CustomTextFieldSearchController());
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(20.r),
-            child: const Column(
+            child: Column(
               children: [
-                CustomTextFieldSearch(
+                const CustomTextFieldSearch(
                   keyboardType: TextInputType.text,
                   hintText: 'Search for people by city ',
                   prefixIcon: Icon(
                     Icons.search,
                     color: Color(0xff737268),
                   ),
-                )
+                ),
+                Obx(
+                  () {
+                    return searchController.filteredSuggestions.isNotEmpty
+                        ? Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 8),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: SingleChildScrollView(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount:
+                                    searchController.filteredSuggestions.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text(searchController
+                                        .filteredSuggestions[index]),
+                                    onTap: () {
+                                      searchController.updateTextController(
+                                          searchController.textController,
+                                          searchController
+                                              .filteredSuggestions[index]);
+                                      Get.to(() => const MeetPeople());
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : const SizedBox();
+                  },
+                ),
               ],
             ),
           ),
@@ -34,7 +74,7 @@ class SearchLocation extends StatelessWidget {
   }
 }
 
-class CustomTextFieldSearch extends StatefulWidget {
+class CustomTextFieldSearch extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -43,6 +83,7 @@ class CustomTextFieldSearch extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final Color? color;
+  final void Function()? ontap;
   final bool obscureText;
   final String? Function(String?)? validator;
 
@@ -58,109 +99,49 @@ class CustomTextFieldSearch extends StatefulWidget {
     this.textInputAction,
     this.color,
     this.fillColor,
+    this.ontap,
   });
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CustomTextFieldSearchState createState() => _CustomTextFieldSearchState();
-}
-
-class _CustomTextFieldSearchState extends State<CustomTextFieldSearch> {
-  List<String> citiesAndCountries = [
-    "New York, USA",
-    "London, UK",
-    "Paris, France",
-    "Tokyo, Japan",
-    "Sydney, Australia",
-    "Berlin, Germany",
-    "Moscow, Russia",
-    "Toronto, Canada",
-    "São Paulo, Brazil",
-    "Delhi, India",
-    "Shanghai, China",
-    "Seoul, South Korea",
-    "Mexico City, Mexico",
-    "Rome, Italy",
-    "Cairo, Egypt"
-  ];
-  List<String> filteredSuggestions = [];
-
-  void _filterSuggestions(String query) {
-    setState(() {
-      filteredSuggestions = citiesAndCountries
-          .where((cityCountry) =>
-              cityCountry.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final searchController = Get.put(CustomTextFieldSearchController());
+
     return SingleChildScrollView(
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: widget.fillColor ?? Colors.transparent,
-              borderRadius: BorderRadius.circular(30.r),
+              color: fillColor ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(30),
               border: Border.all(color: const Color(0xff737268), width: 1.5),
             ),
             child: TextFormField(
-              textInputAction: widget.textInputAction,
-              onChanged: _filterSuggestions,
-              controller: widget.controller,
-              keyboardType: widget.keyboardType,
-              obscureText: widget.obscureText,
-              validator: widget.validator,
+              textInputAction: textInputAction,
+              onChanged: (query) => searchController.filterSuggestions(query),
+              controller: controller,
+              onTap: ontap,
+              keyboardType: keyboardType,
+              obscureText: obscureText,
+              validator: validator,
               style: GoogleFonts.poppins(
-                fontSize: 16.sp,
-                color: widget.color ?? const Color(0xff333329),
+                fontSize: 16,
+                color: color ?? const Color(0xff333329),
                 fontWeight: FontWeight.w400,
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                hintText: widget.hintText,
+                hintText: hintText,
                 hintStyle: GoogleFonts.poppins(
-                  fontSize: 16.sp,
-                  color: widget.color ?? const Color(0xff333329),
+                  fontSize: 16,
+                  color: color ?? const Color(0xff333329),
                   fontWeight: FontWeight.w400,
                 ),
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: widget.suffixIcon,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
                 border: InputBorder.none,
               ),
             ),
           ),
-          filteredSuggestions.isNotEmpty
-              ? Container(
-                  height: MediaQuery.sizeOf(context).height * 0.3,
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(top: 8),
-                  padding: EdgeInsets.all(10.r),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Expanded(
-                    child: ListView.builder(
-                      // shrinkWrap: false,
-                      primary: false,
-                      itemCount: filteredSuggestions.length,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(filteredSuggestions[index]),
-                          onTap: () {
-                            widget.controller?.text =
-                                filteredSuggestions[index];
-                            Get.to(() => const MeetPeople());
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                )
-              : const SizedBox(),
         ],
       ),
     );
