@@ -14,8 +14,9 @@ class ProfileDetails extends StatelessWidget {
         slivers: [
           SliverAppBar(
             leading: const SizedBox(),
-            expandedHeight: 380.h,
+            expandedHeight: 350.h,
             floating: true,
+            scrolledUnderElevation: 0,
             flexibleSpace: FlexibleSpaceBar(
                 expandedTitleScale: 1,
                 background: Image.asset(

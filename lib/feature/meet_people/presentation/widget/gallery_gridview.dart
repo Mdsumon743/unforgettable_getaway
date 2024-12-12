@@ -19,10 +19,9 @@ class GalleryGridview extends StatelessWidget {
       primary: false,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    
-          crossAxisCount: 2, 
-          childAspectRatio: 0.7/0.7,
-          ),
+        crossAxisCount: 2,
+        childAspectRatio: 0.7 / 0.7,
+      ),
       itemBuilder: (context, index) {
         var data = images[index];
         return Container(
