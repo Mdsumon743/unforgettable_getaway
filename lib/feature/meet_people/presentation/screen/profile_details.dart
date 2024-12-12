@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_circle_button.dart';
@@ -11,9 +10,24 @@ class ProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:const Color(0xff1A1110),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            
+            bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(0),
+                child: Container(
+                  height: 15.h,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24.r),
+                          topRight: Radius.circular(24.r)),
+                      color: const Color(0xff1A1110)),
+                )),
+                elevation: 0,
+                backgroundColor:const Color(0xff1A1110),
             leading: const SizedBox(),
             expandedHeight: 350.h,
             floating: true,
