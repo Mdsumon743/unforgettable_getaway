@@ -39,7 +39,7 @@ class MeetPeople extends StatelessWidget {
                               Text(searchController.filteredSuggestions[index]),
                           onTap: () {
                             searchController.updateTextController(
-                                searchController.textController,
+                                searchController.search,
                                 searchController.filteredSuggestions[index]);
                             Get.to(() => const MeetPeople());
                           },

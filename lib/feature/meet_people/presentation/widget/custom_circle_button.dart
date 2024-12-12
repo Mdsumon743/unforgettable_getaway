@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomCircleButton extends StatelessWidget {
   final Icon iconData;
   final bool size;
+  final void Function()? ontap;
   const CustomCircleButton(
       {super.key, required this.iconData, required this.size});
 

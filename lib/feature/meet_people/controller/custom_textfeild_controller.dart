@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomTextFieldSearchController extends GetxController {
-  TextEditingController textController = TextEditingController();
+  TextEditingController search = TextEditingController();
+
   RxList<String> citiesAndCountries = RxList([
     "New York, USA",
     "London, UK",
@@ -36,5 +37,12 @@ class CustomTextFieldSearchController extends GetxController {
 
   void updateTextController(TextEditingController? controller, String value) {
     controller?.text = value;
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+   
+    search.dispose();
   }
 }

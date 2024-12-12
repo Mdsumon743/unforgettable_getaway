@@ -52,9 +52,11 @@ class SearchLocation extends StatelessWidget {
                                         .filteredSuggestions[index]),
                                     onTap: () {
                                       searchController.updateTextController(
-                                          searchController.textController,
+                                          searchController.search,
                                           searchController
                                               .filteredSuggestions[index]);
+                                      searchController.filteredSuggestions
+                                          .clear();
                                       Get.to(() => const MeetPeople());
                                     },
                                   );
