@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_circle_button.dart';
