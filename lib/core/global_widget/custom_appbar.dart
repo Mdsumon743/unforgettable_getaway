@@ -74,7 +74,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Get.to(()=> NotificationPage());
+                            Get.to(()=> const NotificationPage());
                           },
                           child: Image.asset(Assetpath.notification),
                         ),

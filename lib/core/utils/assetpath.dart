@@ -29,6 +29,5 @@ class Assetpath {
   static const String lang = "assets/icons/language.png";
   static const String boking = "assets/icons/boking.png";
   static const String noti1 = "assets/icons/notification1.png";
-  static const String noti2 = "assets/icons/notification2.png";
-
+  static const String noti2 = "assets/icons/notification.png";
 }
