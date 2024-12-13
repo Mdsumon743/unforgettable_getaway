@@ -9,4 +9,5 @@ class AppColors {
   static const Color yellowColor = Color(0xFFFFDF00);
   static const Color darkBrown1 = Color(0xFF333329);
   static const Color semiTransparent = Color(0xFF737268);
+  static const Color lightGray = Color(0XFFD9D9D9);
 }
