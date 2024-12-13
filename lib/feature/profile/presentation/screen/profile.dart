@@ -138,11 +138,10 @@ class Profile extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-               const  Verification(),
+                const Verification(),
                 SizedBox(
                   height: 10.h,
                 ),
-                
               ],
             ),
           ),

@@ -1,16 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
-import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_list.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
 
 class ForgetScreen extends StatelessWidget {

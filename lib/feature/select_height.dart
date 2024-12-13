@@ -10,7 +10,6 @@ class SelectHeight extends StatefulWidget {
 }
 
 class _SelectHeightState extends State<SelectHeight> {
-  late FixedExtentScrollController _controller;
     
   List<String>? heightsCm = [
     "5.5''",
@@ -29,7 +28,6 @@ class _SelectHeightState extends State<SelectHeight> {
   @override
   void initState() {
     super.initState();
-    _controller = FixedExtentScrollController();
   }
 
   @override
