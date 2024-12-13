@@ -6,6 +6,7 @@ import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -71,7 +72,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     Row(
                       children: [
-                        Image.asset(Assetpath.notification),
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(()=> NotificationPage());
+                          },
+                          child: Image.asset(Assetpath.notification),
+                        ),
                         SizedBox(
                           width: 10.w,
                         ),
