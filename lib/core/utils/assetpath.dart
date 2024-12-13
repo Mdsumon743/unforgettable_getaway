@@ -12,6 +12,11 @@ class Assetpath {
   static const String locationon = "assets/icons/location.png";
   static const String toly = "assets/icons/toly_bag.png";
   static const String people = "assets/icons/people.png";
-   static const String profile = "assets/icons/profile.png";
-   
+  static const String profile = "assets/icons/profile.png";
+  static const String near = "assets/icons/near_me.png";
+  static const String profile1 = "assets/images/profile.png";
+  static const String verified = "assets/icons/verified.svg";
+  static const String boking = "assets/icons/boking.png";
+  static const String noti1 = "assets/icons/notification1.png";
+  static const String noti2 = "assets/icons/notification2.png";
 }

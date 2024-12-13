@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/const/const.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/profile_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_profile_view_card.dart';
 
 class CustomGridviewProfile extends StatelessWidget {
@@ -16,16 +18,22 @@ class CustomGridviewProfile extends StatelessWidget {
           crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
       itemBuilder: (context, index) {
         var data = Const.userProfileDetails[index];
-        return CustomProfileViewCard(
-          image: data['images'],
-          adress: data['adress'],
-          age: data['age'],
-          country: data['country'],
-          distance: data['nerme'],
-          level: data['level'],
-          love: data['love'],
-          name: data['name'],
-          status: data['status'],
+        return GestureDetector(
+          onTap: () {
+            Get.to(()=>const ProfileDetails());
+          },
+          child: CustomProfileViewCard(
+            
+            image: data['images'],
+            adress: data['adress'],
+            age: data['age'],
+            country: data['country'],
+            distance: data['nerme'],
+            level: data['level'],
+            love: data['love'],
+            name: data['name'],
+            status: data['status'],
+          ),
         );
       },
     );
