@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorite_list.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorites_me.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/about.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/bio.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_gridview.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/verification.dart';
-
 import '../../../../core/chip_list.dart';
 
 class Profile extends StatelessWidget {
@@ -38,7 +40,9 @@ class Profile extends StatelessWidget {
               ))
         ],
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
@@ -96,11 +100,15 @@ class Profile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    fovoritedMe("42", "Favorited Me"),
+                    fovoritedMe("42", "Favorited Me", () {
+                      Get.to(() => const FavoritesMe());
+                    }),
                     SizedBox(
                       width: 30.w,
                     ),
-                    fovoritedMe("12", "Favorite List"),
+                    fovoritedMe("12", "Favorite List", () {
+                      Get.to(() => const FavoritesList());
+                    }),
                   ],
                 ),
                 SizedBox(

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
-import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorites_list.dart';
 
 Widget fovoritedMe(
   String count,
   String text,
+  void Function() ontap,
 ) {
   return GestureDetector(
-    onTap: () {
-      Get.to(() => const FavoritesList());
-    },
+    onTap: ontap,
     child: Column(
       children: [
         CustomTextPopins(

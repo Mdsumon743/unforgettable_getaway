@@ -16,7 +16,7 @@ class FavoritesList extends StatelessWidget {
         backgroundColor: const Color(0xff1A1110),
         centerTitle: true,
         title: CustomTextPopins(
-          text: "Favorites Me",
+          text: "Favorites List",
           fontWeight: FontWeight.w500,
           size: 24.sp,
           color: Colors.white,
