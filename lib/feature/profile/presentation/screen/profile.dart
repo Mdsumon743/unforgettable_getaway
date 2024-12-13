@@ -3,10 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/widget/about.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/widget/bio.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_gridview.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/verification.dart';
+
+import '../../../../core/chip_list.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -140,8 +144,82 @@ class Profile extends StatelessWidget {
                 ),
                 const Verification(),
                 SizedBox(
+                  height: 15.h,
+                ),
+                const Bio(),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.r),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomTextPopins(
+                          text: "Interest",
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          size: 18.sp,
+                        ),
+                        CustomTextPopins(
+                          text: "Edit",
+                          fontWeight: FontWeight.w400,
+                          size: 16.sp,
+                          decoration: TextDecoration.underline,
+                          color: const Color(0xffFFF6B2),
+                        ),
+                      ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.r),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Wrap(
+                      spacing: 6.0,
+                      runSpacing: -5.0,
+                      runAlignment: WrapAlignment.spaceAround,
+                      children: [
+                        buildChip(
+                          "🌍 Traveling",
+                        ),
+                        buildChip(
+                          "🎬 Movie",
+                        ),
+                        buildChip(
+                          "🎮 Games",
+                        ),
+                        buildChip(
+                          "📷 Traveling",
+                        ),
+                        buildChip(
+                          "📔 Book",
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
                   height: 10.h,
                 ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.r),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomTextPopins(
+                      text: "About you",
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      size: 18.sp,
+                    ),
+                  ),
+                ),
+                aboutMe("Work", "Marketing Specialist", Assetpath.work),
+                aboutMe("Gender", "Male", Assetpath.gender),
+                aboutMe("Location", "Osaka,Japan", Assetpath.onLocation),
+                aboutMe("Language", "Japan, Japan", Assetpath.lang),
+                aboutMe("Relationship Status", "Single", Assetpath.relation),
+                aboutMe("Age", "23", Assetpath.age),
+                aboutMe("Height", "5’2”", Assetpath.height),
               ],
             ),
           ),

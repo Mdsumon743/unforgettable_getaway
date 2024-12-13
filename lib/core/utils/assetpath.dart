@@ -19,6 +19,12 @@ class Assetpath {
   static const String edit = "assets/icons/edit.png";
   static const String subcription = "assets/images/subcribtion.png";
   static const String blink = "assets/icons/blink.png";
-    static const String blink2 = "assets/icons/blink2.png";
-      static const String phone = "assets/icons/phone.png";
+  static const String blink2 = "assets/icons/blink2.png";
+  static const String phone = "assets/icons/phone.png";
+  static const String work = "assets/icons/work.png";
+  static const String relation = "assets/icons/relation.png";
+  static const String age = "assets/icons/age.png";
+  static const String gender = "assets/icons/gender.png";
+  static const String height = "assets/icons/height.png";
+  static const String lang = "assets/icons/language.png";
 }
