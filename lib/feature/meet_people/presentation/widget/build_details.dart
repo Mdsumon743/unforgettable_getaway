@@ -11,8 +11,8 @@ import 'gallery_gridview.dart';
 Widget buildDetails() => SliverToBoxAdapter(
       child: Container(
         padding: EdgeInsets.all(15.r),
-        decoration:const  BoxDecoration(
-            color:  Color(0xff1A1110),
+        decoration: const BoxDecoration(
+          color: Color(0xff1A1110),
         ),
         child: Column(
           children: [

@@ -10,11 +10,10 @@ class ProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color(0xff1A1110),
+      backgroundColor: const Color(0xff1A1110),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(0),
                 child: Container(
@@ -26,8 +25,8 @@ class ProfileDetails extends StatelessWidget {
                           topRight: Radius.circular(24.r)),
                       color: const Color(0xff1A1110)),
                 )),
-                elevation: 0,
-                backgroundColor:const Color(0xff1A1110),
+            elevation: 0,
+            backgroundColor: const Color(0xff1A1110),
             leading: const SizedBox(),
             expandedHeight: 350.h,
             floating: true,
