@@ -1,0 +1,200 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/utils/app_colors.dart';
+import 'package:unforgettable_getaway/core/utils/text_style.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
+
+class CitySelectionScreen extends StatelessWidget {
+  final String? country;
+  final String? flag;
+  const CitySelectionScreen({
+    super.key,
+    this.country,
+    this.flag,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cityController = Get.put(CityController());
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Choose your City',
+                    style: textStyle(
+                      24.sp,
+                      AppColors.whiteColor,
+                      FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Divider(
+                    thickness: 1,
+                    color: AppColors.whiteColor.withOpacity(0.2),
+                  ),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            flag ?? "",
+                            style: const TextStyle(fontSize: 24),
+                          ),
+                          SizedBox(width: 8.0.w),
+                          Text(
+                            country ?? "",
+                            style: textStyle(
+                              16.sp,
+                              AppColors.whiteColor.withOpacity(0.9),
+                              FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.check_circle,
+                        color: AppColors.yellowColor,
+                        size: 24.sp,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8.h),
+                  Divider(
+                    thickness: 1,
+                    color: AppColors.whiteColor.withOpacity(0.2),
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Choose City',
+                    style: textStyle(
+                      18.sp,
+                      AppColors.whiteColor.withOpacity(0.95),
+                      FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.whiteColor.withOpacity(0.8),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0.r),
+                    ),
+                    child: Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              cityController.selectedCity.value,
+                              style: textStyle(
+                                  16.sp, AppColors.whiteColor, FontWeight.w400),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                cityController.toggleMethod();
+                              },
+                              child: cityController.arrowDown.value
+                                  ? const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: AppColors.whiteColor,
+                                    )
+                                  : const Icon(
+                                      Icons.arrow_drop_up,
+                                      color: AppColors.whiteColor,
+                                    ),
+                            )
+                          ],
+                        )),
+                  ),
+                  const SizedBox(height: 16.0),
+                ],
+              ),
+            ),
+            Obx(
+              () => cityController.arrowDown.value
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.51,
+                      child: ListView.builder(
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: cities.length,
+                        itemBuilder: (context, index) {
+                          var city = cities[index];
+                          return InkWell(
+                            onTap: () {
+                              cityController.selectedCity.value = city;
+                            },
+                            child: Center(
+                              child: Obx(
+                                () => Container(
+                                  width: double.infinity,
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 16.h),
+                                  alignment: Alignment.center,
+                                  color: cityController.selectedCity.value ==
+                                          cities[index]
+                                      ? Colors.white10
+                                      : Colors.transparent,
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 12.h,
+                                    horizontal: 12.w,
+                                  ),
+                                  child: Text(
+                                    city,
+                                    style: textStyle(
+                                      16.sp,
+                                      city == cityController.selectedCity.value
+                                          ? AppColors.whiteColor
+                                          : AppColors.whiteColor
+                                              .withOpacity(0.9),
+                                      city == cityController.selectedCity.value
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : const SizedBox(),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 10.h,
+              ),
+              child: CustomButton(
+                text: 'Next',
+                textColor: AppColors.darkGrey,
+                backgroundColor: AppColors.yellowColor,
+                onPressed: () {
+                  Get.to(() => const NameBirthdayScreen());
+                },
+                borderRadius: 40,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
