@@ -6,6 +6,7 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_gridview.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/widget/verification.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -133,7 +134,11 @@ class Profile extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 20.r),
                   child: const PhotoGridview(),
-                )
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Verification()
               ],
             ),
           ),

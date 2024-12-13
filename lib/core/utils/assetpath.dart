@@ -20,4 +20,5 @@ class Assetpath {
   static const String subcription = "assets/images/subcribtion.png";
   static const String blink = "assets/icons/blink.png";
     static const String blink2 = "assets/icons/blink2.png";
+      static const String phone = "assets/icons/phone.png";
 }
