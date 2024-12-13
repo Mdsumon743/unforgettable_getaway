@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
+import 'package:unforgettable_getaway/core/global_widget/text_widget.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
@@ -29,13 +30,11 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(height: 40.h),
               Image.asset('assets/images/logo_image.png'),
               SizedBox(height: 25.h),
-              Text(
-                "Sign up",
-                style: textStyle(
-                  24.sp,
-                  AppColors.whiteColor,
-                  FontWeight.w600,
-                ),
+              const TextWidget(
+                text: 'Sign up',
+                fontSize: 24,
+                color: AppColors.whiteColor,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(height: 25.h),
               Form(
@@ -44,13 +43,11 @@ class SignUpScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'E-mail',
-                      style: textStyle(
-                        16.sp,
-                        AppColors.whiteColor.withOpacity(0.9),
-                        FontWeight.w500,
-                      ),
+                    TextWidget(
+                      text: 'E-mail',
+                      fontSize: 16,
+                      color: AppColors.whiteColor.withOpacity(0.9),
+                      fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
@@ -62,13 +59,11 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 16.h),
-                    Text(
-                      'Password',
-                      style: textStyle(
-                        16.sp,
-                        AppColors.whiteColor.withOpacity(0.9),
-                        FontWeight.w500,
-                      ),
+                    TextWidget(
+                      text: 'Password',
+                      fontSize: 16,
+                      color: AppColors.whiteColor.withOpacity(0.9),
+                      fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
@@ -79,13 +74,11 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 16.h),
-                    Text(
-                      'Confirm Password',
-                      style: textStyle(
-                        16.sp,
-                        AppColors.whiteColor.withOpacity(0.9),
-                        FontWeight.w500,
-                      ),
+                    TextWidget(
+                      text: 'Confirm Password',
+                      fontSize: 16,
+                      color: AppColors.whiteColor.withOpacity(0.9),
+                      fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
@@ -103,7 +96,6 @@ class SignUpScreen extends StatelessWidget {
                       backgroundColor: const Color(0XFFFFDF00),
                       borderRadius: 40,
                     ),
-                    
                     SizedBox(height: 26.h),
                     Center(
                       child: Text(
@@ -143,7 +135,6 @@ class SignUpScreen extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF8C7B00),
                         decoration: TextDecoration.underline,
-                      
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
