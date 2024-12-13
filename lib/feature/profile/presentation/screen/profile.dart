@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_gridview.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
 
 class Profile extends StatelessWidget {
@@ -14,6 +15,7 @@ class Profile extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: const Color(0xff1A1110),
         centerTitle: true,
         title: CustomTextPopins(
@@ -103,8 +105,35 @@ class Profile extends StatelessWidget {
                   height: 0.5,
                   thickness: 0.5,
                 ),
-               
-                const SubcriptionCard()
+                const SubcriptionCard(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.r),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomTextPopins(
+                          text: "Photo",
+                          fontWeight: FontWeight.w600,
+                          size: 20.sp,
+                          color: Colors.white,
+                        ),
+                        CustomTextPopins(
+                          text: "Pick some taht show the real you",
+                          fontWeight: FontWeight.w400,
+                          size: 14.sp,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.r, vertical: 20.r),
+                  child: const PhotoGridview(),
+                )
               ],
             ),
           ),

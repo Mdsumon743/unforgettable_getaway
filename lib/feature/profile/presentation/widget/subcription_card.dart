@@ -90,18 +90,20 @@ class SubcriptionCard extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-           SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-             child: Row(
+            child: Row(
               children: [
-                       const   MiniCard(text: "Weekly Subscription",dollar: "From \$5.80"),
-              SizedBox(
-                width: 10.w,
-              ),
-             const  MiniCard(text: "Montly Subscription",dollar: "From \$15.80"),
+                const MiniCard(
+                    text: "Weekly Subscription", dollar: "From \$5.80"),
+                SizedBox(
+                  width: 10.w,
+                ),
+                const MiniCard(
+                    text: "Montly Subscription", dollar: "From \$15.80"),
               ],
-                       ),
-           )
+            ),
+          )
         ],
       ),
     );
