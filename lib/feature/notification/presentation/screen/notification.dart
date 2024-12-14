@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
@@ -66,7 +67,7 @@ class NotificationPage extends StatelessWidget {
         title: Text(
           "Notification",
           style: GoogleFonts.poppins(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w500,
               color: const Color(0xFFFFFFFF)),
         ),
@@ -76,20 +77,20 @@ class NotificationPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             leading: CircleAvatar(
-              radius: 25,
+              radius: 25.r,
               backgroundColor: Colors.white.withOpacity(0.2),
               child: Image.asset(
                 data[index]['leading'],
                 fit: BoxFit.cover,
-                height: 28,
-                width: 28,
+                height: 28.h,
+                width: 28.w,
                 color: const Color(0xFFFFF9CC),
               ),
             ),
             title: Text(
               data[index]['title'],
               style: GoogleFonts.poppins(
-                  fontSize: data[index]["size"] ?? false ? 16 : 14,
+                  fontSize: data[index]["size"] ?? false ? 16.sp : 14.sp,
                   fontWeight: data[index]["size"] ?? false
                       ? FontWeight.w600
                       : FontWeight.w400,
@@ -105,14 +106,14 @@ class NotificationPage extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
                           color: Colors.white.withOpacity(0.8),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                       Text(
                         data[index]['time'],
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
@@ -121,7 +122,7 @@ class NotificationPage extends StatelessWidget {
                     data[index]['time'],
                     style: GoogleFonts.poppins(
                       color: Colors.white.withOpacity(0.8),
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -139,7 +140,7 @@ class NotificationPage extends StatelessWidget {
         },
         separatorBuilder: (context, index) {
           return SizedBox(
-            width: 100,
+            width: 100.w,
             child: Divider(
               indent: 22,
               endIndent: 22,
