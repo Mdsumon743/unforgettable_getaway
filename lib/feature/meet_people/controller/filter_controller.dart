@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/const/const.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 class FilterController extends GetxController {
-  var selectedCountry = "United States".obs;
-
-  final List<String> countries = [
-    "United States",
-    "Canada",
-    "Mexico",
-    "Germany",
-    "France",
-    "Australia",
-    "India",
-    "Brazil",
-    "China",
-    "Japan",
-    "South Korea",
-    "Russia",
-    "United Kingdom"
-  ];
+  var selectedCountry = "🇺🇲 United States".obs;
 
   void updateCountry(String country) {
     selectedCountry.value = country;
@@ -77,7 +62,7 @@ class FilterController extends GetxController {
                           updateCountry(newValue);
                         }
                       },
-                      items: countries
+                      items: Const.countries
                           .map<DropdownMenuItem<String>>((String country) {
                         return DropdownMenuItem<String>(
                           value: country,

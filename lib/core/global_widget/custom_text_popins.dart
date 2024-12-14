@@ -9,6 +9,7 @@ class CustomTextPopins extends StatelessWidget {
   final FontWeight? fontWeight;
   final int? max;
   final TextOverflow? textOverflow;
+  final TextDecoration? decoration;
 
   const CustomTextPopins(
       {super.key,
@@ -18,16 +19,19 @@ class CustomTextPopins extends StatelessWidget {
       this.textAlign,
       this.fontWeight,
       this.max,
-      this.textOverflow});
+      this.textOverflow, this.decoration});
 
   @override
   Widget build(BuildContext context) {
     return Text(
+      
       text,
       overflow: textOverflow,
       maxLines: max,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
+        decoration: decoration,
+        decorationColor: color,
           color: color, fontSize: size, fontWeight: fontWeight),
     );
   }

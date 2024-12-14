@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile.dart';
 
 class DropdownMenuController extends GetxController {
   RxString selectedItem = 'Item 1'.obs;
@@ -64,6 +65,9 @@ class DropdownMenuController extends GetxController {
           ),
         ),
         PopupMenuItem(
+          onTap: () {
+            Get.to(()=>const Profile());
+          },
           value: 'Item 3',
           child: SizedBox(
             width: 160.w,
@@ -87,9 +91,11 @@ class DropdownMenuController extends GetxController {
       ],
       elevation: 8.0,
       constraints: const BoxConstraints(
-        maxWidth: 200, // Set maximum width for the popup
-        maxHeight: 200, // Set maximum height for the popup
+        maxWidth: 200, 
+        maxHeight: 200, 
       ),
     );
   }
+
+  void toggleDropdown() {}
 }

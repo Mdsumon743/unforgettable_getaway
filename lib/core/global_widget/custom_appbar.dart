@@ -6,7 +6,7 @@ import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
-
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,10 +18,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
     final FilterController filterController = Get.put(FilterController());
-
+    final TextEditingController textEditingController = TextEditingController();
     return AppBar(
+      scrolledUnderElevation: 0,
       toolbarHeight: 165.h,
-      backgroundColor: AppColors.darkBrown,
+      backgroundColor: AppColors.darkBrown,  
       leading: const SizedBox(),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -29,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottomRight: Radius.circular(12.r))),
       bottom: PreferredSize(
           preferredSize: preferredSize,
-          child: Container(
+          child: Container(   
             padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
                 color: AppColors.darkBrown,
@@ -71,7 +72,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     Row(
                       children: [
-                        Image.asset(Assetpath.notification),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const NotificationPage());
+                          },
+                          child: Image.asset(Assetpath.notification),
+                        ),
                         SizedBox(
                           width: 10.w,
                         ),
@@ -91,6 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   fillColor: const Color(0xff302827),
                   hintText: 'Cartagena, Colombia',
                   color: Colors.white,
+                  controller: textEditingController,
                   prefixIcon: Image.asset(Assetpath.search),
                   suffixIcon: GestureDetector(
                       onTap: () {
