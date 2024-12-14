@@ -24,6 +24,7 @@ class CustomTextPopins extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+      
       text,
       overflow: textOverflow,
       maxLines: max,

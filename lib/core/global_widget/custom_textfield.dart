@@ -13,8 +13,10 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final int? min;
   final int? max;
+  final Widget? prefixIcon;
   final bool? colorTrue;
   final String? Function(String?)? validator;
+  final bool? enable;
 
   const CustomTextField({
     super.key,
@@ -28,6 +30,8 @@ class CustomTextField extends StatelessWidget {
     this.min,
     this.max,
     this.colorTrue,
+    this.enable,
+    this.prefixIcon,
   });
 
   @override
@@ -49,12 +53,14 @@ class CustomTextField extends StatelessWidget {
             ),
       minLines: min,
       decoration: InputDecoration(
+        enabled: enable ?? true,
         hintText: hintText,
         hintStyle: textStyle(
             14.sp,
             AppColors.whiteColor.withOpacity(0.9).withOpacity(0.6),
             FontWeight.w300),
         filled: true,
+        suffixIcon: prefixIcon,
         fillColor: AppColors.yellowColor.withOpacity(0.01),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         border: OutlineInputBorder(
