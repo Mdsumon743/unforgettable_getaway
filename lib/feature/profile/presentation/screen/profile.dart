@@ -6,6 +6,7 @@ import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorite_list.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorites_me.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile_edit.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/about.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/bio.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
@@ -68,12 +69,17 @@ class Profile extends StatelessWidget {
                     Positioned(
                       top: 5,
                       right: 5,
-                      child: Container(
-                        padding: EdgeInsets.all(3.r),
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xff333329)),
-                        child: Center(
-                          child: Image.asset(Assetpath.edit),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(()=>const ProfileEdit());
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(3.r),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Color(0xff333329)),
+                          child: Center(
+                            child: Image.asset(Assetpath.edit),
+                          ),
                         ),
                       ),
                     ),
