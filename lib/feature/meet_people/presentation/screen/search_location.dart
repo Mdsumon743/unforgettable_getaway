@@ -14,7 +14,7 @@ class SearchLocation extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffffffff),
+        backgroundColor: const Color(0xff1A1110),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(20.r),

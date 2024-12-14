@@ -7,6 +7,7 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dart';
+import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 
 class LoginOrSignupScreen extends StatelessWidget {
@@ -28,19 +29,22 @@ class LoginOrSignupScreen extends StatelessWidget {
                 CustomButton(
                   text: "Log in",
                   textColor: const Color(0XFF0D0D0C),
+                      backgroundColor: const Color(0XFFFFDF00),
+                      borderRadius: 40,
                   onPressed: () {
-                    Get.to(()=>const LoginScreen());
+                    Get.to(() => const LoginScreen());
                   },
-                  backgroundColor: const Color(0XFFFFDF00),
-                  borderRadius: 40,
+                 
                 ),
                 SizedBox(height: 10.h),
                 CustomButton(
                   text: "Sign Up",
                   textColor: const Color(0XFF0D0D0C),
-                  onPressed: () {},
                   backgroundColor: const Color(0XFFFFDF00),
                   borderRadius: 40,
+                  onPressed: () {
+                    Get.to(() => const SignUpScreen());
+                  },
                 ),
                 SizedBox(height: 40.h),
                 RichText(
@@ -48,7 +52,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                   text: TextSpan(
                     style: textStyle(
                       14.sp,
-                      const Color(0xFFFFFCE5).withOpacity(0.85),
+                      const Color(0xFFFFFCE5),
                       FontWeight.w400,
                     ),
                     children: <TextSpan>[
@@ -58,7 +62,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                       TextSpan(
                         text: 'Terms & Conditions',
                         style: GoogleFonts.poppins(
-                          color: const Color(0xFFFFFCE5).withOpacity(0.85),
+                          // color: const Color(0xFFFFFCE5).withOpacity(0.85),
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -72,19 +76,17 @@ class LoginOrSignupScreen extends StatelessWidget {
                       TextSpan(
                         text: 'Privacy Policy.',
                         style: GoogleFonts.poppins(
-                          color: const Color(0xFFFFFCE5).withOpacity(0.85),
+                          // color: const Color(0xFFFFFCE5).withOpacity(0.85),
                           decoration: TextDecoration.underline,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.to(()=> const SearchLocation());
+                            Get.to(() => const SearchLocation());
                           },
                       ),
                     ],
                   ),
                 ),
-              
-              
               ],
             ),
           ],

@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       toolbarHeight: 165.h,
-      backgroundColor: AppColors.darkBrown,
+      backgroundColor: AppColors.darkBrown,  
       leading: const SizedBox(),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottomRight: Radius.circular(12.r))),
       bottom: PreferredSize(
           preferredSize: preferredSize,
-          child: Container(
+          child: Container(   
             padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
                 color: AppColors.darkBrown,
@@ -73,8 +73,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: (){
-                            Get.to(()=> NotificationPage());
+                          onTap: () {
+                            Get.to(() => const NotificationPage());
                           },
                           child: Image.asset(Assetpath.notification),
                         ),

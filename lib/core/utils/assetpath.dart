@@ -16,7 +16,18 @@ class Assetpath {
   static const String near = "assets/icons/near_me.png";
   static const String profile1 = "assets/images/profile.png";
   static const String verified = "assets/icons/verified.svg";
+  static const String edit = "assets/icons/edit.png";
+  static const String subcription = "assets/images/subcribtion.png";
+  static const String blink = "assets/icons/blink.png";
+  static const String blink2 = "assets/icons/blink2.png";
+  static const String phone = "assets/icons/phone.png";
+  static const String work = "assets/icons/work.png";
+  static const String relation = "assets/icons/relation.png";
+  static const String age = "assets/icons/age.png";
+  static const String gender = "assets/icons/gender.png";
+  static const String height = "assets/icons/height.png";
+  static const String lang = "assets/icons/language.png";
   static const String boking = "assets/icons/boking.png";
   static const String noti1 = "assets/icons/notification1.png";
-  static const String noti2 = "assets/icons/notification2.png";
+  static const String noti2 = "assets/icons/notification.png";
 }
