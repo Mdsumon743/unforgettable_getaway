@@ -57,7 +57,6 @@ class ChatListPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.r,),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,9 +64,6 @@ class ChatListPage extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Align(
                   alignment: Alignment.bottomLeft,
                   child: CustomTextPopins(
                     text: "Chats",
@@ -77,9 +73,6 @@ class ChatListPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: CustomTextFieldSearch(
                   hintText: "Search",
                   color: Colors.white.withOpacity(0.8),
                   prefixIcon: Icon(
@@ -88,17 +81,11 @@ class ChatListPage extends StatelessWidget {
                     weight: 18.w,
                   ),
                 ),
-              ),
-              // SizedBox(height: 10.h),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: CustomTextPopins(
                   text: "Chat (Recent)",
                   color: Colors.white.withOpacity(0.75),
                   fontWeight: FontWeight.w400,
                   size: 14.sp,
                 ),
-              ),
               Expanded(
                 child: ListView.separated(
                     itemBuilder: (context, index) {
@@ -115,15 +102,11 @@ class ChatListPage extends StatelessWidget {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),),
-                        leading: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: Image.asset(
                             data[index]['leading'],
                             fit: BoxFit.cover,
                             height: 48.h,
                             width: 48.w,
                           ),
-                        ),
                         trailing: data[index]["trailing"] == "12:25 PM"
                             ? Column(
                           mainAxisSize: MainAxisSize.min,

@@ -44,13 +44,11 @@ class SearchListPage extends StatelessWidget {
                   size: 18.w,
                 ),
               ),
-              SizedBox(height: 30.h,),
               SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(Assetpath.searchList),
-                    SizedBox(height: 20.h,),
                     Text(
                       "Start a Conversation",
                       textAlign: TextAlign.center,
