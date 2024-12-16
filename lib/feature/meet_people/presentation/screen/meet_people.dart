@@ -6,8 +6,8 @@ import 'package:unforgettable_getaway/core/global_widget/custom_appbar.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_inter.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/custom_textfeild_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_gridview_profile.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/chat_list.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/search_list.dart';
+import '../../../message/presentation/screen/chat/chat_list.dart';
+import '../../../message/presentation/screen/chat/search_list.dart';
 
 class MeetPeople extends StatelessWidget {
   const MeetPeople({super.key});
@@ -79,7 +79,7 @@ class MeetPeople extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.r)),
         onPressed: () {
           ChatListPage().data.isNotEmpty ?
-              Get.to(()=> SearchListPage()) :
+              Get.to(()=> const SearchListPage()) :
               Get.to(()=> ChatListPage());
         },
         child: SvgPicture.asset('assets/icons/sms.svg'),

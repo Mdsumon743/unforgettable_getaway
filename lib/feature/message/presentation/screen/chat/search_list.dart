@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/chat_list.dart';
-import '../../../../core/utils/assetpath.dart';
-import '../../../meet_people/presentation/screen/search_location.dart';
+import '../../../../../core/utils/assetpath.dart';
+import '../../../../meet_people/presentation/screen/search_location.dart';
+import 'chat_list.dart';
 
 class SearchListPage extends StatelessWidget {
   const SearchListPage({super.key});
