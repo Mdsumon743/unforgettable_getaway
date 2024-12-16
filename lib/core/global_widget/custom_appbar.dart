@@ -8,6 +8,7 @@ import 'package:unforgettable_getaway/feature/meet_people/controller/filter_cont
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
+import '../../feature/notification/presentation/screen/empty_notification.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -22,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       toolbarHeight: 165.h,
-      backgroundColor: AppColors.darkBrown,  
+      backgroundColor: AppColors.darkBrown,
       leading: const SizedBox(),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -30,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               bottomRight: Radius.circular(12.r))),
       bottom: PreferredSize(
           preferredSize: preferredSize,
-          child: Container(   
+          child: Container(
             padding: EdgeInsets.all(10.r),
             decoration: BoxDecoration(
                 color: AppColors.darkBrown,
@@ -74,7 +75,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => const NotificationPage());
+                            NotificationPage().data.isEmpty
+                                ? Get.to(() =>  NotificationPage())
+                                : Get.to(() => const EmptyNotificationPage());
                           },
                           child: Image.asset(Assetpath.notification),
                         ),
