@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/phone_number_verification.dart';
 
 class Verification extends StatelessWidget {
   const Verification({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Container(
       padding: EdgeInsets.all(15.r),
       width: double.infinity,
@@ -54,7 +58,9 @@ class Verification extends StatelessWidget {
             height: 10.h,
           ),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const PhoneNumberVerification());
+              },
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 48.h)),
               child: Row(
