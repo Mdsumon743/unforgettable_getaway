@@ -57,6 +57,7 @@ class ChatListPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.r,),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,28 +65,34 @@ class ChatListPage extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-                  alignment: Alignment.bottomLeft,
-                  child: CustomTextPopins(
-                    text: "Chats",
-                    color: const Color(0xFFFFFFFF),
-                    size: 24.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: CustomTextPopins(
+                  text: "Chats",
+                  color: const Color(0xFFFFFFFF),
+                  size: 24.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-                  hintText: "Search",
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomTextFieldSearch(
+                hintText: "Search",
+                color: Colors.white.withOpacity(0.8),
+                prefixIcon: Icon(
+                  Icons.search,
                   color: Colors.white.withOpacity(0.8),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.white.withOpacity(0.8),
-                    weight: 18.w,
-                  ),
+                  weight: 18.w,
                 ),
-                  text: "Chat (Recent)",
-                  color: Colors.white.withOpacity(0.75),
-                  fontWeight: FontWeight.w400,
-                  size: 14.sp,
-                ),
+              ),
+              SizedBox(height: 10.h),
+              CustomTextPopins(
+                text: "Chat (Recent)",
+                color: Colors.white.withOpacity(0.75),
+                fontWeight: FontWeight.w400,
+                size: 14.sp,
+              ),
               Expanded(
                 child: ListView.separated(
                     itemBuilder: (context, index) {
@@ -102,11 +109,12 @@ class ChatListPage extends StatelessWidget {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                         ),),
-                            data[index]['leading'],
-                            fit: BoxFit.cover,
-                            height: 48.h,
-                            width: 48.w,
-                          ),
+                        leading: Image.asset(
+                          data[index]['leading'],
+                          fit: BoxFit.cover,
+                          height: 48.h,
+                          width: 48.w,
+                        ),
                         trailing: data[index]["trailing"] == "12:25 PM"
                             ? Column(
                           mainAxisSize: MainAxisSize.min,
