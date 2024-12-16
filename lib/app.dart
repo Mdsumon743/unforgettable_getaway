@@ -26,5 +26,7 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoute.onboarding,
           );
         });
+        
   }
 }
+
