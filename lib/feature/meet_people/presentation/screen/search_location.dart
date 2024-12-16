@@ -39,7 +39,7 @@ class SearchLocation extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 8),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: AppColors.darkBrown,  
+                              color: AppColors.darkBrown,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: SingleChildScrollView(
@@ -51,8 +51,11 @@ class SearchLocation extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return ListTile(
-                                    title:CustomTextPopins(text:  searchController
-                                        .filteredSuggestions[index],color: Colors.white,),
+                                    title: CustomTextPopins(
+                                      text: searchController
+                                          .filteredSuggestions[index],
+                                      color: Colors.white,
+                                    ),
                                     onTap: () {
                                       searchController.updateTextController(
                                           searchController.search,
