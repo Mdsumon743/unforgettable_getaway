@@ -145,7 +145,7 @@ class SubscriptionPlan extends StatelessWidget {
                 child: Obx(() => ElevatedButton(
                       onPressed: controller.selectedPlan.value.isNotEmpty
                           ? () {
-                              Get.to(() => const PaymentMethod());
+                              Get.to(() =>  PaymentMethod());
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
