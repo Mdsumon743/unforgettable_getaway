@@ -1,67 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
+
 
 class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+   NotificationPage({super.key,});
+
+  final  List<Map<String, dynamic>> data = [
+    {
+      "title": "Booking Cancelled",
+      "subtitle": "Your booking for Paris has \ncancelled",
+      "time": "42 minutes ago",
+      "leading": Assetpath.boking,
+      "size": true,
+    },
+    {
+      "title": "Ama Likes your profile  ",
+      "subtitle": "",
+      "time": "15 minutes ago",
+      "leading": Assetpath.noti2,
+    },
+    {
+      "title": "Cristian Likes your \nprofile",
+      "subtitle": "",
+      "time": "15 minutes ago",
+      "leading": Assetpath.noti2,
+    },
+    {
+      "title": "Lea Rose loves your \nprofile",
+      "subtitle": "",
+      "time": "1 day ago",
+      "leading": Assetpath.noti2,
+    },
+    {
+      "title": "You have new conversation \nwith Lara",
+      "subtitle": "",
+      "time": "15 minutes ago",
+      "leading": Assetpath.noti2,
+    },
+    {
+      "title": "Chloe Mae Likes your \nprofile ",
+      "subtitle": "",
+      "time": "15 minutes ago",
+      "leading": Assetpath.noti2,
+    },
+    {
+      "title": "Jhony Likes your \nprofile ",
+      "subtitle": "",
+      "time": "15 minutes ago",
+      "leading": Assetpath.noti2,
+    },
+  ];
+
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> data = [
-      {
-        "title": "Booking Cancelled",
-        "subtitle": "Your booking for Paris has \ncancelled",
-        "time": "42 minutes ago",
-        "leading": Assetpath.boking,
-        "size": true,
-      },
-      {
-        "title": "Ama Likes your profile  ",
-        "subtitle": "",
-        "time": "15 minutes ago",
-        "leading": Assetpath.noti2,
-      },
-      {
-        "title": "Cristian Likes your \nprofile",
-        "subtitle": "",
-        "time": "15 minutes ago",
-        "leading": Assetpath.noti2,
-      },
-      {
-        "title": "Lea Rose loves your \nprofile",
-        "subtitle": "",
-        "time": "1 day ago",
-        "leading": Assetpath.noti2,
-      },
-      {
-        "title": "You have new conversation \nwith Lara",
-        "subtitle": "",
-        "time": "15 minutes ago",
-        "leading": Assetpath.noti2,
-      },
-      {
-        "title": "Chloe Mae Likes your \nprofile ",
-        "subtitle": "",
-        "time": "15 minutes ago",
-        "leading": Assetpath.noti2,
-      },
-      {
-        "title": "Jhony Likes your \nprofile ",
-        "subtitle": "",
-        "time": "15 minutes ago",
-        "leading": Assetpath.noti2,
-      },
-    ];
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
-        leading: const Icon(
-          Icons.arrow_back,
-          weight: 24,
-          color: Colors.white,
+        leading: GestureDetector(
+          onTap: (){
+            Get.to(()=>const EmptyNotificationPage());
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            weight: 24,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
         title: Text(
