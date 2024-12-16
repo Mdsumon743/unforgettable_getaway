@@ -57,7 +57,7 @@ class ChatListPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.r,),
+          padding: EdgeInsets.symmetric(horizontal: 3.r,),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,8 +65,8 @@ class ChatListPage extends StatelessWidget {
               SizedBox(
                 height: 20.h,
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: CustomTextPopins(
                   text: "Chats",
                   color: const Color(0xFFFFFFFF),
@@ -74,24 +74,26 @@ class ChatListPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(
-                height: 10.h,
-              ),
-              CustomTextFieldSearch(
-                hintText: "Search",
-                color: Colors.white.withOpacity(0.8),
-                prefixIcon: Icon(
-                  Icons.search,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CustomTextFieldSearch(
+                  hintText: "Search",
                   color: Colors.white.withOpacity(0.8),
-                  weight: 18.w,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white.withOpacity(0.8),
+                    weight: 18.w,
+                  ),
                 ),
               ),
-              SizedBox(height: 10.h),
-              CustomTextPopins(
-                text: "Chat (Recent)",
-                color: Colors.white.withOpacity(0.75),
-                fontWeight: FontWeight.w400,
-                size: 14.sp,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CustomTextPopins(
+                  text: "Chat (Recent)",
+                  color: Colors.white.withOpacity(0.75),
+                  fontWeight: FontWeight.w400,
+                  size: 14.sp,
+                ),
               ),
               Expanded(
                 child: ListView.separated(
