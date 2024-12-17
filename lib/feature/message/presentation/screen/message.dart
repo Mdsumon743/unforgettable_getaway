@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:unforgettable_getaway/feature/message/presentation/widget/custom_massage_bottom.dart';
+import 'package:get/get.dart';
+import '../../controller/messeage_controllred.dart';
 import '../widget/custom_appbar1.dart';
 
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
-  const MessagePage({
+
+  final MessageController controller = Get.put(MessageController());
+
+  MessagePage({
     super.key,
     required this.img,
     required this.text,
@@ -14,24 +17,70 @@ class MessagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.width;
-    double width = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomChatAppBar(
-        profileImage: img,
-        userName: text,
-        statusText: 'Active now',
-        showCallIcon: false,
-      ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        color: const Color(0xff1A1110),
-        child:const Center(
-          child: CustomMassageBottom(
-            hintText: 'Message here....',
-            suffixIcon: Icon(Icons.send,color: Colors.white,),
+    final TextEditingController textController = TextEditingController();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xff1A1110),
+        appBar: CustomChatAppBar(
+          profileImage: img,
+          userName: text,
+          statusText: 'Active now',
+          showCallIcon: false,
+        ),
+        body: Obx(() {
+          return ListView.builder(
+            reverse: true,
+            itemCount: controller.messages.length,
+            itemBuilder: (context, index) {
+              return Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade800,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    controller.messages[index],
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              );
+            },
+          );
+        }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade900,
+            borderRadius: BorderRadius.circular(29),
+
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: textController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration:const InputDecoration(
+                    hintText: "Message here...",
+                    hintStyle:  TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.send, color: Colors.white),
+                onPressed: () {
+                  if (textController.text.isNotEmpty) {
+                    controller.sendMessage(textController.text);
+                    textController.clear(); // Clear after sending
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
