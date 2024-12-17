@@ -87,57 +87,82 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 24.h,
               ),
-              CustomPayment(
-                title: 'Credit Card',
-                img: Assetpath.creditcard,
-                height: 24.h,
-                weight: 31.5.w,
-                isSelected: true,
-                onTap: () {},
+              Obx(
+                () => CustomPayment(
+                  title: 'Credit Card',
+                  img: Assetpath.creditcard,
+                  height: 24.h,
+                  weight: 31.5.w,
+                  isSelected:
+                      paymentcontroller.selectedPayment.value == 'credit_card',
+                  onTap: () {
+                    paymentcontroller.selectPlan('credit_card');
+                  },
+                ),
               ),
               SizedBox(
                 height: 16.h,
               ),
-              CustomPayment(
-                title: 'Visa',
-                img: Assetpath.visa,
-                height: 24.h,
-                weight: 31.5.w,
-                isSelected: true,
-                onTap: () {},
+              Obx(
+                () => CustomPayment(
+                  title: 'Visa',
+                  img: Assetpath.visa,
+                  height: 24.h,
+                  weight: 31.5.w,
+                  isSelected:
+                      paymentcontroller.selectedPayment.value == 'visa_card',
+                  onTap: () {
+                    paymentcontroller.selectPlan('visa_card');
+                  },
+                ),
               ),
               SizedBox(
                 height: 16.h,
               ),
-              CustomPayment(
-                title: 'Paypal',
-                img: Assetpath.paypal,
-                height: 24.h,
-                weight: 31.5.w,
-                isSelected: true,
-                onTap: () {},
+              Obx(
+                () => CustomPayment(
+                  title: 'Paypal',
+                  img: Assetpath.paypal,
+                  height: 24.h,
+                  weight: 31.5.w,
+                  isSelected:
+                      paymentcontroller.selectedPayment.value == 'paypal',
+                  onTap: () {
+                    paymentcontroller.selectPlan('paypal');
+                  },
+                ),
               ),
               SizedBox(
                 height: 16.h,
               ),
-              CustomPayment(
-                title: 'Apple Pay',
-                img: Assetpath.pay,
-                height: 24.h,
-                weight: 31.5.w,
-                isSelected: true,
-                onTap: () {},
+              Obx(
+                () => CustomPayment(
+                  title: 'Apple Pay',
+                  img: Assetpath.pay,
+                  height: 24.h,
+                  weight: 31.5.w,
+                  isSelected:
+                      paymentcontroller.selectedPayment.value == 'apple_pay',
+                  onTap: () {
+                    paymentcontroller.selectPlan('apple_pay');
+                  },
+                ),
               ),
               SizedBox(
                 height: 16.h,
               ),
-              CustomPayment(
-                title: 'Google Pay',
-                img: Assetpath.gpay,
-                height: 24.h,
-                weight: 31.5.w,
-                isSelected: true,
-                onTap: () {},
+              Obx(
+                () => CustomPayment(
+                  title: 'Google Pay',
+                  img: Assetpath.gpay,
+                  height: 24.h,
+                  weight: 31.5.w,
+                  isSelected:
+                      paymentcontroller.selectedPayment.value == 'google_pay',
+                  onTap: () {
+                    paymentcontroller.selectPlan('google_pay');
+                  },
+                ),
               ),
               SizedBox(
                 height: 24.h,
@@ -190,7 +215,10 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              CustomTextField(),
+         Obx(()=>CustomTextField(suffix:Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 10),
+           child: Image.asset(paymentcontroller.image.value,height: 24,width: 30,),
+         ),)),
               SizedBox(
                 height: 24.h,
               ),
@@ -198,6 +226,7 @@ class PaymentMethod extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextPopins(
                           text: 'Expiration Date*',
@@ -205,7 +234,7 @@ class PaymentMethod extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
-                        SizedBox(height:8.h),
+                        SizedBox(height: 8.h),
                         CustomTextField(),
                       ],
                     ),
@@ -213,6 +242,7 @@ class PaymentMethod extends StatelessWidget {
                   SizedBox(width: 12.w),
                   Expanded(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextPopins(
                           text: 'CVC*',
@@ -220,35 +250,69 @@ class PaymentMethod extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           color: Colors.white,
                         ),
-                        SizedBox(height: 8.h,),
+                        SizedBox(
+                          height: 8.h,
+                        ),
                         CustomTextField(),
                       ],
                     ),
                   ),
                 ],
-
               ),
               SizedBox(
                 height: 24.h,
               ),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: CustomTextPopins(
-                    text: 'Billing ZIP Code',
-                    size: 14.h,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  )),
               SizedBox(
-                height: 8.h,
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextPopins(
+                      text: 'Billing ZIP Code',
+                      size: 14.h,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    SizedBox(
+                      width: 160.w,
+                      child: CustomTextField(),
+                    ),
+                  ],
+                ),
               ),
-              CustomTextField(),
               SizedBox(height: 60.h),
-            CustomButton(text: "Confirm Purchase",onPressed: (){
-            Get.to(FinalPage());
-            },)
-
-
+              SizedBox(
+                height: 48.h,
+                width: 335.w,
+                child: Obx(() => ElevatedButton(
+                      onPressed:
+                          paymentcontroller.selectedPayment.value.isNotEmpty
+                              ? () {
+                                  Get.to(() => FinalPage());
+                                }
+                              : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            paymentcontroller.selectedPayment.value.isNotEmpty
+                                ? const Color(0xffFFDF00)
+                                : Colors.grey, // Button color changes
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.r),
+                        ),
+                      ),
+                      child: Text(
+                        'Confirm Purchase',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color(0xff333329),
+                        ),
+                      ),
+                    )),
+              ),
             ],
           ),
         ),

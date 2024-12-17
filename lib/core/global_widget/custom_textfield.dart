@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final int? min;
   final int? max;
   final bool? colorTrue;
+  final Widget? suffix;
   final String? Function(String?)? validator;
 
   const CustomTextField({
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.min,
     this.max,
     this.colorTrue,
+    this.suffix,
   });
 
   @override
@@ -55,6 +57,7 @@ class CustomTextField extends StatelessWidget {
             AppColors.whiteColor.withOpacity(0.9).withOpacity(0.6),
             FontWeight.w300),
         filled: true,
+        suffixIcon:suffix ,
         fillColor: AppColors.yellowColor.withOpacity(0.01),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         border: OutlineInputBorder(

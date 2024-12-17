@@ -26,7 +26,7 @@ class CustomPlan extends StatelessWidget {
         height: 98.h,
         width: 335.w,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xff8c7B00) : Colors.transparent,
+          color: isSelected ? const Color(0xff8C7B00) : Colors.transparent,
           border: Border.all(
             width: 1,
             color: Colors.white,
@@ -49,9 +49,9 @@ class CustomPlan extends StatelessWidget {
             ),
             trailing: Transform.scale(
               scale: 1.5,
-              child: Radio<String>(
+              child: Radio(
                 value: tittle,
-                groupValue: isSelected ? tittle : '',
+                groupValue:isSelected?tittle:'',
                 onChanged: (_) => onTap(),
                 activeColor: const Color(0xffFFDF00),
               ),

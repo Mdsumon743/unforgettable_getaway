@@ -141,14 +141,17 @@ class SubscriptionPlan extends StatelessWidget {
                 height: 75.h,
               ),
               SizedBox(
-                width: double.maxFinite,
+                height:48.h,
+                width:335.w,
                 child: Obx(() => ElevatedButton(
                       onPressed: controller.selectedPlan.value.isNotEmpty
+
                           ? () {
                               Get.to(() =>  PaymentMethod());
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
+
                         backgroundColor:
                             controller.selectedPlan.value.isNotEmpty
                                 ? const Color(0xffFFDF00)
@@ -157,9 +160,12 @@ class SubscriptionPlan extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40.r),
                         ),
                       ),
-                      child: const Text(
+                      child:  Text(
                         'Subscribe Now',
                         style: TextStyle(
+                          fontWeight:FontWeight.w500,
+                           fontSize:18,
+
                           color: Color(0xff333329),
                         ),
                       ),
