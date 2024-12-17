@@ -88,17 +88,23 @@ class SignUpScreen extends StatelessWidget {
                       validator: signUpController.validatePasswordMatch,
                     ),
                     SizedBox(height: 30.h),
-                    CustomButton(
-                      text: "Sign Up",
-                      textColor: const Color(0XFF0D0D0C),
-                      onPressed: () {
-                        if (signInFormKey.currentState!.validate()) {
-                          Get.toNamed(AppRoute.selectCountry);
-                        }
-                      },
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                    ),
+                    Obx(() => signUpController.isLoading.value
+                        ? const Center(
+                          child:  CircularProgressIndicator(
+                              color: Colors.amber,
+                            ),
+                        )
+                        : CustomButton(
+                            text: "Sign Up",
+                            textColor: const Color(0XFF0D0D0C),
+                            onPressed: () {
+                              if (signInFormKey.currentState!.validate()) {
+                                signUpController.signUp();
+                              }
+                            },
+                            backgroundColor: const Color(0XFFFFDF00),
+                            borderRadius: 40,
+                          )),
                     SizedBox(height: 26.h),
                     Center(
                       child: Text(
