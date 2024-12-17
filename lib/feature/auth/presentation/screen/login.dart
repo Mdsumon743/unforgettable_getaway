@@ -7,11 +7,10 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/global_widget/text_widget.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/forget_password.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -47,13 +46,9 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    const CustomTextField(
                       hintText: 'Enter your mail address',
-                      validator: (value) {
-                        return GetUtils.isEmail(value!)
-                            ? null
-                            : 'Enter YOur emasil Address';
-                      },
+                      validator: FormValidation.validateEmail,
                     ),
                     SizedBox(height: 20.h),
                     TextWidget(
@@ -63,18 +58,16 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    const CustomTextField(
                       hintText: '************',
-                      validator: (value) {
-                        return FormValidation().isValidPassword(value!);
-                      },
+                      validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 16.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () => Get.to(() => const ForgetScreen()),
+                          onTap: () => Get.toNamed(AppRoute.forgetPpassword),
                           child: Text(
                             "ForgotPassword?",
                             style: GoogleFonts.poppins(
@@ -189,7 +182,7 @@ class LoginScreen extends StatelessWidget {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.to(() => const SignUpScreen());
+                Get.toNamed(AppRoute.signUpScreen);
               },
           ),
         ],

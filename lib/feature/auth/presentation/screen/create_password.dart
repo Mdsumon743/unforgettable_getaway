@@ -71,11 +71,9 @@ class CreatePasswordScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    const CustomTextField(
                       hintText: '***********',
-                      validator: (value) {
-                        return FormValidation().isValidPassword(value!);
-                      },
+                      validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 16.h),
                     SizedBox(height: 26.h),
@@ -92,8 +90,6 @@ class CreatePasswordScreen extends StatelessWidget {
                   ],
                 ),
               ),
-             
-            
             ],
           ),
         ),
