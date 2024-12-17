@@ -11,6 +11,7 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/social_login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,6 +20,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginFormKey = GlobalKey<FormState>();
     final LoginController loginController = Get.put(LoginController());
+    final SocialLogin socialLogin = Get.put(SocialLogin());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: Form(
@@ -123,7 +125,9 @@ class LoginScreen extends StatelessWidget {
                           .center, // Center the icons horizontally
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                              socialLogin.googleSignIn();
+                          },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
@@ -139,7 +143,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 20.w),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            
+                          },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
