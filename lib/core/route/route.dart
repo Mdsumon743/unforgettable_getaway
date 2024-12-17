@@ -20,11 +20,11 @@ class AppRoute {
         name: meet,
         page: () => const MeetPeople(),
         transition: Transition.rightToLeft),
-         GetPage(
+    GetPage(
         name: selectCountry,
         page: () => const CountrySelectionScreen(),
         transition: Transition.rightToLeft),
-          GetPage(
+    GetPage(
         name: forgetPpassword,
         page: () => const ForgetScreen(),
         transition: Transition.rightToLeft),
