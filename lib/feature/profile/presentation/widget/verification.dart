@@ -25,7 +25,7 @@ class Verification extends StatelessWidget {
             text: "Verification",
             fontWeight: FontWeight.w600,
             size: 20.sp,
-            color: Colors.white,
+            color: Colors.white, 
           ),
           SizedBox(
             height: 10.h,
