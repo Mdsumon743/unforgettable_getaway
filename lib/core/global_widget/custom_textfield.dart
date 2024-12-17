@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      obscureText: false,
+      obscureText: obscureText ?? false,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       onChanged: onChanged,
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
           ? GoogleFonts.poppins(
               color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w400)
           : TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 16.sp,
             ),
       minLines: min,

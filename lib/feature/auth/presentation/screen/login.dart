@@ -10,33 +10,35 @@ import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _loginFormKey = GlobalKey<FormState>();
+    final loginFormKey = GlobalKey<FormState>();
+    final LoginController loginController = Get.put(LoginController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(height: 60.h),
-              Image.asset('assets/images/logo_image.png'),
-              SizedBox(height: 40.h),
-              Text(
-                "Login",
-                style: textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
-              ),
-              SizedBox(height: 40.h),
-              Form(
-                key: _loginFormKey,
-                child: Column(
+      body: Form(
+        key: loginFormKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 60.h),
+                Image.asset('assets/images/logo_image.png'),
+                SizedBox(height: 40.h),
+                Text(
+                  "Login",
+                  style:
+                      textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
+                ),
+                SizedBox(height: 40.h),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidget(
@@ -46,7 +48,8 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: loginController.emailText,
                       hintText: 'Enter your mail address',
                       validator: FormValidation.validateEmail,
                     ),
@@ -58,8 +61,11 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: loginController.passText,
+                      obscureText: true,
                       hintText: '************',
+                      max: 1,
                       validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 16.h),
@@ -82,16 +88,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 26.h),
                     CustomButton(
-                      text: "Log in",
-                      textColor: const Color(0XFF0D0D0C),
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                      onPressed: () {
-                        // if (_loginFormKey.currentState!.validate()) {}
-                        Get.to(() => const CountrySelectionScreen());
-                        // Get.to(const NameBirthdayScreen());
-                      },
-                    ),
+                        text: "Log in",
+                        textColor: const Color(0XFF0D0D0C),
+                        backgroundColor: const Color(0XFFFFDF00),
+                        borderRadius: 40,
+                        onPressed: () {
+                          if (loginFormKey.currentState!.validate()) {
+                            Get.toNamed(AppRoute.meet);
+                          }
+                        }),
                     SizedBox(height: 15.h),
                     SizedBox(height: 16.h),
                     Center(
@@ -146,10 +151,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 60.h),
-              bottomTextBar(),
-            ],
+                SizedBox(height: 60.h),
+                bottomTextBar(),
+              ],
+            ),
           ),
         ),
       ),
