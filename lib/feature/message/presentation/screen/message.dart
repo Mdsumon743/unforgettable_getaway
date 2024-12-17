@@ -34,53 +34,67 @@ class MessagePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Align(
                 alignment: Alignment.centerRight,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade800,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    controller.messages[index],
-                    style: const TextStyle(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10,),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade800,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      controller.messages[index],
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               );
             },
           );
         }),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-            borderRadius: BorderRadius.circular(29),
-
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: textController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration:const InputDecoration(
-                    hintText: "Message here...",
-                    hintStyle:  TextStyle(color: Colors.grey),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Container(
+            height: 60,
+            width: 420,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: Colors.white54,
+                width: 2,
+              ),
+            ),
+            child: FloatingActionButton(
+              onPressed: () {
+              },
+              backgroundColor: Colors.transparent,
+              elevation: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: textController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration:const InputDecoration(
+                        hintText: 'Message here...',
+                        hintStyle: TextStyle(color: Colors.white54),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      ),
+                    ),
                   ),
-                ),
+                  // Send Icon
+                  IconButton(onPressed: (){
+                    if(textController.text.isNotEmpty){
+                      controller.sendMessage(textController.text);
+                      textController.clear();
+                    }
+                  }, icon: const Icon(Icons.send,color: Colors.white,))
+                ],
               ),
-              IconButton(
-                icon: const Icon(Icons.send, color: Colors.white),
-                onPressed: () {
-                  if (textController.text.isNotEmpty) {
-                    controller.sendMessage(textController.text);
-                    textController.clear(); // Clear after sending
-                  }
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),
