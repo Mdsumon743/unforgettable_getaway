@@ -46,11 +46,6 @@ class SignUpController extends GetxController {
       }
     } catch (e) {
       debugPrint("Error: $e");
-      Get.snackbar(
-        "Error",
-        "Something went wrong: $e",
-        snackPosition: SnackPosition.BOTTOM,
-      );
     } finally {
       isLoading.value = false;
     }

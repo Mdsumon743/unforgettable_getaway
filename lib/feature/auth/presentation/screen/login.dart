@@ -87,16 +87,24 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 26.h),
-                    CustomButton(
-                        text: "Log in",
-                        textColor: const Color(0XFF0D0D0C),
-                        backgroundColor: const Color(0XFFFFDF00),
-                        borderRadius: 40,
-                        onPressed: () {
-                          if (loginFormKey.currentState!.validate()) {
-                            Get.toNamed(AppRoute.meet);
-                          }
-                        }),
+                    Obx(
+                      () => loginController.isLoading.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.amber,
+                              ),
+                            )
+                          : CustomButton(
+                              text: "Log in",
+                              textColor: const Color(0XFF0D0D0C),
+                              backgroundColor: const Color(0XFFFFDF00),
+                              borderRadius: 40,
+                              onPressed: () {
+                                if (loginFormKey.currentState!.validate()) {
+                                  loginController.logIn();
+                                }
+                              }),
+                    ),
                     SizedBox(height: 15.h),
                     SizedBox(height: 16.h),
                     Center(

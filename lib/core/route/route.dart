@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/city_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/forget_password.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/login_or_signup_screen.dart';
@@ -22,7 +23,7 @@ class AppRoute {
         transition: Transition.rightToLeft),
          GetPage(
         name: selectCountry,
-        page: () => const CitySelectionScreen(),
+        page: () => const CountrySelectionScreen(),
         transition: Transition.rightToLeft),
           GetPage(
         name: forgetPpassword,

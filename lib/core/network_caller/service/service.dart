@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/model.dart';
 
 class NetworkCaller {
-  final int timeoutDuration = 10;
+  final int timeoutDuration = 15;
 
   Uri _parseUrl(String url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
