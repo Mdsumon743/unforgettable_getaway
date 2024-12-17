@@ -7,7 +7,11 @@ class SocialLogin extends GetxController {
     GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       var user = await googleSignIn.signIn();
-      debugPrint('======$user');
+      if (user != null) {
+        debugPrint('======${user.displayName}');
+        debugPrint('======${user.email}');
+        debugPrint('======${user.photoUrl}');
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
