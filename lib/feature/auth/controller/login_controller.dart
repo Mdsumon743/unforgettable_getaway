@@ -33,7 +33,7 @@ class LoginController extends GetxController {
         preferencesHelper.setString(
             "userToken", response.responseData['accessToken']);
         preferencesHelper.setString("userId", response.responseData['id']);
-        Get.toNamed(AppRoute.selectCountry);
+        Get.offAllNamed(AppRoute.selectCountry);
         Get.snackbar(
           "Succes",
           "Login Succesfull",

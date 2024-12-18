@@ -6,7 +6,6 @@ import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/forgot_password_controller.dart';
 
 class CreatePasswordScreen extends StatelessWidget {
@@ -79,15 +78,23 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 16.h),
                     SizedBox(height: 26.h),
-                    CustomButton(
-                      text: "Save",
-                      textColor: const Color(0XFF0D0D0C),
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                      onPressed: () {
-                       
-                      },
-                    ),
+                    Obx(() => forgotPasswordController.isLoading.value
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.amber,
+                            ),
+                          )
+                        : CustomButton(
+                            text: "Save",
+                            textColor: const Color(0XFF0D0D0C),
+                            backgroundColor: const Color(0XFFFFDF00),
+                            borderRadius: 40,
+                            onPressed: () {
+                              if (newFormKey.currentState!.validate()) {
+                                forgotPasswordController.setNewPassword();
+                              }
+                            },
+                          )),
                   ],
                 ),
               ],
