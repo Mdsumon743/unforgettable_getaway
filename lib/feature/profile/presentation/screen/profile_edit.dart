@@ -152,7 +152,7 @@ class ProfileEdit extends StatelessWidget {
                       height: 5.h,
                     ),
                     const CustomTextField(
-                      prefixIcon: Icon(
+                      suffix: Icon(
                         Icons.arrow_drop_down,
                         color: Colors.white,
                       ),
@@ -170,7 +170,7 @@ class ProfileEdit extends StatelessWidget {
                       height: 5.h,
                     ),
                     const CustomTextField(
-                      prefixIcon: Icon(
+                      suffix: Icon(
                         Icons.arrow_drop_down,
                         color: Colors.white,
                       ),
@@ -188,7 +188,7 @@ class ProfileEdit extends StatelessWidget {
                       height: 5.h,
                     ),
                     const CustomTextField(
-                      prefixIcon: Icon(
+                      suffix: Icon(
                         Icons.arrow_drop_down,
                         color: Colors.white,
                       ),
@@ -206,7 +206,7 @@ class ProfileEdit extends StatelessWidget {
                       height: 5.h,
                     ),
                     const CustomTextField(
-                      prefixIcon: Icon(
+                      suffix: Icon(
                         Icons.arrow_drop_down,
                         color: Colors.white,
                       ),
