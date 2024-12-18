@@ -7,6 +7,7 @@ import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/forgot_password_controller.dart';
 
 class CreatePasswordScreen extends StatelessWidget {
   const CreatePasswordScreen({super.key});
@@ -14,6 +15,8 @@ class CreatePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newFormKey = GlobalKey<FormState>();
+    final ForgotPasswordController forgotPasswordController =
+        Get.put(ForgotPasswordController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
@@ -55,12 +58,9 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: forgotPasswordController.newPassword,
                       hintText: '***********',
-                      validator: (value) {
-                        return GetUtils.isEmail(value!)
-                            ? null
-                            : 'Enter YOur emasil Address';
-                      },
+                      validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 20.h),
                     Text(
@@ -72,9 +72,10 @@ class CreatePasswordScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: forgotPasswordController.newConfirmPass,
                       hintText: '***********',
-                      validator: FormValidation.validatePassword,
+                      validator: forgotPasswordController.validatePasswordMatch,
                     ),
                     SizedBox(height: 16.h),
                     SizedBox(height: 26.h),
@@ -84,8 +85,7 @@ class CreatePasswordScreen extends StatelessWidget {
                       backgroundColor: const Color(0XFFFFDF00),
                       borderRadius: 40,
                       onPressed: () {
-                        // if (_loginFormKey.currentState!.validate()) {}
-                        Get.to(const NameBirthdayScreen());
+                       
                       },
                     ),
                   ],

@@ -7,7 +7,14 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 class ForgotPasswordController extends GetxController {
   TextEditingController forgotText = TextEditingController();
   TextEditingController pinput = TextEditingController();
+  TextEditingController newPassword = TextEditingController();
+  TextEditingController newConfirmPass = TextEditingController();
   RxBool isLoading = false.obs;
+
+  String? validatePasswordMatch(String? value) {
+    if (value != newPassword.value.text) return "Passwords do not match";
+    return null;
+  }
 
   Future<void> forgotPassword() async {
     Map<String, dynamic> email = {"email": forgotText.text};
