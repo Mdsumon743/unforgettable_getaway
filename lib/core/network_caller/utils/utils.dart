@@ -4,5 +4,6 @@ class Utils {
   static const login = "/auth/login";
   static const googleLogin = "/auth/socialLogin";
   static const forgotpassword = "/auth/forget-password";
+  static const pin = "/auth/verify-otp";
 
 }

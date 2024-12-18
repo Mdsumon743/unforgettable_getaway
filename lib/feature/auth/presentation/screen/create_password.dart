@@ -13,34 +13,35 @@ class CreatePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _loginFormKey = GlobalKey<FormState>();
+    final newFormKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         // primary: true,
 
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/logo_image.png'),
-                ],
-              ),
-              SizedBox(height: 40.h),
-              Text(
-                "Create New Password",
-                style: textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
-              ),
-              SizedBox(height: 40.h),
-              Form(
-                key: _loginFormKey,
-                child: Column(
+        child: Form(
+          key: newFormKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 60.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/logo_image.png'),
+                  ],
+                ),
+                SizedBox(height: 40.h),
+                Text(
+                  "Create New Password",
+                  style:
+                      textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
+                ),
+                SizedBox(height: 40.h),
+                Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -89,8 +90,8 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

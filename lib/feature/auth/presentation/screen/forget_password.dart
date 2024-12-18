@@ -7,7 +7,6 @@ import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/forgot_password_controller.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
 
 class ForgetScreen extends StatelessWidget {
   const ForgetScreen({super.key});
@@ -50,17 +49,23 @@ class ForgetScreen extends StatelessWidget {
                       validator: FormValidation.validateEmail,
                     ),
                     SizedBox(height: 30.h),
-                    CustomButton(
-                      text: "Get Verification Code",
-                      textColor: const Color(0XFF0D0D0C),
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                      onPressed: () {
-                        if (forgotFormKey.currentState!.validate()) {
-                          
-                        }
-                      },
-                    ),
+                    Obx(() => forgotController.isLoading.value
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.amber,
+                            ),
+                          )
+                        : CustomButton(
+                            text: "Get Verification Code",
+                            textColor: const Color(0XFF0D0D0C),
+                            backgroundColor: const Color(0XFFFFDF00),
+                            borderRadius: 40,
+                            onPressed: () {
+                              if (forgotFormKey.currentState!.validate()) {
+                                forgotController.forgotPassword();
+                              }
+                            },
+                          )),
                     SizedBox(
                       height: 15.h,
                     ),
