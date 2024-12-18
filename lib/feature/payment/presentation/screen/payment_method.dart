@@ -15,7 +15,7 @@ class PaymentMethod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Paymentcontroller paymentcontroller = Get.put(Paymentcontroller());
+    final PaymentController paymentcontroller = Get.put(PaymentController());
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
       appBar: AppBar(
@@ -217,7 +217,7 @@ class PaymentMethod extends StatelessWidget {
               ),
          Obx(()=>CustomTextField(suffix:Padding(
            padding: const EdgeInsets.symmetric(horizontal: 10),
-           child: Image.asset(paymentcontroller.image.value,height: 24,width: 30,),
+           child: Image.asset(paymentcontroller.img.value,height: 24,width: 30,),
          ),)),
               SizedBox(
                 height: 24.h,
