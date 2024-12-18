@@ -53,7 +53,7 @@ class MeetPeople extends StatelessWidget {
               : SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.all(15.r),
-                    child: Expanded(
+                    child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

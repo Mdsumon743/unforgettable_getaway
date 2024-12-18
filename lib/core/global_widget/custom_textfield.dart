@@ -13,8 +13,9 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final int? min;
   final int? max;
-  final Widget? prefixIcon;
+
   final bool? colorTrue;
+  final Widget? suffix;
   final String? Function(String?)? validator;
   final bool? enable;
 
@@ -31,7 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.max,
     this.colorTrue,
     this.enable,
-    this.prefixIcon,
+    this.suffix,
   });
 
   @override
@@ -60,7 +61,7 @@ class CustomTextField extends StatelessWidget {
             AppColors.whiteColor.withOpacity(0.9).withOpacity(0.6),
             FontWeight.w300),
         filled: true,
-        suffixIcon: prefixIcon,
+        suffixIcon: suffix,
         fillColor: AppColors.yellowColor.withOpacity(0.01),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         border: OutlineInputBorder(
