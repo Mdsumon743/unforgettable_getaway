@@ -13,15 +13,17 @@ class LoginController extends GetxController {
   RxBool isLoading = false.obs;
 
   Future<void> logIn() async {
+    preferencesHelper.init();
     Map<String, dynamic> registration = {
       "email": emailText.text.trim(),
       "password": passText.text.trim(),
-      "fcpmToken": "Akn nai jkn hbe tkn dimo ne"
+      "fcpmToken": preferencesHelper.getString("fcm_token")
     };
 
     try {
       await preferencesHelper.init();
       isLoading.value = true;
+      debugPrint("=====${preferencesHelper.getString("fcm_token")}");
 
       String url = Utils.baseUrl + Utils.login;
 
