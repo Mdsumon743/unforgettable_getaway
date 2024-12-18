@@ -5,6 +5,8 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/auth/presentation/screen/login_or_signup_screen.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/PaymentController.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/widget/custom_payment.dart';
 
@@ -18,8 +20,10 @@ class FinalPage extends StatelessWidget {
       backgroundColor: const Color(0xff1A1110),
       appBar:AppBar(
         backgroundColor: const Color(0xff1A1110),
+        automaticallyImplyLeading: false,
         actions: [
          IconButton(onPressed: (){
+           Get.to(()=>const MeetPeople());
            
          }, icon:Image.asset(Assetpath.cross,height: 24.h,width: 24.w,))
 
