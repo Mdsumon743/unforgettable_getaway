@@ -26,7 +26,7 @@ class CustomPlan extends StatelessWidget {
         height: 98.h,
         width: 335.w,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xff8C7B00) : Colors.transparent,
+          color: isSelected ? const Color(0xff8C7B00).withOpacity(0.4) : Colors.transparent,
           border: Border.all(
             width: 1,
             color: Colors.white,

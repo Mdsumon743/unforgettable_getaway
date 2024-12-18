@@ -1,6 +1,5 @@
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +27,7 @@ class CustomPayment extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(0.r),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xff8c7B00) : Colors.transparent,
+            color: isSelected ? const Color(0xffFFDF00).withOpacity(0.15) : Colors.transparent,
             borderRadius: BorderRadius.circular(4.r), // Rounded corners
             border: Border.all(
               color: Colors.white.withOpacity(0.6),
@@ -38,7 +37,7 @@ class CustomPayment extends StatelessWidget {
           child: ListTile(
          onTap:onTap,
             leading: Transform.scale(
-              scale: 1.5,
+              scale: 1,
               child: Radio(
                 value: title,
                 groupValue: isSelected?title:'',

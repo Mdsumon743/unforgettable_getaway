@@ -217,7 +217,7 @@ class PaymentMethod extends StatelessWidget {
               ),
          Obx(()=>CustomTextField(suffix:Padding(
            padding: const EdgeInsets.symmetric(horizontal: 10),
-           child: Image.asset(paymentcontroller.img.value,height: 24,width: 30,),
+           child: Image.asset(paymentcontroller.img.value,height: 14.h,width: 43.w,),
          ),)),
               SizedBox(
                 height: 24.h,
