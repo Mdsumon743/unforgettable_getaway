@@ -41,4 +41,5 @@ class Assetpath {
   static const String searchList = "assets/images/search_list.png";
   static const String popup1 = "assets/icons/popup1.png";
   static const String popup2 = "assets/icons/popup2.png";
+  static const String send1 = "assets/icons/send1.png";
 }

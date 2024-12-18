@@ -4,7 +4,13 @@ class MessageController extends GetxController {
   var messages = <String>[].obs;
   void sendMessage(String message) {
     if (message.isNotEmpty) {
-      messages.add(message);
+      messages.insert(0, message);
     }
+  }
+}
+class SwitchController extends GetxController {
+  var isSwitched = false.obs;
+  void toggleSwitch(bool value) {
+    isSwitched.value = value;
   }
 }

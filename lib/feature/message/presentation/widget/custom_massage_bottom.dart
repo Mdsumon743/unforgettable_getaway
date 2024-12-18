@@ -27,10 +27,6 @@ class CustomMassageBottom extends StatelessWidget {
               hintStyle: TextStyle(
                 color: Colors.white.withOpacity(0.75),
               ),
-              // suffixIcon:const Icon(
-              //   Icons.send,
-              //   color: Colors.white,
-              // ),
               suffixIcon: Obx((){
                 return Container(
                   child: Icon(Icons.add),

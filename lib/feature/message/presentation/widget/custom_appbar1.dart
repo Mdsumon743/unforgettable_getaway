@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import '../../controller/messeage_controllred.dart';
 
 class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String profileImage;
@@ -8,14 +10,14 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String statusText;
   final bool showCallIcon;
 
-  const CustomChatAppBar({
-    Key? key,
+  CustomChatAppBar({
+    super.key,
     required this.profileImage,
     required this.userName,
     required this.statusText,
     this.showCallIcon = true,
-  }) : super(key: key);
-
+  });
+  final SwitchController controller = Get.put(SwitchController());
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -75,62 +77,75 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         PopupMenuButton(
-          icon:const Icon(Icons.more_vert_outlined, color: Colors.white),
-            offset: const Offset(0, 50),
-            color: const Color(0xffFFFDF2),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-    ),
-          onSelected: (value){
-        },itemBuilder: (context){
-          return[
-            PopupMenuItem(
-              value: 0,
-              child: Row(
-                children: [
-                  Image.asset(Assetpath.popup1),
-                  const SizedBox(width: 10),
-                  Text(
-                    "Auto Translate",
-                    style: TextStyle(
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w500,
-                    ),
+          icon: const Icon(Icons.more_vert_outlined, color: Colors.white),
+          color: const Color(0xFFFFFDF2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          onSelected: (value) {},
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: 0,
+                child: SizedBox(
+                  height: 30.h,
+                  width: 130.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Obx(() => Transform.scale(
+                        scale: 0.6,
+                        child: Switch(
+                          value: controller.isSwitched.value,
+                          onChanged: controller.toggleSwitch,
+                        ),
+                      ),
+                      ),
+                      const Text(
+                        "Auto Translate",
+                        style: TextStyle(
+                          color: Color(0xFF737268),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 1,
-              child: Row(
-                children: [
-                  Image.asset(Assetpath.popup2),
-                  const SizedBox(width: 10),
-                  Text(
-                    "Block User",
-                    style: TextStyle(
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  )
+                ),
+              PopupMenuItem(
+                value: 1,
+                child: SizedBox(
+                  height: 30.h,
+                  width: 130.w,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20,),
+                        child: Image.asset(Assetpath.popup2,width: 20,),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        "Block User",
+                        style: TextStyle(
+                          color: Color(0xFF737268),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ];
-        },
-            ),
-        if(showCallIcon)
+            ];
+          },
+        ),
+        if (showCallIcon)
           IconButton(
-              onPressed: (){
-              },
-              icon: IconButton(
-                  onPressed: (){},
-                  icon: const Icon(Icons.call))),
+              onPressed: () {},
+              icon: IconButton(onPressed: () {}, icon: const Icon(Icons.call))),
         if (showCallIcon)
           IconButton(
             icon: Icon(Icons.call, color: Colors.white, size: 24.sp),
-            onPressed: () {
-            },
+            onPressed: () {},
           ),
       ],
     );
