@@ -14,6 +14,7 @@ import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/verification.dart';
 import '../../../../core/chip_list.dart';
+import '../../../payment/presentation/screen/subcription_plan.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -124,7 +125,11 @@ class Profile extends StatelessWidget {
                   height: 0.5,
                   thickness: 0.5,
                 ),
-                const SubcriptionCard(),
+                GestureDetector(
+                    onTap:(){
+                      Get.to(()=> SubscriptionPlan());
+                    },
+                    child: const SubcriptionCard()),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(

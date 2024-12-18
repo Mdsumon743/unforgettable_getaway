@@ -6,41 +6,44 @@ import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/forgot_password_controller.dart';
 
 class CreatePasswordScreen extends StatelessWidget {
   const CreatePasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _loginFormKey = GlobalKey<FormState>();
+    final newFormKey = GlobalKey<FormState>();
+    final ForgotPasswordController forgotPasswordController =
+        Get.put(ForgotPasswordController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         // primary: true,
 
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/logo_image.png'),
-                ],
-              ),
-              SizedBox(height: 40.h),
-              Text(
-                "Create New Password",
-                style: textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
-              ),
-              SizedBox(height: 40.h),
-              Form(
-                key: _loginFormKey,
-                child: Column(
+        child: Form(
+          key: newFormKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 60.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/logo_image.png'),
+                  ],
+                ),
+                SizedBox(height: 40.h),
+                Text(
+                  "Create New Password",
+                  style:
+                      textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
+                ),
+                SizedBox(height: 40.h),
+                Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,12 +57,9 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: forgotPasswordController.newPassword,
                       hintText: '***********',
-                      validator: (value) {
-                        return GetUtils.isEmail(value!)
-                            ? null
-                            : 'Enter YOur emasil Address';
-                      },
+                      validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 20.h),
                     Text(
@@ -72,29 +72,33 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: forgotPasswordController.newConfirmPass,
                       hintText: '***********',
-                      validator: (value) {
-                        return FormValidation().isValidPassword(value!);
-                      },
+                      validator: forgotPasswordController.validatePasswordMatch,
                     ),
                     SizedBox(height: 16.h),
                     SizedBox(height: 26.h),
-                    CustomButton(
-                      text: "Save",
-                      textColor: const Color(0XFF0D0D0C),
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                      onPressed: () {
-                        // if (_loginFormKey.currentState!.validate()) {}
-                        Get.to(const NameBirthdayScreen());
-                      },
-                    ),
+                    Obx(() => forgotPasswordController.isLoading.value
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.amber,
+                            ),
+                          )
+                        : CustomButton(
+                            text: "Save",
+                            textColor: const Color(0XFF0D0D0C),
+                            backgroundColor: const Color(0XFFFFDF00),
+                            borderRadius: 40,
+                            onPressed: () {
+                              if (newFormKey.currentState!.validate()) {
+                                forgotPasswordController.setNewPassword();
+                              }
+                            },
+                          )),
                   ],
                 ),
-              ),
-             
-            
-            ],
+              ],
+            ),
           ),
         ),
       ),

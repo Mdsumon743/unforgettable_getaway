@@ -7,37 +7,40 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/global_widget/text_widget.dart';
 import 'package:unforgettable_getaway/core/helper/form_validation.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/forget_password.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/social_login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _loginFormKey = GlobalKey<FormState>();
+    final loginFormKey = GlobalKey<FormState>();
+    final LoginController loginController = Get.put(LoginController());
+    final SocialLogin socialLogin = Get.put(SocialLogin());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(height: 60.h),
-              Image.asset('assets/images/logo_image.png'),
-              SizedBox(height: 40.h),
-              Text(
-                "Login",
-                style: textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
-              ),
-              SizedBox(height: 40.h),
-              Form(
-                key: _loginFormKey,
-                child: Column(
+      body: Form(
+        key: loginFormKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 60.h),
+                Image.asset('assets/images/logo_image.png'),
+                SizedBox(height: 40.h),
+                Text(
+                  "Login",
+                  style:
+                      textStyle(24.sp, AppColors.whiteColor, FontWeight.w600),
+                ),
+                SizedBox(height: 40.h),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextWidget(
@@ -48,12 +51,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: loginController.emailText,
                       hintText: 'Enter your mail address',
-                      validator: (value) {
-                        return GetUtils.isEmail(value!)
-                            ? null
-                            : 'Enter YOur emasil Address';
-                      },
+                      validator: FormValidation.validateEmail,
                     ),
                     SizedBox(height: 20.h),
                     TextWidget(
@@ -64,17 +64,18 @@ class LoginScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: loginController.passText,
+                      obscureText: true,
                       hintText: '************',
-                      validator: (value) {
-                        return FormValidation().isValidPassword(value!);
-                      },
+                      max: 1,
+                      validator: FormValidation.validatePassword,
                     ),
                     SizedBox(height: 16.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () => Get.to(() => const ForgetScreen()),
+                          onTap: () => Get.toNamed(AppRoute.forgetPpassword),
                           child: Text(
                             "ForgotPassword?",
                             style: GoogleFonts.poppins(
@@ -88,16 +89,23 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 26.h),
-                    CustomButton(
-                      text: "Log in",
-                      textColor: const Color(0XFF0D0D0C),
-                      backgroundColor: const Color(0XFFFFDF00),
-                      borderRadius: 40,
-                      onPressed: () {
-                        // if (_loginFormKey.currentState!.validate()) {}
-                        Get.to(() => const CountrySelectionScreen());
-                        // Get.to(const NameBirthdayScreen());
-                      },
+                    Obx(
+                      () => loginController.isLoading.value
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.amber,
+                              ),
+                            )
+                          : CustomButton(
+                              text: "Log in",
+                              textColor: const Color(0XFF0D0D0C),
+                              backgroundColor: const Color(0XFFFFDF00),
+                              borderRadius: 40,
+                              onPressed: () {
+                                if (loginFormKey.currentState!.validate()) {
+                                  loginController.logIn();
+                                }
+                              }),
                     ),
                     SizedBox(height: 15.h),
                     SizedBox(height: 16.h),
@@ -117,7 +125,9 @@ class LoginScreen extends StatelessWidget {
                           .center, // Center the icons horizontally
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            socialLogin.googleSignIn();
+                          },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
@@ -133,7 +143,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 20.w),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            socialLogin.loginWithFacebook();
+                          },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
@@ -153,10 +165,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 60.h),
-              bottomTextBar(),
-            ],
+                SizedBox(height: 60.h),
+                bottomTextBar(),
+              ],
+            ),
           ),
         ),
       ),
@@ -189,7 +201,7 @@ class LoginScreen extends StatelessWidget {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.to(() => const SignUpScreen());
+                Get.toNamed(AppRoute.signUpScreen);
               },
           ),
         ],

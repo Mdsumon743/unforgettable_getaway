@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dart';
-import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 
 class LoginOrSignupScreen extends StatelessWidget {
@@ -32,7 +31,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                       backgroundColor: const Color(0XFFFFDF00),
                       borderRadius: 40,
                   onPressed: () {
-                    Get.to(() => const LoginScreen());
+                    Get.toNamed(AppRoute.loginScreen);
                   },
                  
                 ),
@@ -43,7 +42,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                   backgroundColor: const Color(0XFFFFDF00),
                   borderRadius: 40,
                   onPressed: () {
-                    Get.to(() => const SignUpScreen());
+                      Get.toNamed(AppRoute.signUpScreen);
                   },
                 ),
                 SizedBox(height: 40.h),

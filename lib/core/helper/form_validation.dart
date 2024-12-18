@@ -1,29 +1,47 @@
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class FormValidation {
-  ///Check if field isn't empty
-  // String? isValidLength(String value) {
-  //   if (value.length<=2) {
-  //     return 'enter_valid_information'.tr;
-  //   }
-  //   return null;
-  // }
-  // String? isValidFirstName(String value) {
-  //   if (value.length<=2) {
-  //     return 'enter_your_first_name'.tr;
-  //   }
-  //   return null;
-  // }
-  // String? isValidLastName(String value) {
-  //   if (value.length<=2) {
-  //     return 'enter_your_last_name'.tr;
-  //   }
-  //   return null;
-  // }
-  String? isValidPassword(String value) {
-    if (value.length<=7) {
-      return 'password_should_be'.tr;
+
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Email can't be empty";
+    }
+    
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(value)) {
+      return "Please enter a valid email";
     }
     return null;
   }
+
+ static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Password can't be empty";
+    }
+    if (value.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    if (!value.contains(RegExp(r'[A-Z]'))) {
+      return "Password must contain at least one uppercase letter";
+    }
+    if (!value.contains(RegExp(r'[a-z]'))) {
+      return "Password must contain at least one lowercase letter";
+    }
+    if (!value.contains(RegExp(r'[0-9]'))) {
+      return "Password must contain at least one number";
+    }
+    return null;
+  }
+
+static  String? validatePin(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'PIN cannot be empty';
+  }
+  if (value.length != 6) {
+    return 'PIN must be exactly 6 digits';
+  }
+  if (!RegExp(r'^\d{6}$').hasMatch(value)) {
+    return 'PIN must contain only numbers';
+  }
+  return null; 
+}
 }
