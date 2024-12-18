@@ -126,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
-                              socialLogin.googleSignIn();
+                            socialLogin.googleSignIn();
                           },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
@@ -143,9 +143,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 20.w),
                         GestureDetector(
-                          onTap: () {
-                            
-                          },
+                          onTap: () {},
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
                             decoration: BoxDecoration(
