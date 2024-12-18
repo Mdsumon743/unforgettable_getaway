@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/PaymentController.dart';
@@ -53,7 +52,7 @@ class PaymentMethod extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.check,
                     color: Colors.white,
                   ),
@@ -169,7 +168,7 @@ class PaymentMethod extends StatelessWidget {
               ),
               Divider(
                 thickness: 1.r,
-                color: Color(0xffFFFFFF),
+                color: const Color(0xffFFFFFF),
               ),
               SizedBox(
                 height: 24.h,
@@ -185,7 +184,7 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              CustomTextField(),
+              const CustomTextField(),
               SizedBox(
                 height: 24.h,
               ),
@@ -200,7 +199,7 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              CustomTextField(),
+              const CustomTextField(),
               SizedBox(
                 height: 24.h,
               ),
@@ -235,7 +234,7 @@ class PaymentMethod extends StatelessWidget {
                           color: Colors.white,
                         ),
                         SizedBox(height: 8.h),
-                        CustomTextField(),
+                        const CustomTextField(),
                       ],
                     ),
                   ),
@@ -253,7 +252,7 @@ class PaymentMethod extends StatelessWidget {
                         SizedBox(
                           height: 8.h,
                         ),
-                        CustomTextField(),
+                        const CustomTextField(),
                       ],
                     ),
                   ),
@@ -278,7 +277,7 @@ class PaymentMethod extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 160.w,
-                      child: CustomTextField(),
+                      child: const CustomTextField(),
                     ),
                   ],
                 ),
@@ -291,7 +290,7 @@ class PaymentMethod extends StatelessWidget {
                       onPressed:
                           paymentcontroller.selectedPayment.value.isNotEmpty
                               ? () {
-                                  Get.to(() => FinalPage());
+                                  Get.to(() => const FinalPage());
                                 }
                               : null,
                       style: ElevatedButton.styleFrom(
@@ -303,7 +302,7 @@ class PaymentMethod extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40.r),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Confirm Purchase',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,

@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
-import 'package:unforgettable_getaway/feature/payment/controller/PaymentController.dart';
-import 'package:unforgettable_getaway/feature/payment/presentation/widget/custom_payment.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
 class FinalPage extends StatelessWidget {

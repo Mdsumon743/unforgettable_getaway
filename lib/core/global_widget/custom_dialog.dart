@@ -71,7 +71,7 @@ class CustomSuccessDialog extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Colors.amber,
               radius: 50,
-              child: const Icon(
+              child: Icon(
                 Icons.check_rounded,
                 size: 60,
                 color: Colors.white,
