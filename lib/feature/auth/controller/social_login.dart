@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
@@ -36,6 +37,35 @@ class SocialLogin extends GetxController {
       }
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  String? userName;
+  String? userEmail;
+  String? userProfilePic;
+
+  Future<void> loginWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final userData = await FacebookAuth.instance
+            .getUserData(fields: "name,email,picture.width(200)");
+
+        userName = userData["name"];
+        userEmail = userData["email"];
+        userProfilePic = userData["picture"]["data"]["url"];
+
+        debugPrint('Name: $userName');
+        debugPrint('Email: $userEmail');
+        debugPrint('Profile Picture: $userProfilePic');
+      } else if (result.status == LoginStatus.cancelled) {
+        debugPrint("Login cancelled by the user.");
+      } else {
+        debugPrint("Error: ${result.message}");
+      }
+    } catch (e) {
+      debugPrint("Error during Facebook login: $e");
     }
   }
 }

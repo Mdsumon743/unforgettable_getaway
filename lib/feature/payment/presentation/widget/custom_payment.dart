@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +15,9 @@ class CustomPayment extends StatelessWidget {
     required this.title,
     required this.img,
     required this.isSelected,
-    required this.onTap, required this.height, required this.weight,
+    required this.onTap,
+    required this.height,
+    required this.weight,
   });
 
   @override
@@ -35,21 +35,27 @@ class CustomPayment extends StatelessWidget {
             ),
           ),
           child: ListTile(
-         onTap:onTap,
+            onTap: onTap,
             leading: Transform.scale(
               scale: 1.5,
               child: Radio(
                 value: title,
-                groupValue: isSelected?title:'',
+                groupValue: isSelected ? title : '',
                 onChanged: (_) => onTap(),
                 activeColor: const Color(0xffFFDF00),
               ),
-
             ),
-            title:CustomTextPopins(text: title,size: 16.h,fontWeight:FontWeight.w400,color:Colors.white,),
-            trailing:Image.asset(img,height:height ,width:weight ,),
-            
-
+            title: CustomTextPopins(
+              text: title,
+              size: 16.h,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+            trailing: Image.asset(
+              img,
+              height: height,
+              width: weight,
+            ),
           ),
         ));
   }
