@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
-import '../../feature/notification/presentation/screen/empty_notification.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -75,9 +74,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            NotificationPage().notificationList.isEmpty
-                                ? Get.to(() =>  NotificationPage())
-                                : Get.to(() => const EmptyNotificationPage());
+                        Get.toNamed(AppRoute.shownotification);
                           },
                           child: Image.asset(Assetpath.notification),
                         ),

@@ -2,68 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
 
 class NotificationPage extends StatelessWidget {
-  NotificationPage({
+  const NotificationPage({
     super.key,
   });
 
-  final List<Map<String, dynamic>> notificationList = [
-    {
-      "title": "Booking Cancelled",
-      "subtitle": "Your booking for Paris has \ncancelled",
-      "time": "42 minutes ago",
-      "leading": Assetpath.boking,
-      "size": true,
-    },
-    {
-      "title": "Ama Likes your profile  ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Cristian Likes your \nprofile",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Lea Rose loves your \nprofile",
-      "subtitle": "",
-      "time": "1 day ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "You have new conversation \nwith Lara",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Chloe Mae Likes your \nprofile ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Jhony Likes your \nprofile ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    final notificationController = Get.put(NotificationController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         leading: GestureDetector(
           onTap: () {
-           Get.back();
+            Get.back();
           },
           child: const Icon(
             Icons.arrow_back,
@@ -88,7 +45,7 @@ class NotificationPage extends StatelessWidget {
               radius: 25.r,
               backgroundColor: Colors.white.withOpacity(0.2),
               child: Image.asset(
-                notificationList[index]['leading'],
+               notificationController.notificationList[index]['leading'],
                 fit: BoxFit.cover,
                 height: 28.h,
                 width: 28.w,
@@ -96,21 +53,33 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
             title: Text(
-              notificationList[index]['title'],
+              notificationController.notificationList[index]['title'],
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: GoogleFonts.poppins(
-                  fontSize: notificationList[index]["size"] ?? false ? 16.sp : 14.sp,
-                  fontWeight: notificationList[index]["size"] ?? false
+                  fontSize: notificationController.notificationList[index]
+                              ["size"] ??
+                          false
+                      ? 16.sp
+                      : 14.sp,
+                  fontWeight: notificationController.notificationList[index]
+                              ["size"] ??
+                          false
                       ? FontWeight.w600
                       : FontWeight.w400,
                   color: Colors.white),
             ),
-            subtitle: notificationList[index]['subtitle']!.isNotEmpty
+            subtitle: !notificationController
+                    .notificationList[index]['subtitle']!.isNotEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        notificationList[index]['subtitle']!,
+                        notificationController.notificationList[index]
+                            ['subtitle']!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
                           color: Colors.white.withOpacity(0.8),
@@ -118,7 +87,7 @@ class NotificationPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        notificationList[index]['time'],
+                        notificationController.notificationList[index]['time'],
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
                           fontSize: 14.sp,
@@ -127,7 +96,7 @@ class NotificationPage extends StatelessWidget {
                     ],
                   )
                 : Text(
-                    notificationList[index]['time'],
+                    notificationController.notificationList[index]['time'],
                     style: GoogleFonts.poppins(
                       color: Colors.white.withOpacity(0.8),
                       fontSize: 14.sp,
@@ -157,7 +126,7 @@ class NotificationPage extends StatelessWidget {
             ),
           );
         },
-        itemCount: notificationList.length,
+        itemCount: notificationController.notificationList.length,
       ),
     );
   }

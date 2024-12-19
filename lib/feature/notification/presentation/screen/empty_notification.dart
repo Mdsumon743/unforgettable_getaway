@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 
 class EmptyNotificationPage extends StatelessWidget {
   const EmptyNotificationPage({super.key});
@@ -17,7 +16,7 @@ class EmptyNotificationPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: GestureDetector(
           onTap: (){
-            Get.to(()=> NotificationPage());
+           Get.back();
           },
             child: const Icon(Icons.arrow_back, color: Colors.white)),
         centerTitle: true,
