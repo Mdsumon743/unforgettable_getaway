@@ -100,7 +100,7 @@ class InterestSelectionScreen extends StatelessWidget {
                   onPressed: () {
                     accountController.saveUserInformation();
                     if (accountController.favoriteList.length >= 5) {
-                      // Get.toNamed(page)
+                     Get.toNamed(AppRoute.home);
                     }
                     // Get.to(() => const GenderSelectionScreen());
                   },

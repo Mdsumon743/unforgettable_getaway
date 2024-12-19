@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
