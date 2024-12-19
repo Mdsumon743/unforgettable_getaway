@@ -28,7 +28,6 @@ class DropdownMenuController extends GetxController {
           },
           value: 'Item 1',
           child: SizedBox(
-            
             width: 160.w,
             height: 50.h,
             child: Row(
@@ -70,7 +69,7 @@ class DropdownMenuController extends GetxController {
         ),
         PopupMenuItem(
           onTap: () {
-            Get.to(()=>const Profile());
+            Get.to(() => const Profile());
           },
           value: 'Item 3',
           child: SizedBox(
@@ -95,8 +94,8 @@ class DropdownMenuController extends GetxController {
       ],
       elevation: 8.0,
       constraints: const BoxConstraints(
-        maxWidth: 200, 
-        maxHeight: 200, 
+        maxWidth: 200,
+        maxHeight: 200,
       ),
     );
   }
