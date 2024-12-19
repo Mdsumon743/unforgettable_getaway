@@ -20,7 +20,7 @@ class CitySelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cityController = Get.put(CityController());
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

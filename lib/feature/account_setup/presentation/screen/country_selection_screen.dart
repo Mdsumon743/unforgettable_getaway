@@ -102,6 +102,7 @@ class CountrySelectionScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           ListTile(
+                            focusColor: Colors.amber,
                             contentPadding: EdgeInsets.zero,
                             leading: Text(
                               country['flag']!,
