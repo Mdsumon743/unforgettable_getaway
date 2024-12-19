@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/city_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/interest_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/create_password.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/forget_password.dart';
@@ -23,8 +24,9 @@ class AppRoute {
   static const String createPasword = "/createPassword";
   static const String selectCity = "/selectCiry";
   static const String namebirthScreen = "/namebirthScreen";
+  static const String interestSelectionScreen = "/interestSelectionScreen";
   static final route = [
-     GetPage(
+    GetPage(
         name: namebirthScreen,
         page: () => const NameBirthdayScreen(),
         transition: Transition.rightToLeft),
@@ -67,6 +69,10 @@ class AppRoute {
     GetPage(
         name: signUpScreen,
         page: () => const SignUpScreen(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: interestSelectionScreen,
+        page: () => const InterestSelectionScreen(),
         transition: Transition.rightToLeft),
   ];
 }
