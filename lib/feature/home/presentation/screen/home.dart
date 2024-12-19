@@ -82,8 +82,8 @@ class Home extends StatelessWidget {
                     ? AppColors.yellowColor
                     : AppColors.yellowColor.withOpacity(0.3),
                 onPressed: () {
-                  if (controller.selectedIndex.value == 0) {
-                    Get.offAll(AppRoute.meet);
+                  if (controller.selectedIndex.value == 1) {
+                    Get.offAllNamed(AppRoute.meet);
                   }
                 },
               ),
