@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final IconData? icon;
   final bool isLoading;
+  
 
   const CustomButton({
     super.key,
@@ -32,7 +33,7 @@ class CustomButton extends StatelessWidget {
     this.borderRadius = 8.0,
     this.padding = const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
     this.icon,
-    this.isLoading = false,
+    this.isLoading = false, 
   });
 
   @override
@@ -44,6 +45,7 @@ class CustomButton extends StatelessWidget {
         width: width.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
+          
           color: backgroundColor ?? AppColors.darkGrey,
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/custom_textfeild_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
+
+import '../../../../core/utils/app_colors.dart';
 
 class SearchLocation extends StatelessWidget {
   const SearchLocation({super.key});
@@ -36,7 +39,7 @@ class SearchLocation extends StatelessWidget {
                             margin: const EdgeInsets.only(top: 8),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColors.darkBrown,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: SingleChildScrollView(
@@ -48,8 +51,11 @@ class SearchLocation extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return ListTile(
-                                    title: Text(searchController
-                                        .filteredSuggestions[index]),
+                                    title: CustomTextPopins(
+                                      text: searchController
+                                          .filteredSuggestions[index],
+                                      color: Colors.white,
+                                    ),
                                     onTap: () {
                                       searchController.updateTextController(
                                           searchController.search,

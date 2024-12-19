@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/city_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/domain/service/service.dart';
 
 class CountrySelectionScreen extends StatelessWidget {
   const CountrySelectionScreen({super.key});
@@ -13,8 +13,9 @@ class CountrySelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final countrySController = Get.put(CountrySelectionController());
+    final citiesController = Get.put(CitiesController());
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +81,7 @@ class CountrySelectionScreen extends StatelessWidget {
             const Divider(color: Colors.white12, thickness: 1),
             GetBuilder<CountrySelectionController>(builder: (controller) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height*0.73,
+                height: MediaQuery.of(context).size.height * 0.73,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   // shrinkWrap: true,
@@ -88,13 +89,13 @@ class CountrySelectionScreen extends StatelessWidget {
                   itemCount: countries.length,
                   itemBuilder: (context, index) {
                     final country = countries[index];
-                        
+
                     if (countrySController.searchText.isNotEmpty &&
                         !country['name']!.toLowerCase().contains(
                             countrySController.searchText.toLowerCase())) {
                       return const SizedBox();
                     }
-                        
+
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Column(
@@ -102,6 +103,7 @@ class CountrySelectionScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           ListTile(
+                            focusColor: Colors.amber,
                             contentPadding: EdgeInsets.zero,
                             leading: Text(
                               country['flag']!,
@@ -114,9 +116,13 @@ class CountrySelectionScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               debugPrint('Selected: ${country['name']}');
+                              citiesController
+                                  .fetchCities(country["name"].toString());
                               countrySController.selectCountry(
                                   true, country['name']!, country['flag']!);
-                              // Get.to(const CitySelectionScreen());
+                              Get.toNamed(
+                                AppRoute.selectCity 
+                              );
                             },
                           ),
                           const Divider(color: Colors.white12, thickness: 1),
@@ -127,24 +133,6 @@ class CountrySelectionScreen extends StatelessWidget {
                 ),
               );
             }),
-            GetBuilder<CountrySelectionController>(builder: (controller) {
-              return controller.isClickOnCountry
-                  ? CustomButton(
-                      text: 'Next',
-                      textColor: AppColors.darkGrey,
-                      backgroundColor: AppColors.yellowColor,
-                      onPressed: () {
-                        Get.to(
-                          () => CitySelectionScreen(
-                            country: controller.selectedCountry,
-                            flag: controller.flag,
-                          ),
-                        );
-                      },
-                      borderRadius: 40,
-                    )
-                  : const SizedBox();
-            })
           ],
         ),
       ),
