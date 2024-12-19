@@ -34,6 +34,37 @@ class MessagePage extends StatelessWidget {
           children: [
             Expanded(
               child: Obx(() {
+                if (controller.isSecondMessageTriggered.value) {
+                  return Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                         children: [
+                          const Icon(Icons.error_outline_rounded,color: Color(0xFFFF7167)),
+                           SizedBox(width: 3.w),
+                           Text(
+                          "You've reached your limit of 1 free message. To continue",
+                             style: GoogleFonts.poppins(
+                               color: const Color(0xFFFF7167),
+                               fontSize: 11.sp,
+                               fontWeight: FontWeight.w400,
+                             ),
+                        ),
+                         ],
+                        ),
+                        Text("   chatting, upgrade to Premium for unlimited messages!",
+                          style: GoogleFonts.poppins(
+                            color: const Color(0xFFFF7167),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 11.sp,
+                          )),
+                      ],
+                    ),
+                  );
+                }
                 return ListView.builder(
                   reverse: true,
                   itemCount: controller.messages.length,
@@ -49,13 +80,12 @@ class MessagePage extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               top: 8, right: 10, left: 8, bottom: 10),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white30,
-                              width: 2.w,
-                            ),
-                            color: Colors.white.withOpacity(0.1),
-                           borderRadius: BorderRadius.circular(20)
-                          ),
+                              border: Border.all(
+                                color: Colors.white30,
+                                width: 2.w,
+                              ),
+                              color: Colors.white.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20)),
                           child: Text(
                             controller.messages[index],
                             style: GoogleFonts.poppins(
@@ -93,7 +123,10 @@ class MessagePage extends StatelessWidget {
                         style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                           hintText: 'Message here...',
-                          hintStyle: TextStyle(color: Colors.white70,fontSize: 14,fontWeight: FontWeight.w400),
+                          hintStyle: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -107,11 +140,11 @@ class MessagePage extends StatelessWidget {
                           textController.clear();
                         }
                       },
-                      // icon: const Icon(
-                      //   Icons.send,
-                      //   color: Colors.white,
-                      // ),
-                      icon: Image.asset(Assetpath.send1,width: 24.w,height: 24.h,),
+                      icon: Image.asset(
+                        Assetpath.send1,
+                        width: 24.w,
+                        height: 24.h,
+                      ),
                     ),
                   ],
                 ),
