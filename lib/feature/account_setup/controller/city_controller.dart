@@ -12,4 +12,3 @@ class CityController extends GetxController {
     selectedCity.value = city;
   }
 }
-

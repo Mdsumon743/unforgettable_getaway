@@ -196,15 +196,25 @@ class CitySelectionScreen extends StatelessWidget {
                 horizontal: 16.w,
                 vertical: 10.h,
               ),
-              child: CustomButton(
-                text: 'Next',
-                textColor: AppColors.darkGrey,
-                backgroundColor: AppColors.yellowColor,
-                onPressed: () {
-                  Get.to(() => const NameBirthdayScreen());
-                },
-                borderRadius: 40,
-              ),
+              child: Obx(() => CustomButton(
+                    text: 'Next',
+                    textColor:
+                        cityController.selectedCity.value == "Select City"
+                            ? AppColors.darkBrown1
+                            : AppColors.whiteColor,
+                    backgroundColor:
+                        cityController.selectedCity.value == "Select City"
+                            ? AppColors.whiteColor.withOpacity(0.5)
+                            : AppColors.yellowColor,
+                    onPressed: () {
+                      if (cityController.selectedCity.value == "Select City") {
+                        debugPrint("select city first");
+                      } else {
+                        Get.to(() => const NameBirthdayScreen());
+                      }
+                    },
+                    borderRadius: 40,
+                  )),
             )
           ],
         ),
