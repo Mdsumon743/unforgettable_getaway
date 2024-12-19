@@ -27,9 +27,9 @@ class SocialLogin extends GetxController {
             body: userCredintial);
 
         if (response.isSuccess) {
-          preferencesHelper.setString(
+          await preferencesHelper.setString(
               "userToken", response.responseData['accessToken']);
-          preferencesHelper.setString("userId", response.responseData['id']);
+       await   preferencesHelper.setString("userId", response.responseData['id']);
           Get.offAllNamed(AppRoute.selectCountry);
           debugPrint("======login===Succes");
           debugPrint("======name===${user.displayName}");
