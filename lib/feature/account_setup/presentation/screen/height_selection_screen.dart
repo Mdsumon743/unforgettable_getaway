@@ -6,7 +6,6 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/interest_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
 
 final List<String> heights = [
