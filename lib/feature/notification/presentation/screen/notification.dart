@@ -9,8 +9,6 @@ class NotificationPage extends StatelessWidget {
     super.key,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     final notificationController = Get.put(NotificationController());
@@ -40,12 +38,12 @@ class NotificationPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: ListView.separated(
         itemBuilder: (context, index) {
-          return ListTile(
+          return Obx(() =>  ListTile(
             leading: CircleAvatar(
               radius: 25.r,
               backgroundColor: Colors.white.withOpacity(0.2),
               child: Image.asset(
-               notificationController.notificationList[index]['leading'],
+                notificationController.notificationList[index]['leading'],
                 fit: BoxFit.cover,
                 height: 28.h,
                 width: 28.w,
@@ -69,40 +67,29 @@ class NotificationPage extends StatelessWidget {
                       : FontWeight.w400,
                   color: Colors.white),
             ),
-            subtitle: !notificationController
-                    .notificationList[index]['subtitle']!.isNotEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        notificationController.notificationList[index]
-                            ['subtitle']!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        notificationController.notificationList[index]['time'],
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
-                  )
-                : Text(
-                    notificationController.notificationList[index]['time'],
-                    style: GoogleFonts.poppins(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+            subtitle: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notificationController.notificationList[index]['subtitle']!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
                   ),
+                ),
+                Text(
+                  notificationController.notificationList[index]['time'],
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
+            ),
             trailing: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -113,7 +100,7 @@ class NotificationPage extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ));
         },
         separatorBuilder: (context, index) {
           return SizedBox(
