@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile.dart';
 
@@ -22,6 +23,9 @@ class DropdownMenuController extends GetxController {
       ),
       items: [
         PopupMenuItem(
+          onTap: () {
+            Get.toNamed(AppRoute.tourpage);
+          },
           value: 'Item 1',
           child: Container(
             color: const Color(0xffFFDF00),
