@@ -14,7 +14,7 @@ class CountrySelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final countrySController = Get.put(CountrySelectionController());
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class CountrySelectionScreen extends StatelessWidget {
             const Divider(color: Colors.white12, thickness: 1),
             GetBuilder<CountrySelectionController>(builder: (controller) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height*0.73,
+                height: MediaQuery.of(context).size.height * 0.73,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   // shrinkWrap: true,
@@ -88,13 +88,13 @@ class CountrySelectionScreen extends StatelessWidget {
                   itemCount: countries.length,
                   itemBuilder: (context, index) {
                     final country = countries[index];
-                        
+
                     if (countrySController.searchText.isNotEmpty &&
                         !country['name']!.toLowerCase().contains(
                             countrySController.searchText.toLowerCase())) {
                       return const SizedBox();
                     }
-                        
+
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Column(
