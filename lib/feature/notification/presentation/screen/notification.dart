@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
-
 
 class NotificationPage extends StatelessWidget {
-   NotificationPage({super.key,});
+  NotificationPage({
+    super.key,
+  });
 
-  final  List<Map<String, dynamic>> data = [
+  final List<Map<String, dynamic>> notificationList = [
     {
       "title": "Booking Cancelled",
       "subtitle": "Your booking for Paris has \ncancelled",
@@ -55,17 +55,15 @@ class NotificationPage extends StatelessWidget {
     },
   ];
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         leading: GestureDetector(
-          onTap: (){
-            Get.to(()=>const EmptyNotificationPage());
+          onTap: () {
+           Get.back();
           },
           child: const Icon(
             Icons.arrow_back,
@@ -90,7 +88,7 @@ class NotificationPage extends StatelessWidget {
               radius: 25.r,
               backgroundColor: Colors.white.withOpacity(0.2),
               child: Image.asset(
-                data[index]['leading'],
+                notificationList[index]['leading'],
                 fit: BoxFit.cover,
                 height: 28.h,
                 width: 28.w,
@@ -98,21 +96,21 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
             title: Text(
-              data[index]['title'],
+              notificationList[index]['title'],
               style: GoogleFonts.poppins(
-                  fontSize: data[index]["size"] ?? false ? 16.sp : 14.sp,
-                  fontWeight: data[index]["size"] ?? false
+                  fontSize: notificationList[index]["size"] ?? false ? 16.sp : 14.sp,
+                  fontWeight: notificationList[index]["size"] ?? false
                       ? FontWeight.w600
                       : FontWeight.w400,
                   color: Colors.white),
             ),
-            subtitle: data[index]['subtitle']!.isNotEmpty
+            subtitle: notificationList[index]['subtitle']!.isNotEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data[index]['subtitle']!,
+                        notificationList[index]['subtitle']!,
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
                           color: Colors.white.withOpacity(0.8),
@@ -120,7 +118,7 @@ class NotificationPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        data[index]['time'],
+                        notificationList[index]['time'],
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.8),
                           fontSize: 14.sp,
@@ -129,7 +127,7 @@ class NotificationPage extends StatelessWidget {
                     ],
                   )
                 : Text(
-                    data[index]['time'],
+                    notificationList[index]['time'],
                     style: GoogleFonts.poppins(
                       color: Colors.white.withOpacity(0.8),
                       fontSize: 14.sp,
@@ -159,7 +157,7 @@ class NotificationPage extends StatelessWidget {
             ),
           );
         },
-        itemCount: data.length,
+        itemCount: notificationList.length,
       ),
     );
   }

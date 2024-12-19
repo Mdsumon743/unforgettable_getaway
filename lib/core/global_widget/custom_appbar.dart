@@ -75,7 +75,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            NotificationPage().data.isEmpty
+                            NotificationPage().notificationList.isEmpty
                                 ? Get.to(() =>  NotificationPage())
                                 : Get.to(() => const EmptyNotificationPage());
                           },
