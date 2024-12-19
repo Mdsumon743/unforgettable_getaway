@@ -25,6 +25,7 @@ class AppRoute {
   static const String selectCity = "/selectCiry";
   static const String namebirthScreen = "/namebirthScreen";
   static const String home = "/home";
+  
   static final route = [
        GetPage(
         name: home,
