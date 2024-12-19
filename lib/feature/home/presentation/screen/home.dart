@@ -9,14 +9,12 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/home/controller/home_controller.dart';
 import 'package:unforgettable_getaway/feature/home/presentation/widget/select_button.dart';
 
-
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
-
 
     return SafeArea(
       child: Scaffold(
