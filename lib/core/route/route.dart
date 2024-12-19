@@ -11,6 +11,7 @@ import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_em
 import 'package:unforgettable_getaway/feature/home/presentation/screen/home.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
 import 'package:unforgettable_getaway/feature/onboarding/presentation/screen/onboarding.dart';
+import 'package:unforgettable_getaway/feature/tour_book/presentation/screen/tour.dart';
 
 class AppRoute {
   static const String onboarding = '/onboarding';
@@ -25,13 +26,18 @@ class AppRoute {
   static const String selectCity = "/selectCiry";
   static const String namebirthScreen = "/namebirthScreen";
   static const String home = "/home";
-  
+  static const String tourpage = "/tourpage";
+
   static final route = [
-       GetPage(
+    GetPage(
+        name: tourpage,
+        page: () => const TourPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
         name: home,
         page: () => const Home(),
         transition: Transition.rightToLeft),
-     GetPage(
+    GetPage(
         name: namebirthScreen,
         page: () => const NameBirthdayScreen(),
         transition: Transition.rightToLeft),
