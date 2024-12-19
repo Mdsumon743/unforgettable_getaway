@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/chip_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
@@ -71,7 +72,7 @@ class InterestSelectionScreen extends StatelessWidget {
                 textColor: AppColors.darkBrown1,
                 backgroundColor: AppColors.whiteColor.withOpacity(0.5),
                 onPressed: () {
-                  // Get.to(() => const GenderSelectionScreen());
+                  Get.toNamed(AppRoute.home);
                 },
                 borderRadius: 40,
               ),

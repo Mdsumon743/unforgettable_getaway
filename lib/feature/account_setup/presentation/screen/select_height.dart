@@ -10,7 +10,6 @@ class SelectHeight extends StatefulWidget {
 }
 
 class _SelectHeightState extends State<SelectHeight> {
-    
   List<String>? heightsCm = [
     "5.5''",
     "5.6''",
@@ -67,7 +66,7 @@ class _SelectHeightState extends State<SelectHeight> {
                         : null,
                   ),
                   child: Text(
-                    heightsCm?[index]??'',
+                    heightsCm?[index] ?? '',
                     style: TextStyle(
                       fontSize: 18.sp,
                     ),
