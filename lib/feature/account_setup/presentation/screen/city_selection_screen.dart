@@ -7,6 +7,8 @@ import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 
+import '../../domain/service/service.dart';
+
 class CitySelectionScreen extends StatelessWidget {
   final String? country;
   final String? flag;
@@ -19,6 +21,7 @@ class CitySelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cityController = Get.put(CityController());
+    final citiesController = Get.put(CitiesController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
@@ -128,53 +131,64 @@ class CitySelectionScreen extends StatelessWidget {
             ),
             Obx(
               () => cityController.arrowDown.value
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.51,
-                      child: ListView.builder(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: cities.length,
-                        itemBuilder: (context, index) {
-                          var city = cities[index];
-                          return InkWell(
-                            onTap: () {
-                              cityController.selectedCity.value = city;
-                            },
-                            child: Center(
-                              child: Obx(
-                                () => Container(
-                                  width: double.infinity,
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 16.h),
-                                  alignment: Alignment.center,
-                                  color: cityController.selectedCity.value ==
-                                          cities[index]
-                                      ? Colors.white10
-                                      : Colors.transparent,
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 12.h,
-                                    horizontal: 12.w,
-                                  ),
-                                  child: Text(
-                                    city,
-                                    style: textStyle(
-                                      16.sp,
-                                      city == cityController.selectedCity.value
-                                          ? AppColors.whiteColor
-                                          : AppColors.whiteColor
-                                              .withOpacity(0.9),
-                                      city == cityController.selectedCity.value
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                  ? citiesController.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.amber,
+                          ),
+                        )
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.51,
+                          child: ListView.builder(
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: citiesController.cities.length,
+                            itemBuilder: (context, index) {
+                              var city = citiesController.cities[index];
+                              return InkWell(
+                                onTap: () {
+                                  cityController.selectedCity.value = city;
+                                },
+                                child: Center(
+                                  child: Obx(
+                                    () => Container(
+                                      width: double.infinity,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 16.h),
+                                      alignment: Alignment.center,
+                                      color:
+                                          cityController.selectedCity.value ==
+                                                  citiesController.cities[index]
+                                              ? Colors.white10
+                                              : Colors.transparent,
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 12.h,
+                                        horizontal: 12.w,
+                                      ),
+                                      child: Text(
+                                        city,
+                                        style: textStyle(
+                                          16.sp,
+                                          city ==
+                                                  cityController
+                                                      .selectedCity.value
+                                              ? AppColors.whiteColor
+                                              : AppColors.whiteColor
+                                                  .withOpacity(0.9),
+                                          city ==
+                                                  cityController
+                                                      .selectedCity.value
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                              );
+                            },
+                          ),
+                        )
                   : const SizedBox(),
             ),
             Padding(
