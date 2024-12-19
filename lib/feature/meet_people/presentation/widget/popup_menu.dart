@@ -27,8 +27,8 @@ class DropdownMenuController extends GetxController {
             Get.toNamed(AppRoute.tourpage);
           },
           value: 'Item 1',
-          child: Container(
-            color: const Color(0xffFFDF00),
+          child: SizedBox(
+            
             width: 160.w,
             height: 50.h,
             child: Row(
