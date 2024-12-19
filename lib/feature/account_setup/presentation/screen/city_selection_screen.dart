@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
@@ -209,7 +210,7 @@ class CitySelectionScreen extends StatelessWidget {
                       if (cityController.selectedCity.value == "Select City") {
                         debugPrint("select city first");
                       } else {
-                        Get.to(() => const NameBirthdayScreen());
+                        Get.toNamed(AppRoute.namebirthScreen);
                       }
                     },
                     borderRadius: 40,
