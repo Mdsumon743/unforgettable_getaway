@@ -57,9 +57,7 @@ class ChipList extends StatelessWidget {
 //     ),
 //   );
 // }
-  Widget buildChip(
-  String label,
-) {
+Widget buildChip(String label, {int? size}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Chip(
@@ -85,7 +83,7 @@ class ChipList extends StatelessWidget {
             label,
             style: GoogleFonts.poppins(
                 color: Colors.white,
-                fontSize: 14.sp,
+                fontSize: size != null ? size.sp : 14.sp,
                 fontWeight: FontWeight.w400),
           ),
         ],
@@ -93,4 +91,3 @@ class ChipList extends StatelessWidget {
     ),
   );
 }
-

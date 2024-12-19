@@ -146,6 +146,7 @@ class CitySelectionScreen extends StatelessWidget {
                               return InkWell(
                                 onTap: () {
                                   cityController.selectedCity.value = city;
+                                  cityController.selectCity(city);
                                 },
                                 child: Center(
                                   child: Obx(

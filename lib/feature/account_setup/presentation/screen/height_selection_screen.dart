@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
@@ -25,7 +26,7 @@ class HeightPickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountController = Get.put(AccountController());
     return Scaffold(
-       backgroundColor: AppColors.darkBrown,
+      backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +130,8 @@ class HeightPickerScreen extends StatelessWidget {
                     textColor: AppColors.darkBrown1,
                     backgroundColor: AppColors.yellowColor,
                     onPressed: () {
-                      Get.to(() => const InterestSelectionScreen());
+                      // Get.to(() => const InterestSelectionScreen());
+                      Get.toNamed(AppRoute.interestSelectionScreen);
                     },
                     borderRadius: 40,
                   ),
@@ -137,7 +139,7 @@ class HeightPickerScreen extends StatelessWidget {
                   CustomButton(
                     text: 'Skip',
                     textColor: AppColors.yellowColor,
-                     backgroundColor: AppColors.darkBrown,
+                    backgroundColor: AppColors.darkBrown,
                     onPressed: () {
                       // Get.to(() => const HeightPickerScreen());
                     },

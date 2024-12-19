@@ -52,6 +52,8 @@ dependencies:
   firebase_messaging: ^15.1.6
   flutter_local_notifications: ^18.0.1
   webview_flutter: ^4.10.0
+  easy_date_timeline: ^2.0.6
+
   
 
   
