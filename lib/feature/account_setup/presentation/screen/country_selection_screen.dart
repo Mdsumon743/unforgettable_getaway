@@ -117,7 +117,12 @@ class CountrySelectionScreen extends StatelessWidget {
                               debugPrint('Selected: ${country['name']}');
                               countrySController.selectCountry(
                                   true, country['name']!, country['flag']!);
-                              // Get.to(const CitySelectionScreen());
+                                Get.to(
+                          () => CitySelectionScreen(
+                            country: controller.selectedCountry,
+                            flag: controller.flag,
+                          ),
+                        );
                             },
                           ),
                           const Divider(color: Colors.white12, thickness: 1),
