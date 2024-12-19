@@ -41,4 +41,14 @@ class Assetpath {
   static const String searchList = "assets/images/search_list.png";
   static const String popup1 = "assets/icons/popup1.png";
   static const String popup2 = "assets/icons/popup2.png";
+  static const String check= "assets/icons/check.png";
+  static const String visa= "assets/images/visa.png";
+  static const String paypal= "assets/images/paypal.png";
+  static const String pay= "assets/images/pay.png";
+  static const String gpay= "assets/images/gpay.png";
+  static const String creditcard= "assets/images/creditcard.png";
+  static const String cross= "assets/images/cross.png";
+  static const String finalpic= "assets/images/finalpic.png";
+  static const String send2= "assets/images/send2.png";
+
 }

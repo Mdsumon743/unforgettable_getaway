@@ -6,7 +6,6 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/PaymentController.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/screen/final_page.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/widget/custom_payment.dart';
-
 import '../../../../core/global_widget/custom_text_popins.dart';
 
 class PaymentMethod extends StatelessWidget {

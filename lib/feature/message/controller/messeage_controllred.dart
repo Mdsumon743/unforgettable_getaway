@@ -5,9 +5,6 @@ class MessageController extends GetxController {
   var isSecondMessageTriggered = false.obs;
   void sendMessage(String message) {
     messages.add(message);
-    // if (message.isNotEmpty) {
-    //   messages.insert(0, message);
-    // }
     if(messages.length == 2){
       isSecondMessageTriggered.value = true;
     }
@@ -19,3 +16,9 @@ class SwitchController extends GetxController {
     isSwitched.value = value;
   }
 }
+// class PremiumController extends GetxController {
+//   var pri = false.obs;
+//   void toggleSwitch1(String pri) {
+//     pri.value = pri;
+//   }
+// }
