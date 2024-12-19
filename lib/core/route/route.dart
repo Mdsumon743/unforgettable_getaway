@@ -8,8 +8,13 @@ import 'package:unforgettable_getaway/feature/auth/presentation/screen/login.dar
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/login_or_signup_screen.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_screen.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
+import 'package:unforgettable_getaway/feature/home/presentation/screen/home.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
+import 'package:unforgettable_getaway/feature/notification/presentation/screen/show_notification.dart';
 import 'package:unforgettable_getaway/feature/onboarding/presentation/screen/onboarding.dart';
+import 'package:unforgettable_getaway/feature/tour_book/presentation/screen/tour.dart';
 
 class AppRoute {
   static const String onboarding = '/onboarding';
@@ -23,8 +28,34 @@ class AppRoute {
   static const String createPasword = "/createPassword";
   static const String selectCity = "/selectCiry";
   static const String namebirthScreen = "/namebirthScreen";
+  static const String home = "/home";
+  static const String tourpage = "/tourpage";
+  static const String emtynotification = "/emtynotification";
+  static const String notification = "/notification";
+  static const String shownotification = "/shownotification";
+
   static final route = [
+      GetPage(
+        name: shownotification,
+        page: () => const  ShowNotification(),
+        transition: Transition.rightToLeft),
      GetPage(
+        name: emtynotification,
+        page: () =>  NotificationPage(),
+        transition: Transition.rightToLeft),
+        GetPage(
+        name: emtynotification,
+        page: () => const EmptyNotificationPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: tourpage,
+        page: () => const TourPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: home,
+        page: () => const Home(),
+        transition: Transition.rightToLeft),
+    GetPage(
         name: namebirthScreen,
         page: () => const NameBirthdayScreen(),
         transition: Transition.rightToLeft),

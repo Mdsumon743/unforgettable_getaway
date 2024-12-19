@@ -78,9 +78,9 @@ class MeetPeople extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.r)),
         onPressed: () {
-          ChatListPage().data.isNotEmpty ?
-              Get.to(()=> const SearchListPage()) :
-              Get.to(()=> ChatListPage());
+          ChatListPage().data.isNotEmpty
+              ? Get.to(() => const SearchListPage())
+              : Get.to(() => ChatListPage());
         },
         child: SvgPicture.asset('assets/icons/sms.svg'),
       ),

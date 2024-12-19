@@ -2,70 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
-
+import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
 
 class NotificationPage extends StatelessWidget {
-   NotificationPage({super.key,});
-
-  final  List<Map<String, dynamic>> data = [
-    {
-      "title": "Booking Cancelled",
-      "subtitle": "Your booking for Paris has \ncancelled",
-      "time": "42 minutes ago",
-      "leading": Assetpath.boking,
-      "size": true,
-    },
-    {
-      "title": "Ama Likes your profile  ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Cristian Likes your \nprofile",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Lea Rose loves your \nprofile",
-      "subtitle": "",
-      "time": "1 day ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "You have new conversation \nwith Lara",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Chloe Mae Likes your \nprofile ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-    {
-      "title": "Jhony Likes your \nprofile ",
-      "subtitle": "",
-      "time": "15 minutes ago",
-      "leading": Assetpath.noti2,
-    },
-  ];
-
+  const NotificationPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-
+    final notificationController = Get.put(NotificationController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.black,
         leading: GestureDetector(
-          onTap: (){
-            Get.to(()=>const EmptyNotificationPage());
+          onTap: () {
+            Get.back();
           },
           child: const Icon(
             Icons.arrow_back,
@@ -85,12 +38,12 @@ class NotificationPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: ListView.separated(
         itemBuilder: (context, index) {
-          return ListTile(
+          return Obx(() =>  ListTile(
             leading: CircleAvatar(
               radius: 25.r,
               backgroundColor: Colors.white.withOpacity(0.2),
               child: Image.asset(
-                data[index]['leading'],
+                notificationController.notificationList[index]['leading'],
                 fit: BoxFit.cover,
                 height: 28.h,
                 width: 28.w,
@@ -98,44 +51,45 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
             title: Text(
-              data[index]['title'],
+              notificationController.notificationList[index]['title'],
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: GoogleFonts.poppins(
-                  fontSize: data[index]["size"] ?? false ? 16.sp : 14.sp,
-                  fontWeight: data[index]["size"] ?? false
+                  fontSize: notificationController.notificationList[index]
+                              ["size"] ??
+                          false
+                      ? 16.sp
+                      : 14.sp,
+                  fontWeight: notificationController.notificationList[index]
+                              ["size"] ??
+                          false
                       ? FontWeight.w600
                       : FontWeight.w400,
                   color: Colors.white),
             ),
-            subtitle: data[index]['subtitle']!.isNotEmpty
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data[index]['subtitle']!,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        data[index]['time'],
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
-                  )
-                : Text(
-                    data[index]['time'],
-                    style: GoogleFonts.poppins(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+            subtitle: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  notificationController.notificationList[index]['subtitle']!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
                   ),
+                ),
+                Text(
+                  notificationController.notificationList[index]['time'],
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
+            ),
             trailing: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -146,7 +100,7 @@ class NotificationPage extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ));
         },
         separatorBuilder: (context, index) {
           return SizedBox(
@@ -159,7 +113,7 @@ class NotificationPage extends StatelessWidget {
             ),
           );
         },
-        itemCount: data.length,
+        itemCount: notificationController.notificationList.length,
       ),
     );
   }
