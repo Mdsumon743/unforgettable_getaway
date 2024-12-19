@@ -201,7 +201,7 @@ class CitySelectionScreen extends StatelessWidget {
                     textColor:
                         cityController.selectedCity.value == "Select City"
                             ? AppColors.darkBrown1
-                            : AppColors.whiteColor,
+                            : Colors.black,
                     backgroundColor:
                         cityController.selectedCity.value == "Select City"
                             ? AppColors.whiteColor.withOpacity(0.5)
