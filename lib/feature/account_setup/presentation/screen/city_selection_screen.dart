@@ -7,21 +7,20 @@ import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 
+import '../../controller/country_selection_controller.dart';
 import '../../domain/service/service.dart';
 
 class CitySelectionScreen extends StatelessWidget {
-  final String? country;
-  final String? flag;
   const CitySelectionScreen({
     super.key,
-    this.country,
-    this.flag,
   });
 
   @override
   Widget build(BuildContext context) {
     final cityController = Get.put(CityController());
     final citiesController = Get.put(CitiesController());
+    final countrySController = Get.put(CountrySelectionController());
+
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
@@ -54,12 +53,12 @@ class CitySelectionScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            flag ?? "",
+                            countrySController.flag,
                             style: const TextStyle(fontSize: 24),
                           ),
                           SizedBox(width: 8.0.w),
                           Text(
-                            country ?? "",
+                            countrySController.selectedCountry,
                             style: textStyle(
                               16.sp,
                               AppColors.whiteColor.withOpacity(0.9),

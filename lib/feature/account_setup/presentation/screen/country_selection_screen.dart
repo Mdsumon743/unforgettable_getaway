@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/domain/service/service.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/city_selection_screen.dart';
 
 class CountrySelectionScreen extends StatelessWidget {
   const CountrySelectionScreen({super.key});
@@ -120,11 +120,8 @@ class CountrySelectionScreen extends StatelessWidget {
                                   .fetchCities(country["name"].toString());
                               countrySController.selectCountry(
                                   true, country['name']!, country['flag']!);
-                              Get.to(
-                                () => CitySelectionScreen(
-                                  country: controller.selectedCountry,
-                                  flag: controller.flag,
-                                ),
+                              Get.toNamed(
+                                AppRoute.selectCity 
                               );
                             },
                           ),
