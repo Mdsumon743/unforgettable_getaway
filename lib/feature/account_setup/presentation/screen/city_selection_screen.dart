@@ -6,8 +6,6 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
-
 import '../../controller/country_selection_controller.dart';
 import '../../domain/service/service.dart';
 
