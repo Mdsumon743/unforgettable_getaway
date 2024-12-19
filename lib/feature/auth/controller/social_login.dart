@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 
 import '../../../core/helper/shared_prefarences_helper.dart';
 
@@ -18,7 +19,7 @@ class SocialLogin extends GetxController {
           "username": user.displayName.toString(),
           "email": user.email.toString(),
           "profileImage": user.photoUrl.toString(),
-          "fcpmToken": "akn nai pore dimo"
+          "fcpmToken": preferencesHelper.getString("fcm_token")
         };
 
         final response = await NetworkCaller().postRequest(
@@ -26,9 +27,11 @@ class SocialLogin extends GetxController {
             body: userCredintial);
 
         if (response.isSuccess) {
-          preferencesHelper.setString(
+          await preferencesHelper.setString(
               "userToken", response.responseData['accessToken']);
-          preferencesHelper.setString("userId", response.responseData['id']);
+          await preferencesHelper.setString(
+              "userId", response.responseData['id']);
+          Get.offAllNamed(AppRoute.selectCountry);
           debugPrint("======login===Succes");
           debugPrint("======name===${user.displayName}");
           debugPrint("======email===${user.email}");
