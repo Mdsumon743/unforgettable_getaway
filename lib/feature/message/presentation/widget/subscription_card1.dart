@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/completed_premium.dart';
 
 class SubcriptionCard1 extends StatelessWidget {
-  const SubcriptionCard1({super.key});
+  final String img;
+  final String text;
+   SubcriptionCard1({
+     required this.img,
+     required this.text,
+     super.key,
+   });
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +49,19 @@ class SubcriptionCard1 extends StatelessWidget {
                     SizedBox(
                       width: 10.w,
                     ),
-                    CustomTextPopins(
-                      text: "Unlimited Message",
-                      fontWeight: FontWeight.w500,
-                      size: 12.sp,
-                      color: const Color(0xff333329),
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(()=> CompletedPremium(
+                       img: img ,
+                          text: text,
+                        ));
+                      },
+                      child: CustomTextPopins(
+                        text: "Unlimited Message",
+                        fontWeight: FontWeight.w500,
+                        size: 12.sp,
+                        color: const Color(0xff333329),
+                      ),
                     )
                   ],
                 ),

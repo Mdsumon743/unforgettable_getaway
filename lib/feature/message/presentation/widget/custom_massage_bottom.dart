@@ -28,7 +28,7 @@ class CustomMassageBottom extends StatelessWidget {
                 color: Colors.white.withOpacity(0.75),
               ),
               suffixIcon: Obx((){
-                return Container(
+                return  Container(
                   child: Icon(Icons.add),
                 );
               }),
