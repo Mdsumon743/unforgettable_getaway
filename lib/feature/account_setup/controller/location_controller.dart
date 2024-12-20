@@ -8,9 +8,10 @@ import 'package:geocoding/geocoding.dart';
 class LocationController extends GetxController {
   var country = "Unknown".obs;
   var city = "Unknown".obs;
+  var latitude = 0.0.obs;
+  var longitude = 0.0.obs;
   var isLoading = false.obs;
 
-  /// Check if location services are enabled, prompt if not
   Future<bool> checkLocationServices() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -19,7 +20,6 @@ class LocationController extends GetxController {
         middleText: "Please enable location services to use this feature.",
         confirm: ElevatedButton(
           onPressed: () async {
-           
             await Geolocator.openLocationSettings();
             Get.back();
           },
@@ -34,7 +34,6 @@ class LocationController extends GetxController {
     return serviceEnabled;
   }
 
-  
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled = await checkLocationServices();
     if (!serviceEnabled) {
@@ -63,6 +62,8 @@ class LocationController extends GetxController {
       isLoading.value = true;
 
       Position position = await getCurrentLocation();
+      latitude.value = position.latitude;
+      longitude.value = position.longitude;
 
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
@@ -79,6 +80,8 @@ class LocationController extends GetxController {
     } finally {
       debugPrint("========$city");
       debugPrint("========$country");
+      debugPrint("========$latitude");
+      debugPrint("========$longitude");
       isLoading.value = false;
     }
   }

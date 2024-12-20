@@ -10,6 +10,7 @@ import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/location_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
 
 class AccountController extends GetxController {
@@ -23,6 +24,7 @@ class AccountController extends GetxController {
   Map<String, dynamic> bodyData = {};
   TextEditingController nameEditingController = TextEditingController();
   final countryController = Get.put(CountrySelectionController());
+  final locationcontroller = Get.put(LocationController());
   final cityController = Get.put(CityController());
 
   Future<void> selectDate(BuildContext context, String type) async {
@@ -141,6 +143,8 @@ class AccountController extends GetxController {
     String month = selectedDate.value?.month.toString() ?? '';
     String year = selectedDate.value?.year.toString() ?? '';
     String gender = genderSelectedValue.value == 0 ? 'FEMALE' : 'MALE';
+    var latitude = locationcontroller.latitude;
+    var longitude = locationcontroller.longitude;
 
     String height = heights[heightSelectedIndex.value];
     List userfavoriteList = favoriteList.toList();
@@ -153,7 +157,9 @@ class AccountController extends GetxController {
       "gender": gender,
       "height": height,
       "dateOfBirth": "$day-$month-$year",
-      "interests": userfavoriteList
+      "interests": userfavoriteList,
+      "locationLat": latitude.toString(),
+      "locationLang": longitude.toString(),
     };
     bodyData = userInformation;
     debugPrint("====bodyData======$bodyData");
