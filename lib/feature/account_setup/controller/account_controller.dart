@@ -102,10 +102,28 @@ class AccountController extends GetxController {
   }
 
   void addFavoritList(String interestItem) {
-    favoriteList.add(interestItem);
+    if (!favoriteList.contains(interestItem)) {
+      if (favoriteList.length < 5) {
+        favoriteList.add(interestItem);
+      } else {
+        debugPrint(
+            'The list already contains 5 items. Remove an item to add a new one.');
+      }
+    } else {
+      debugPrint('The item "$interestItem" is already in the list.');
+    }
   }
 
-  void saveUserInformation() {
+void deleteFavoriteItemByIndex(int index) {
+  if (index >= 0 && index < favoriteList.length) {
+    final removedItem = favoriteList.removeAt(index);
+    debugPrint('The item "$removedItem" at index $index has been removed from the list.');
+  } else {
+    debugPrint('Invalid index: $index. Unable to remove item.');
+  }
+}
+
+  Map<String, dynamic> saveUserInformation() {
     String country = countryController.selectedCountry;
     String city = cityController.selectedCity.value;
     String name = nameEditingController.text;
@@ -116,8 +134,17 @@ class AccountController extends GetxController {
     String height = heights[heightSelectedIndex.value];
     List userfavoriteList = favoriteList;
     debugPrint(userfavoriteList.toString());
-    // Map<String, dynamic> userInformation= {
-
-    // }
+    Map<String, dynamic> userInformation = {
+      "fullName": name,
+      "country": country,
+      "city": city,
+      "gender": gender,
+      "height": height,
+      "dateOfBirth": "$day-$month-$year",
+      "interests": favoriteList
+    };
+    debugPrint(userfavoriteList.toString());
+    debugPrint("==========$userInformation");
+    return userInformation;
   }
 }

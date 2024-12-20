@@ -46,7 +46,7 @@ class InterestSelectionScreen extends StatelessWidget {
                       FontWeight.w400,
                     ),
                   ),
-                  SizedBox(height: 36.h),
+                  SizedBox(height: 20.h),
                   Obx(
                     () => GridView.builder(
                       shrinkWrap: true,
@@ -55,23 +55,35 @@ class InterestSelectionScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var favoriteListItem =
                             accountController.favoriteList[index];
-                        return Wrap(
-                          spacing: 6.0,
-                          runSpacing: -5.0,
-                          runAlignment: WrapAlignment.spaceAround,
-                          children: [
-                            buildChip(favoriteListItem, size: 10),
-                          ],
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Wrap(
+                            spacing: 10.0,
+                            runSpacing: -5.0,
+                            runAlignment: WrapAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                  borderRadius: BorderRadius.circular(30),
+                                  onLongPress: () {
+                                    accountController
+                                        .deleteFavoriteItemByIndex(index);
+                                  },
+                                  child: buildChip(favoriteListItem, size: 10)),
+                            ],
+                          ),
                         );
                       },
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        mainAxisSpacing: 0.0,
-                        // crossAxisSpacing: 0.0,
-                        childAspectRatio: 2.5,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 3.0,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Text(
                     'You might like...',
@@ -100,7 +112,8 @@ class InterestSelectionScreen extends StatelessWidget {
                   onPressed: () {
                     accountController.saveUserInformation();
                     if (accountController.favoriteList.length >= 5) {
-                     Get.toNamed(AppRoute.home);
+                      accountController.saveUserInformation();
+                      Get.toNamed(AppRoute.home);
                     }
                     // Get.to(() => const GenderSelectionScreen());
                   },
