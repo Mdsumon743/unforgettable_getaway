@@ -119,7 +119,7 @@ class InterestSelectionScreen extends StatelessWidget {
                         onPressed: () {
                           if (accountController.favoriteList.length >= 5) {
                             accountController.saveUserInformation();
-                            accountController.accoutSetupSubmit();
+                            accountController.submitUserData();
                           }
                         },
                         borderRadius: 40,
@@ -131,7 +131,7 @@ class InterestSelectionScreen extends StatelessWidget {
                 backgroundColor: AppColors.darkBrown,
                 onPressed: () {
                   accountController.saveUserInformation();
-                  accountController.accoutSetupSubmit();
+                  accountController.submitUserData();
                 },
                 borderRadius: 40.r,
               )

@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
-import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
+import 'package:http/http.dart' as http;
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
@@ -137,9 +140,11 @@ class AccountController extends GetxController {
     String day = selectedDate.value?.day.toString() ?? '';
     String month = selectedDate.value?.month.toString() ?? '';
     String year = selectedDate.value?.year.toString() ?? '';
-    String gender = genderSelectedValue.value == 0 ? 'Woman' : 'Men';
+    String gender = genderSelectedValue.value == 0 ? 'FEMALE' : 'MALE';
+
     String height = heights[heightSelectedIndex.value];
-    List userfavoriteList = favoriteList;
+    List userfavoriteList = favoriteList.toList();
+
     debugPrint(userfavoriteList.toString());
     Map<String, dynamic> userInformation = {
       "fullName": name,
@@ -148,36 +153,49 @@ class AccountController extends GetxController {
       "gender": gender,
       "height": height,
       "dateOfBirth": "$day-$month-$year",
-      "interests": favoriteList
+      "interests": userfavoriteList
     };
     bodyData = userInformation;
     debugPrint("====bodyData======$bodyData");
     return userInformation;
   }
 
-  Future<void> accoutSetupSubmit() async {
-    isLoading.value = true;
+  Future<void> submitUserData({File? profileImage}) async {
     await preferencesHelper.init();
-    var token = preferencesHelper.getString('userToken');
+    var token = preferencesHelper.getString("userToken");
     if (token != null) {
-      
       try {
-        final response = await NetworkCaller().putRequest(
-            Utils.baseUrl + Utils.profile,
-            token: token,
-            body: bodyData);
-        if (response.isSuccess) {
-          debugPrint("======${response.responseData}");
+        isLoading.value = true;
+        final url = Uri.parse('${Utils.baseUrl}${Utils.profile}');
+        debugPrint("============$url");
+        var request = http.MultipartRequest('PUT', url);
+        request.headers.addAll({
+          'Authorization': 'Bearer $token',
+        });
+        request.fields['bodyData'] = jsonEncode(bodyData);
+        if (profileImage != null) {
+          request.files.add(await http.MultipartFile.fromPath(
+            'profileImage',
+            profileImage.path,
+          ));
+        }
+
+        var streamedResponse = await request.send();
+
+        var response = await http.Response.fromStream(streamedResponse);
+
+        if (response.statusCode == 200) {
+          debugPrint('====Success: ${response.body}');
           Get.toNamed(AppRoute.home);
+        } else {
+          debugPrint('====Error: ${response.statusCode}, ${response.body}');
         }
       } catch (e) {
         isLoading.value = false;
-        debugPrint("======$e");
+        debugPrint('====An error occurred: $e');
       } finally {
         isLoading.value = false;
       }
-    } else {
-      debugPrint("=======Token not found");
     }
   }
 }
