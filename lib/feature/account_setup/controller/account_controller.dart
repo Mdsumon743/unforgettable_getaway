@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
+import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
+import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
 
 class AccountController extends GetxController {
+  SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   RxInt genderSelectedValue = 0.obs;
   RxInt heightSelectedIndex = 2.obs;
+  RxBool isLoading = false.obs;
   RxList favoriteList = [].obs;
   Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   RxInt userAge = 0.obs;
+  Map<String, dynamic> bodyData = {};
   TextEditingController nameEditingController = TextEditingController();
   final countryController = Get.put(CountrySelectionController());
   final cityController = Get.put(CityController());
@@ -42,8 +49,7 @@ class AccountController extends GetxController {
           content: SizedBox(
             width: 20.w,
             child: ConstrainedBox(
-              constraints:
-                  BoxConstraints(maxHeight: 300.h), // Constrain the height
+              constraints: BoxConstraints(maxHeight: 300.h),
               child: ListView.builder(
                 itemCount: 12,
                 shrinkWrap: true,
@@ -114,14 +120,15 @@ class AccountController extends GetxController {
     }
   }
 
-void deleteFavoriteItemByIndex(int index) {
-  if (index >= 0 && index < favoriteList.length) {
-    final removedItem = favoriteList.removeAt(index);
-    debugPrint('The item "$removedItem" at index $index has been removed from the list.');
-  } else {
-    debugPrint('Invalid index: $index. Unable to remove item.');
+  void deleteFavoriteItemByIndex(int index) {
+    if (index >= 0 && index < favoriteList.length) {
+      final removedItem = favoriteList.removeAt(index);
+      debugPrint(
+          'The item "$removedItem" at index $index has been removed from the list.');
+    } else {
+      debugPrint('Invalid index: $index. Unable to remove item.');
+    }
   }
-}
 
   Map<String, dynamic> saveUserInformation() {
     String country = countryController.selectedCountry;
@@ -143,8 +150,34 @@ void deleteFavoriteItemByIndex(int index) {
       "dateOfBirth": "$day-$month-$year",
       "interests": favoriteList
     };
-    debugPrint(userfavoriteList.toString());
-    debugPrint("==========$userInformation");
+    bodyData = userInformation;
+    debugPrint("====bodyData======$bodyData");
     return userInformation;
+  }
+
+  Future<void> accoutSetupSubmit() async {
+    isLoading.value = true;
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString('userToken');
+    if (token != null) {
+      
+      try {
+        final response = await NetworkCaller().putRequest(
+            Utils.baseUrl + Utils.profile,
+            token: token,
+            body: bodyData);
+        if (response.isSuccess) {
+          debugPrint("======${response.responseData}");
+          Get.toNamed(AppRoute.home);
+        }
+      } catch (e) {
+        isLoading.value = false;
+        debugPrint("======$e");
+      } finally {
+        isLoading.value = false;
+      }
+    } else {
+      debugPrint("=======Token not found");
+    }
   }
 }

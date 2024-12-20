@@ -28,7 +28,7 @@ class NetworkCaller {
       headers['Authorization'] = 'Bearer $token';
     }
     headers['Content-Type'] = 'application/json';
-
+    log('Request Header: $headers');
     log('Request Method: $method');
     log('Request URL: $parsedUrl');
     if (body != null) log('Request Body: ${jsonEncode(body)}');

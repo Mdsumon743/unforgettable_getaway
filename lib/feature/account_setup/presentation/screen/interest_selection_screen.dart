@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/chip_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
-import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
@@ -101,31 +100,40 @@ class InterestSelectionScreen extends StatelessWidget {
                 height: 100.h,
               ),
               Obx(
-                () => CustomButton(
-                  text: 'Next',
-                  textColor: accountController.favoriteList.length >= 5
-                      ? const Color(0XFF0D0D0C)
-                      : AppColors.darkBrown1,
-                  backgroundColor: accountController.favoriteList.length >= 5
-                      ? AppColors.yellowColor
-                      : AppColors.whiteColor.withOpacity(0.5),
-                  onPressed: () {
-                    accountController.saveUserInformation();
-                    if (accountController.favoriteList.length >= 5) {
-                      accountController.saveUserInformation();
-                      Get.toNamed(AppRoute.home);
-                    }
-                    // Get.to(() => const GenderSelectionScreen());
-                  },
-                  borderRadius: 40,
-                ),
+                () => accountController.favoriteList.length >= 5 &&
+                        accountController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.amber,
+                        ),
+                      )
+                    : CustomButton(
+                        text: 'Next',
+                        textColor: accountController.favoriteList.length >= 5
+                            ? const Color(0XFF0D0D0C)
+                            : AppColors.darkBrown1,
+                        backgroundColor:
+                            accountController.favoriteList.length >= 5
+                                ? AppColors.yellowColor
+                                : AppColors.whiteColor.withOpacity(0.5),
+                        onPressed: () {
+                          if (accountController.favoriteList.length >= 5) {
+                            accountController.saveUserInformation();
+                            accountController.accoutSetupSubmit();
+                          }
+                        },
+                        borderRadius: 40,
+                      ),
               ),
               CustomButton(
                 text: 'Skip',
                 textColor: AppColors.yellowColor,
                 backgroundColor: AppColors.darkBrown,
-                onPressed: () {},
-                borderRadius: 40,
+                onPressed: () {
+                  accountController.saveUserInformation();
+                  accountController.accoutSetupSubmit();
+                },
+                borderRadius: 40.r,
               )
             ],
           ),

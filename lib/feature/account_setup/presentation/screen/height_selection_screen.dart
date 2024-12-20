@@ -46,7 +46,6 @@ final List<String> heights = [
   '6\'10',
   '6\'11',
   '7\'0',
-
 ];
 
 class HeightPickerScreen extends StatelessWidget {
@@ -171,7 +170,7 @@ class HeightPickerScreen extends StatelessWidget {
                     textColor: AppColors.yellowColor,
                     backgroundColor: AppColors.darkBrown,
                     onPressed: () {
-                      // Get.to(() => const HeightPickerScreen());
+                      Get.toNamed(AppRoute.interestSelectionScreen);
                     },
                     borderRadius: 40,
                   ),
