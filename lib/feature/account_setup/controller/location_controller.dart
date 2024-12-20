@@ -1,4 +1,3 @@
-
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class LocationController extends GetxController {
         middleText: "Please enable location services to use this feature.",
         confirm: ElevatedButton(
           onPressed: () async {
-            // Open device settings to enable location services
+           
             await Geolocator.openLocationSettings();
             Get.back();
           },
@@ -35,7 +34,7 @@ class LocationController extends GetxController {
     return serviceEnabled;
   }
 
-  /// Get user's current location (latitude and longitude)
+  
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled = await checkLocationServices();
     if (!serviceEnabled) {
@@ -55,20 +54,16 @@ class LocationController extends GetxController {
           'Location permissions are permanently denied. We cannot request permissions.');
     }
 
-    // Get the current position
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  /// Get address from latitude and longitude
   Future<void> getAddressFromCoordinates() async {
     try {
       isLoading.value = true;
 
-      // Get current location
       Position position = await getCurrentLocation();
 
-      // Perform reverse geocoding
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
 
@@ -90,10 +85,8 @@ class LocationController extends GetxController {
 
   @override
   void onInit() {
-   
     super.onInit();
     getCurrentLocation();
     getAddressFromCoordinates();
-    
   }
 }
