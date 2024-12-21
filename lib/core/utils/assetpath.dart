@@ -50,5 +50,6 @@ class Assetpath {
   static const String cross= "assets/images/cross.png";
   static const String finalpic= "assets/images/finalpic.png";
   static const String send2= "assets/images/send2.png";
-
+  static const String video = "assets/icons/video.png";
+  static const String audio = "assets/icons/audio.png";
 }

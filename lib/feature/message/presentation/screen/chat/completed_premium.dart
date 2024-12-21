@@ -24,7 +24,7 @@ class CompletedPremium extends StatelessWidget {
         profileImage: img,
         userName: text,
         statusText: 'Active now',
-        showCallIcon: false,
+        showCallIcon: true,
       ),
       backgroundColor: const Color(0xff1A1110),
       body: Column(

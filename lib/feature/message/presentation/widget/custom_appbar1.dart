@@ -14,7 +14,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.profileImage,
     required this.userName,
     required this.statusText,
-    this.showCallIcon = true,
+    this.showCallIcon = false,
   });
   final SwitchController controller = Get.put(SwitchController());
   final MessageController controller1 = Get.put(MessageController());
@@ -77,6 +77,16 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
             actions: [
+              if (showCallIcon)
+                IconButton(
+                    onPressed: () {},
+                    icon: IconButton(
+                        onPressed: () {}, icon: Image.asset(Assetpath.video))),
+              if (showCallIcon)
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset(Assetpath.audio),
+                ),
               PopupMenuButton(
                 icon: const Icon(Icons.more_vert_outlined, color: Colors.white),
                 color: const Color(0xFFFFFDF2),
@@ -145,16 +155,6 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ];
                 },
               ),
-              if (showCallIcon)
-                IconButton(
-                    onPressed: () {},
-                    icon: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.call))),
-              if (showCallIcon)
-                IconButton(
-                  icon: Icon(Icons.call, color: Colors.white, size: 24.sp),
-                  onPressed: () {},
-                ),
             ],
           );
       }
