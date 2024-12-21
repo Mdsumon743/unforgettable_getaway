@@ -10,7 +10,6 @@ import '../../../message/presentation/screen/chat/chat_list.dart';
 import '../../../message/presentation/screen/chat/search_list.dart';
 
 class MeetPeople extends StatelessWidget {
-  
   const MeetPeople({super.key});
 
   @override

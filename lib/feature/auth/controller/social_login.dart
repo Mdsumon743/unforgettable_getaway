@@ -31,7 +31,12 @@ class SocialLogin extends GetxController {
               "userToken", response.responseData['accessToken']);
           await preferencesHelper.setString(
               "userId", response.responseData['id']);
-          Get.offAllNamed(AppRoute.selectCountry);
+          var accountSetup = response.responseData["accountSetup"];
+          if (accountSetup == false) {
+            Get.offAllNamed(AppRoute.selectCountry);
+          } else {
+            Get.offAllNamed(AppRoute.meet);
+          }
           debugPrint("======login===Succes");
           debugPrint("======name===${user.displayName}");
           debugPrint("======email===${user.email}");

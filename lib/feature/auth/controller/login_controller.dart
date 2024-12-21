@@ -35,7 +35,13 @@ class LoginController extends GetxController {
         preferencesHelper.setString(
             "userToken", response.responseData['accessToken']);
         preferencesHelper.setString("userId", response.responseData['id']);
+        var accountSetup = response.responseData["accountSetup"];
+        if(accountSetup == false){
         Get.offAllNamed(AppRoute.selectCountry);
+        }else{
+          Get.offAllNamed(AppRoute.meet);
+        }
+        
         Get.snackbar(
           "Succes",
           "Login Succesfull",
