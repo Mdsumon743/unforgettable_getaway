@@ -15,9 +15,11 @@ class EmptyNotificationPage extends StatelessWidget {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
-          onTap: (){
-           Get.back();
-          },
+            onTap: () {
+              Get.back();
+
+              // Get.to(()=> NotificationPage());
+            },
             child: const Icon(Icons.arrow_back, color: Colors.white)),
         centerTitle: true,
         title: Text(
@@ -45,9 +47,8 @@ class EmptyNotificationPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             Text(
-              '''Come back here to get information about match and messages, profile insights 
-amd much more!''',
-              textAlign: TextAlign.center,
+              '''   Come back here to get information about \n        match and messages, profile insights 
+                          amd much more!''',
               style: GoogleFonts.poppins(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,

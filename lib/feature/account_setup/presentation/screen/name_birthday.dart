@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/gender_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
 
 class NameBirthdayScreen extends StatelessWidget {
@@ -124,7 +124,7 @@ class NameBirthdayScreen extends StatelessWidget {
                         : AppColors.yellowColor,
                     onPressed: () {
                       if (acccountController.userAge >= 18) {
-                        Get.to(() => const GenderSelectionScreen());
+                        Get.toNamed(AppRoute.gender);
                       } else {}
                     },
                     borderRadius: 40,

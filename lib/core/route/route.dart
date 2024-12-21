@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/city_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/country_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/gender_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/height_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/interest_selection_screen.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/name_birthday.dart';
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/create_password.dart';
@@ -11,6 +13,7 @@ import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_s
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
 import 'package:unforgettable_getaway/feature/home/presentation/screen/home.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/show_notification.dart';
@@ -34,19 +37,34 @@ class AppRoute {
   static const String emtynotification = "/emtynotification";
   static const String notification = "/notification";
   static const String shownotification = "/shownotification";
+  static const String searchLocaiton = "/searchLoacation";
+  static const String gender = "/gender";
+  static const String height = "/height";
 
   static const String interestSelectionScreen = "/interestSelectionScreen";
 
   static final route = [
-      GetPage(
-        name: shownotification,
-        page: () => const  ShowNotification(),
-        transition: Transition.rightToLeft),
-     GetPage(
-        name: emtynotification,
-        page: () =>  const NotificationPage(),
+          GetPage(
+        name: height,
+        page: () => const HeightPickerScreen(),
         transition: Transition.rightToLeft),
         GetPage(
+        name: gender,
+        page: () => const GenderSelectionScreen(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: searchLocaiton,
+        page: () => const SearchLocation(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: shownotification,
+        page: () => const ShowNotification(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: emtynotification,
+        page: () => const NotificationPage(),
+        transition: Transition.rightToLeft),
+    GetPage(
         name: emtynotification,
         page: () => const EmptyNotificationPage(),
         transition: Transition.rightToLeft),
@@ -58,7 +76,6 @@ class AppRoute {
         name: home,
         page: () => const Home(),
         transition: Transition.rightToLeft),
-
     GetPage(
         name: namebirthScreen,
         page: () => const NameBirthdayScreen(),

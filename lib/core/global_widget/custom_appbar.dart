@@ -7,6 +7,7 @@ import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +19,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
     final FilterController filterController = Get.put(FilterController());
+    final ProfileController profileController = Get.put(ProfileController());
     final TextEditingController textEditingController = TextEditingController();
+    var userData = profileController.userData.value;
     return AppBar(
       scrolledUnderElevation: 0,
       toolbarHeight: 165.h,
@@ -46,7 +49,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextPopins(
-                          text: 'Hello, Kim David 👋',
+                          max: 1,
+                          textOverflow: TextOverflow.ellipsis,
+                          text: 'Hello, ${userData?.fullName ?? "N/A"} 👋',
                           color: Colors.white,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -61,7 +66,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               width: 5.w,
                             ),
                             CustomTextPopins(
-                              text: 'Chiro, Egypt',
+                              max: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                              text:
+                                  '${userData?.city ?? "N/A"}, ${userData?.country ?? "N/A"}',
                               color: Colors.white,
                               size: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -74,7 +82,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                        Get.toNamed(AppRoute.shownotification);
+                            Get.toNamed(AppRoute.shownotification);
                           },
                           child: Image.asset(Assetpath.notification),
                         ),

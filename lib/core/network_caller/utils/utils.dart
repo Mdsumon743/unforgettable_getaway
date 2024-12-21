@@ -7,5 +7,5 @@ class Utils {
   static const pin = "/auth/verify-otp";
   static const reset = "/auth/reset-password";
   static const profile = "/profiles";
-
+  static const getme = "/profiles/getMe";
 }
