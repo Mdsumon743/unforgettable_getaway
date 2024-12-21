@@ -10,6 +10,7 @@ class DropdownMenuController extends GetxController {
   RxString selectedItem = 'Item 1'.obs;
 
   void showPopupMenu(BuildContext context) async {
+    // ignore: unused_local_variable
     final result = await showMenu(
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),

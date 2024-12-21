@@ -117,12 +117,14 @@ class MessagePage extends StatelessWidget {
                         if (controller.messages.length >= 2) {
                           showDialog(
                               context: context,
+                              barrierDismissible: false,
                               builder: (BuildContext context) {
-                                return  Column(
+                                return Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Center(
-                                      child: SubcriptionCard1(img: img, text: text),
+                                      child: SubcriptionCard1(
+                                          img: img, text: text),
                                     ),
                                   ],
                                 );
