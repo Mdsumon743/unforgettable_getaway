@@ -19,7 +19,6 @@ void main() async {
       Get.put(NotificationController());
   await SharedPreferencesHelper().init();
   fcmController.onInit();
-
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
