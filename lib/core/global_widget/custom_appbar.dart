@@ -49,6 +49,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomTextPopins(
+                          max: 1,
+                          textOverflow: TextOverflow.ellipsis,
                           text: 'Hello, ${userData?.fullName ?? "N/A"} 👋',
                           color: Colors.white,
                           size: 16.sp,
@@ -64,6 +66,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               width: 5.w,
                             ),
                             CustomTextPopins(
+                              max: 1,
+                              textOverflow: TextOverflow.ellipsis,
                               text:
                                   '${userData?.city ?? "N/A"}, ${userData?.country ?? "N/A"}',
                               color: Colors.white,
