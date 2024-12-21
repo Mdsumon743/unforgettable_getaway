@@ -25,6 +25,7 @@ class SearchLocation extends StatelessWidget {
               children: [
                 const CustomTextFieldSearch(
                   keyboardType: TextInputType.text,
+                  color: Colors.white,
                   hintText: 'Search for people by city ',
                   prefixIcon: Icon(
                     Icons.search,
