@@ -14,8 +14,8 @@ class ShowCustomMenuController extends GetxController {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       context: context,
       position: RelativeRect.fromLTRB(
-        MediaQuery.of(context).size.width - 150,
-        90.0,
+        MediaQuery.of(context).size.width - 140,
+        45.0,
         0.0,
         0.0,
       ),
@@ -52,7 +52,6 @@ class ShowCustomMenuController extends GetxController {
           value: 'Item 2',
           child: SizedBox(
             width: 160.w,
-            // height: 50.h,
             height: 30.h,
             child: Row(
               children: [

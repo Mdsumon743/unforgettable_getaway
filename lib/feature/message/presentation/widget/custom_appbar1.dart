@@ -79,23 +79,30 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         if (showCallIcon)
-          IconButton(
-              onPressed: () {},
-              icon: IconButton(
-                  onPressed: () {}, icon: Image.asset(Assetpath.video))),
-        if (showCallIcon)
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(Assetpath.audio),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(Assetpath.video),
+              ),
+              SizedBox(height: 5.h),
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(Assetpath.audio),
+              ),
+            ],
           ),
+        SizedBox(width: 10.w,),
         GestureDetector(
-            onTap: () {
-              controller.showPopupMenu1(context);
-            },
-            child: const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            )),
+          onTap: () {
+            controller.showPopupMenu1(context);
+          },
+          child: const Icon(
+            Icons.more_vert,
+            color: Colors.white,
+          ),
+        ),
       ],
     );
   }
