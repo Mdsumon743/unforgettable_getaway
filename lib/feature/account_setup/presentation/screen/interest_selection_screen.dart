@@ -120,8 +120,10 @@ class InterestSelectionScreen extends StatelessWidget {
                                 : AppColors.whiteColor.withOpacity(0.5),
                         onPressed: () {
                           if (accountController.favoriteList.length >= 5) {
+                             profileController.getUserProfiles();
                             accountController.saveUserInformation();
                             accountController.submitUserData();
+
                           }
                         },
                         borderRadius: 40,

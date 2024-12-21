@@ -38,69 +38,70 @@ class NotificationPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: ListView.separated(
         itemBuilder: (context, index) {
-          return Obx(() =>  ListTile(
-            leading: CircleAvatar(
-              radius: 25.r,
-              backgroundColor: Colors.white.withOpacity(0.2),
-              child: Image.asset(
-                notificationController.notificationList[index]['leading'],
-                fit: BoxFit.cover,
-                height: 28.h,
-                width: 28.w,
-                color: const Color(0xFFFFF9CC),
-              ),
-            ),
-            title: Text(
-              notificationController.notificationList[index]['title'],
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: GoogleFonts.poppins(
-                  fontSize: notificationController.notificationList[index]
-                              ["size"] ??
-                          false
-                      ? 16.sp
-                      : 14.sp,
-                  fontWeight: notificationController.notificationList[index]
-                              ["size"] ??
-                          false
-                      ? FontWeight.w600
-                      : FontWeight.w400,
-                  color: Colors.white),
-            ),
-            subtitle: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  notificationController.notificationList[index]['subtitle']!,
+          return Obx(() => ListTile(
+                leading: CircleAvatar(
+                  radius: 25.r,
+                  backgroundColor: Colors.white.withOpacity(0.2),
+                  child: Image.asset(
+                    notificationController.notificationList[index]['leading'],
+                    fit: BoxFit.cover,
+                    height: 28.h,
+                    width: 28.w,
+                    color: const Color(0xFFFFF9CC),
+                  ),
+                ),
+                title: Text(
+                  notificationController.notificationList[index]['title'],
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 14.sp,
-                  ),
+                      fontSize: notificationController.notificationList[index]
+                                  ["size"] ??
+                              false
+                          ? 16.sp
+                          : 14.sp,
+                      fontWeight: notificationController.notificationList[index]
+                                  ["size"] ??
+                              false
+                          ? FontWeight.w600
+                          : FontWeight.w400,
+                      color: Colors.white),
                 ),
-                Text(
-                  notificationController.notificationList[index]['time'],
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 14.sp,
-                  ),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      notificationController.notificationList[index]
+                          ['subtitle']!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    Text(
+                      notificationController.notificationList[index]['time'],
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            trailing: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.circle,
-                  color: Color(0xFFFFDF00),
-                  size: 20,
+                trailing: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      color: Color(0xFFFFDF00),
+                      size: 20,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ));
+              ));
         },
         separatorBuilder: (context, index) {
           return SizedBox(
