@@ -48,20 +48,12 @@ class MessagePage extends StatelessWidget {
                             CustomTextPopins(
                               textAlign: TextAlign.center,
                               text:
-                                  "You've reached your limit of 1 free message. To continue",
+                                  "You've reached your limit of 1 free message. To continue \nchatting, upgrade to Premium for unlimited messages!",
                               color: const Color(0xFFFF7167),
                               fontWeight: FontWeight.w400,
                               size: 11.sp,
                             ),
                           ],
-                        ),
-                        CustomTextPopins(
-                          textAlign: TextAlign.center,
-                          text:
-                              "\t  \tchatting, upgrade to Premium for unlimited messages!",
-                          color: const Color(0xFFFF7167),
-                          fontWeight: FontWeight.w400,
-                          size: 11.sp,
                         ),
                       ],
                     ),
