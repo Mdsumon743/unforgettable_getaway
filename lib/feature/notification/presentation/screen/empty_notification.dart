@@ -4,9 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
-
-
-
 class EmptyNotificationPage extends StatelessWidget {
   const EmptyNotificationPage({super.key});
 
@@ -18,12 +15,11 @@ class EmptyNotificationPage extends StatelessWidget {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         leading: GestureDetector(
-          onTap: (){
-           Get.back();
+            onTap: () {
+              Get.back();
 
-            // Get.to(()=> NotificationPage());
-
-          },
+              // Get.to(()=> NotificationPage());
+            },
             child: const Icon(Icons.arrow_back, color: Colors.white)),
         centerTitle: true,
         title: Text(
