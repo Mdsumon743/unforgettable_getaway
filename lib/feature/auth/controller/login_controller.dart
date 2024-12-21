@@ -21,7 +21,6 @@ class LoginController extends GetxController {
       "password": passText.text.trim(),
       "fcpmToken": preferencesHelper.getString("fcm_token")
     };
-
     try {
       await preferencesHelper.init();
       isLoading.value = true;
@@ -47,7 +46,6 @@ class LoginController extends GetxController {
             }
           },
         );
-
         Get.snackbar(
           "Succes",
           "Login Succesfull",

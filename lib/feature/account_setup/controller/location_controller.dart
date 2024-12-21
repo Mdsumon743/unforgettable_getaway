@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 
 class LocationController extends GetxController {
-  var country = "Unknown".obs;
-  var city = "Unknown".obs;
+  final selectCity = Get.put(CityController());
+  final selectCountry = Get.put(CountrySelectionController());
+  var country = "".obs;
+  var city = "".obs;
   var latitude = 0.0.obs;
   var longitude = 0.0.obs;
   var isLoading = false.obs;
@@ -44,14 +49,26 @@ class LocationController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        Get.snackbar(
+          "Permission Denied",
+          "Location permission is required to proceed.",
+          snackPosition: SnackPosition.BOTTOM,
+        );
         throw Exception('Location permissions are denied.');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
+      Get.snackbar(
+        "Permission Denied Forever",
+        "Please enable location permissions from app settings.",
+        snackPosition: SnackPosition.BOTTOM,
+      );
       throw Exception(
           'Location permissions are permanently denied. We cannot request permissions.');
     }
+
+    Get.toNamed(AppRoute.namebirthScreen);
 
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -78,6 +95,8 @@ class LocationController extends GetxController {
     } catch (e) {
       debugPrint('Error fetching location: $e');
     } finally {
+      selectCity.selectedCity.value = city.value;
+      selectCountry.selectedCountry.value = country.value;
       debugPrint("========$city");
       debugPrint("========$country");
       debugPrint("========$latitude");

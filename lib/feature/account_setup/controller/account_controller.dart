@@ -26,6 +26,7 @@ class AccountController extends GetxController {
   final countryController = Get.put(CountrySelectionController());
   final locationcontroller = Get.put(LocationController());
   final cityController = Get.put(CityController());
+  final locationController = Get.put(LocationController());
 
   Future<void> selectDate(BuildContext context, String type) async {
     final DateTime? picked = await showDatePicker(
@@ -136,8 +137,8 @@ class AccountController extends GetxController {
   }
 
   Map<String, dynamic> saveUserInformation() {
-    String country = countryController.selectedCountry;
-    String city = cityController.selectedCity.value;
+    String? country = countryController.selectedCountry.value ;
+    String? city = cityController.selectedCity.value;
     String name = nameEditingController.text;
     String day = selectedDate.value?.day.toString() ?? '';
     String month = selectedDate.value?.month.toString() ?? '';
