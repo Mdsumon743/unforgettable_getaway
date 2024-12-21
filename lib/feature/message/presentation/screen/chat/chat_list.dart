@@ -103,11 +103,11 @@ class ChatListPage extends StatelessWidget {
                 child: ListView.separated(
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: (){
-                          Get.to(()=> MessagePage(
-                            img: data[index]['leading'],
-                            text: data[index]["title"],
-                          ));
+                        onTap: () {
+                          Get.to(() => MessagePage(
+                                img: data[index]['leading'],
+                                text: data[index]["title"],
+                              ));
                         },
                         child: ListTile(
                           title: Text(
@@ -156,7 +156,7 @@ class ChatListPage extends StatelessWidget {
                                       alignment: Alignment.center,
                                       child: Text(
                                         "2",
-                                         style: GoogleFonts.poppins(
+                                        style: GoogleFonts.poppins(
                                           color: const Color(0xFF1A1110),
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w400,

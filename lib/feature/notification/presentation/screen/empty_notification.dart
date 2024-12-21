@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
+
+
+
 class EmptyNotificationPage extends StatelessWidget {
   const EmptyNotificationPage({super.key});
 
@@ -17,6 +20,9 @@ class EmptyNotificationPage extends StatelessWidget {
         leading: GestureDetector(
           onTap: (){
            Get.back();
+
+            // Get.to(()=> NotificationPage());
+
           },
             child: const Icon(Icons.arrow_back, color: Colors.white)),
         centerTitle: true,
@@ -45,9 +51,8 @@ class EmptyNotificationPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             Text(
-              '''Come back here to get information about match and messages, profile insights 
-amd much more!''',
-              textAlign: TextAlign.center,
+              '''   Come back here to get information about \n        match and messages, profile insights 
+                          amd much more!''',
               style: GoogleFonts.poppins(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,

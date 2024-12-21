@@ -53,4 +53,8 @@ class Assetpath {
   static const String tour = "assets/images/booking.png";
   static const String date = "assets/images/finddate.png";
   static const String creative = "assets/images/creative.png";
+  static const String send2= "assets/images/send2.png";
+  static const String video = "assets/icons/video.png";
+  static const String audio = "assets/icons/audio.png";
 }
+

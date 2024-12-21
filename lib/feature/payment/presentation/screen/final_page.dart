@@ -18,7 +18,6 @@ class FinalPage extends StatelessWidget {
          }, icon:Image.asset(Assetpath.cross,height: 24.h,width: 24.w,))
 
         ],
-
       ),
       body:Column(
         mainAxisAlignment:MainAxisAlignment.center,
