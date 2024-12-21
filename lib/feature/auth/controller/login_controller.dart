@@ -4,11 +4,13 @@ import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart
 import 'package:unforgettable_getaway/core/route/route.dart';
 import '../../../core/network_caller/service/service.dart';
 import '../../../core/network_caller/utils/utils.dart';
+import '../../profile/controller/profile_controller.dart';
 
 class LoginController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   TextEditingController emailText = TextEditingController();
   TextEditingController passText = TextEditingController();
+  final profileController = Get.put(ProfileController());
 
   RxBool isLoading = false.obs;
 
@@ -35,13 +37,17 @@ class LoginController extends GetxController {
         preferencesHelper.setString(
             "userToken", response.responseData['accessToken']);
         preferencesHelper.setString("userId", response.responseData['id']);
-        var accountSetup = response.responseData["accountSetup"];
-        if(accountSetup == false){
-        Get.offAllNamed(AppRoute.selectCountry);
-        }else{
-          Get.offAllNamed(AppRoute.meet);
-        }
-        
+        bool? accountSetup = response.responseData["accountSetup"] ?? false;
+        profileController.getUserProfiles().then(
+          (value) {
+            if (accountSetup == false) {
+              Get.offAllNamed(AppRoute.selectCountry);
+            } else {
+              Get.offAllNamed(AppRoute.meet);
+            }
+          },
+        );
+
         Get.snackbar(
           "Succes",
           "Login Succesfull",
