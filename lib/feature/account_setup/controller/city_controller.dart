@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CityController extends GetxController {
@@ -10,5 +11,6 @@ class CityController extends GetxController {
 
   void selectCity(String city) {
     selectedCity.value = city;
+    debugPrint("+++++++++++++${selectedCity.value}");
   }
 }

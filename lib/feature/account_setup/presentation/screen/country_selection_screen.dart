@@ -5,6 +5,7 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/location_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/domain/service/service.dart';
 
 class CountrySelectionScreen extends StatelessWidget {
@@ -14,6 +15,8 @@ class CountrySelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final countrySController = Get.put(CountrySelectionController());
     final citiesController = Get.put(CitiesController());
+    // ignore: unused_local_variable
+    final locationController = Get.put(LocationController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(

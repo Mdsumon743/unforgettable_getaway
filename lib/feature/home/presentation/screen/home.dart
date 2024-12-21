@@ -10,7 +10,9 @@ import 'package:unforgettable_getaway/feature/home/controller/home_controller.da
 import 'package:unforgettable_getaway/feature/home/presentation/widget/select_button.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
