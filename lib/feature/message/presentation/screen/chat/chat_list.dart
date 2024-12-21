@@ -143,23 +143,23 @@ class ChatListPage extends StatelessWidget {
                                         color: Colors.white.withOpacity(0.9),
                                       ),
                                     ),
-                                    Container(
-                                      height: 20.h,
-                                      width: 20.w,
-                                      margin:
-                                          EdgeInsets.only(top: 5.h, left: 40.h),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFFFDF00),
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "2",
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFF1A1110),
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
+                                    Flexible(
+                                      child: Container(
+                                        height: 15.h,
+                                        width: 15.w,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFDF00),
+                                          borderRadius:
+                                              BorderRadius.circular(12.r),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "2",
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF1A1110),
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
                                     ),

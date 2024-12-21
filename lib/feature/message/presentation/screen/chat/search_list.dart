@@ -17,35 +17,35 @@ class SearchListPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.r),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.h),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: CustomTextPopins(
-                  text: "Chats",
-                  color: const Color(0xFFFFFFFF),
-                  size: 24.sp,
-                  fontWeight: FontWeight.w500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: CustomTextPopins(
+                    text: "Chats",
+                    color: const Color(0xFFFFFFFF),
+                    size: 24.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.h),
-              CustomTextFieldSearch(
-                ontap: () {
-                  Get.to(() => ChatListPage());
-                },
-                hintText: "Search",
-                color: Colors.white.withOpacity(0.8),
-                prefixIcon: Icon(
-                  Icons.search,
+                SizedBox(height: 10.h),
+                CustomTextFieldSearch(
+                  ontap: () {
+                    Get.to(() => ChatListPage());
+                  },
+                  hintText: "Search",
                   color: Colors.white.withOpacity(0.8),
-                  size: 18.w,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white.withOpacity(0.8),
+                    size: 18.w,
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                child: Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(Assetpath.searchList),
@@ -70,8 +70,8 @@ class SearchListPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

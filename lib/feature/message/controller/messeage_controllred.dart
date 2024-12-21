@@ -5,6 +5,15 @@ class SwitchController extends GetxController {
     isSwitched.value = value;
   }
 }
+
+
+class PopupMenuController extends GetxController {
+  var selectedOption = ''.obs;
+  void selectOption(String value) {
+    selectedOption.value = value;
+  }
+}
+
 class MessageController extends GetxController {
   var messages = <String>[].obs;
   var isSecondMessageTriggered = false.obs;
