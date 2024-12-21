@@ -35,7 +35,7 @@ class MessagePage extends StatelessWidget {
               child: Obx(() {
                 if (controller.isSecondMessageTriggered.value) {
                   return Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
