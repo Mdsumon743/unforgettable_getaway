@@ -37,6 +37,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final FocusNode focusNode = FocusNode();
     return TextFormField(
       controller: controller,
       obscureText: obscureText ?? false,
@@ -53,7 +54,9 @@ class CustomTextField extends StatelessWidget {
               fontSize: 16.sp,
             ),
       minLines: min,
+      focusNode: focusNode,
       decoration: InputDecoration(
+        
         enabled: enable ?? true,
         hintText: hintText,
         hintStyle: textStyle(
