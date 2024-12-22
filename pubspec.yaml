@@ -55,6 +55,7 @@ dependencies:
   easy_date_timeline: ^2.0.6
   geolocator: ^13.0.2
   geocoding: ^3.0.0
+  web_socket_channel: ^3.0.1
 
   
 
