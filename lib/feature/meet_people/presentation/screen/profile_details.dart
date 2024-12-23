@@ -81,4 +81,6 @@ class ProfileDetails extends StatelessWidget {
       ),
     );
   }
+
+  static ProfileDetails? fromJson(Map<String, dynamic> jsonData) {}
 }

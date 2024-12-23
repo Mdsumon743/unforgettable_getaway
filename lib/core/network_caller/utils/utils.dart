@@ -8,4 +8,5 @@ class Utils {
   static const reset = "/auth/reset-password";
   static const profile = "/profiles";
   static const getme = "/profiles/getMe";
+  static const  getsingleProfile = "/profiles/";
 }
