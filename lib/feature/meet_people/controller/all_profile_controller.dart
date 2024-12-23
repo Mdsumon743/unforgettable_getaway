@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/feature/meet_people/model/all_profile.dart';
-
+import 'dart:isolate';
 import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
@@ -31,18 +31,14 @@ class AllProfileController extends GetxController {
           if (jsonData is Map<String, dynamic>) {
             if (jsonData['success'] == true && jsonData['data'] is List) {
               List<dynamic> dataList = jsonData['data'];
-              allProfiles.value = dataList
-                  .map((profileData) => ProfileResponse.fromJson(profileData))
-                  .toList();
+              await _processProfilesInIsolate(dataList);
               debugPrint("Profiles retrieved: ${allProfiles.length}");
               debugPrint("===========: ${allProfiles.length}");
             } else {
               debugPrint("Invalid response data structure");
             }
           } else if (jsonData is List) {
-            allProfiles.value = jsonData
-                .map((profileData) => ProfileResponse.fromJson(profileData))
-                .toList();
+            await _processProfilesInIsolate(jsonData);
             debugPrint("Profiles retrieved: ${allProfiles.length}");
             debugPrint("Profiles =========: $allProfiles");
           } else {
@@ -59,6 +55,29 @@ class AllProfileController extends GetxController {
     } else {
       debugPrint("Token is null");
     }
+  }
+
+  Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
+    final receivePort = ReceivePort();
+
+    await Isolate.spawn<List<dynamic>>(
+      _isolateEntry,
+      [receivePort.sendPort, dataList],
+    );
+
+    final result = await receivePort.first as List<ProfileResponse>;
+    allProfiles.value = result;
+  }
+
+  static void _isolateEntry(List<dynamic> args) {
+    final sendPort = args[0] as SendPort;
+    final dataList = args[1] as List<dynamic>;
+
+    final processedProfiles = dataList
+        .map((profileData) => ProfileResponse.fromJson(profileData))
+        .toList();
+
+    sendPort.send(processedProfiles);
   }
 
   @override

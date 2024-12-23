@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/core/global_widget/custom_animation_text.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
@@ -45,7 +47,8 @@ class CustomProfileViewCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                   image: DecorationImage(
                       repeat: ImageRepeat.repeat,
-                      image: NetworkImage(image ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
+                      image: NetworkImage(
+                          image ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
                       fit: BoxFit.fill)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,13 +65,14 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomTextPopins(
-                            max: 1,
-                            textOverflow: TextOverflow.ellipsis,
-                            text: "$name$age $country",
-                            fontWeight: FontWeight.w600,
-                            size: 13.sp,
-                            color: Colors.white,
+                          SizedBox(
+                            width: 120.w,
+                            child: CustomAnimationText(
+                                text: "$name,$age $country",
+                                textStyle: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
+                                    color: Colors.white)),
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 2),
@@ -84,13 +88,14 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         children: [
                           Image.asset(Assetpath.onLocation),
-                          CustomTextPopins(
-                            max: 1,
-                            textOverflow: TextOverflow.ellipsis,
-                            text: "$adress",
-                            size: 11.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
+                          SizedBox(
+                            width: 120.w,
+                            child: CustomAnimationText(
+                                text: "$adress",
+                                textStyle: GoogleFonts.poppins(
+                                    fontSize: 11.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400)),
                           ),
                         ],
                       ),
