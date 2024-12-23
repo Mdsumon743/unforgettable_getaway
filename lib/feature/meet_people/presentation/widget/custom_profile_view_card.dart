@@ -11,7 +11,6 @@ class CustomProfileViewCard extends StatelessWidget {
   final String? age;
   final String? image;
   final String? country;
-  final bool? status;
   final String? adress;
   final String? distance;
   const CustomProfileViewCard(
@@ -21,7 +20,6 @@ class CustomProfileViewCard extends StatelessWidget {
       this.name,
       this.age,
       this.country,
-      this.status,
       this.adress,
       this.distance,
       this.image});
@@ -47,7 +45,7 @@ class CustomProfileViewCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                   image: DecorationImage(
                       repeat: ImageRepeat.repeat,
-                      image: AssetImage(image ?? "assets/images/pic.png"),
+                      image: NetworkImage(image ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
                       fit: BoxFit.fill)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,6 +63,8 @@ class CustomProfileViewCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomTextPopins(
+                            max: 1,
+                            textOverflow: TextOverflow.ellipsis,
                             text: "$name$age $country",
                             fontWeight: FontWeight.w600,
                             size: 13.sp,
@@ -85,6 +85,8 @@ class CustomProfileViewCard extends StatelessWidget {
                         children: [
                           Image.asset(Assetpath.onLocation),
                           CustomTextPopins(
+                            max: 1,
+                            textOverflow: TextOverflow.ellipsis,
                             text: "$adress",
                             size: 11.sp,
                             fontWeight: FontWeight.w400,

@@ -246,4 +246,6 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+
+  static fromJson(e) {}
 }
