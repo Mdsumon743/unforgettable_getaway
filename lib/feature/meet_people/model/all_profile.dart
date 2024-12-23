@@ -1,5 +1,6 @@
 class ProfileResponse {
   final String id;
+  final String? userId; // Added userId property
   final String? fullName;
   final String? age;
   final String? profileImage;
@@ -8,10 +9,11 @@ class ProfileResponse {
   final String? city;
   final UserStatus? user;
   final String? status;
-  final String? flag; // Added flag property
+  final String? flag; // Existing flag property
 
   ProfileResponse({
     required this.id,
+    this.userId,
     this.fullName,
     this.age,
     this.profileImage,
@@ -20,12 +22,13 @@ class ProfileResponse {
     this.city,
     this.user,
     this.status,
-    this.flag, // Include flag in the constructor
+    this.flag,
   });
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
     return ProfileResponse(
       id: json['id'] as String,
+      userId: json['userId'] as String?,
       fullName: json['fullName'] as String?,
       age: json['age'] as String?,
       profileImage: json['profileImage'] as String?,
@@ -34,13 +37,14 @@ class ProfileResponse {
       city: json['city'] as String?,
       user: json['user'] != null ? UserStatus.fromJson(json['user']) : null,
       status: json['status'] as String?,
-      flag: json['flag'] as String?, // Parse flag from JSON
+      flag: json['flag'] as String?, 
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'userId': userId,
       'fullName': fullName,
       'age': age,
       'profileImage': profileImage,
@@ -49,7 +53,7 @@ class ProfileResponse {
       'city': city,
       'user': user?.toJson(),
       'status': status,
-      'flag': flag, // Include flag in JSON output
+      'flag': flag,
     };
   }
 }
