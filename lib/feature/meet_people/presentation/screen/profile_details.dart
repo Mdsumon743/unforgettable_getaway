@@ -1,47 +1,74 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:get/get.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_circle_button.dart';
 
 class ProfileDetails extends StatelessWidget {
-  const ProfileDetails({super.key});
+  const ProfileDetails({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final profileDetailsController = Get.put(ProfileDetailsController());
+    var data = profileDetailsController.profileDetailsData.value;
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(0),
-                child: Container(
-                  height: 15.h,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24.r),
-                          topRight: Radius.circular(24.r)),
-                      color: const Color(0xff1A1110)),
-                )),
-            elevation: 0,
-            backgroundColor: const Color(0xff1A1110),
-            leading: const SizedBox(),
-            expandedHeight: 350.h,
-            floating: true,
-            scrolledUnderElevation: 0,
-            flexibleSpace: FlexibleSpaceBar(
-                expandedTitleScale: 1,
-                background: Image.asset(
-                  Assetpath.profile1,
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                )),
-          ),
-          buildDetails()
-        ],
-      ),
+      body: Obx(() => profileDetailsController.isLoading.value
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.amber,
+              ),
+            )
+          : CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(0),
+                      child: Container(
+                        height: 15.h,
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(24.r),
+                                topRight: Radius.circular(24.r)),
+                            color: const Color(0xff1A1110)),
+                      )),
+                  elevation: 0,
+                  backgroundColor: const Color(0xff1A1110),
+                  leading: const SizedBox(),
+                  expandedHeight: 350.h,
+                  floating: true,
+                  scrolledUnderElevation: 0,
+                  flexibleSpace: FlexibleSpaceBar(
+                      expandedTitleScale: 1,
+                      background: CachedNetworkImage(
+                        imageUrl: data?.profileImage ??
+                            "https://i.ibb.co.com/nrs3FjM/images.png",
+                      )),
+                ),
+                buildDetails(
+                  
+                  name: data?.fullName ?? "Unknown",
+                  address:
+                      "${data?.city ?? "Unknown"} ${data?.country ?? "Unknown"}",
+                  age: data?.age ?? "Unknown",
+                  about: data?.age ?? "Unknown",
+                  flag: data?.flag ?? "Unknown",
+                  gellery: data?.gallery ?? [],
+                  height: data?.height ?? "Unknown",
+                  interst: "Unknown",
+                  intersted: data?.interests ?? [],
+                  language: data?.language ?? "Unknown",
+                  relationshipStatus: data?.relationship ?? "Unknown",
+                  status: "Unknown",
+                  work: data?.work ?? "Unknown",
+                )
+              ],
+            )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         padding: EdgeInsets.all(15.r),
@@ -81,6 +108,4 @@ class ProfileDetails extends StatelessWidget {
       ),
     );
   }
-
-  static ProfileDetails? fromJson(Map<String, dynamic> jsonData) {}
 }

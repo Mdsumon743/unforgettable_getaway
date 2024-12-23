@@ -8,6 +8,7 @@ import '../../../core/network_caller/utils/utils.dart';
 
 class ProfileDetailsController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  RxBool isLoading = false.obs;
   Rx<SingleProfileDetails?> profileDetailsData =
       Rx<SingleProfileDetails?>(null);
 
@@ -17,6 +18,7 @@ class ProfileDetailsController extends GetxController {
     debugPrint("Token: $token");
     if (token != null) {
       try {
+        isLoading.value = true;
         final response = await NetworkCaller().getRequest(
             Utils.baseUrl + Utils.getsingleProfile + userID,
             token: token);
@@ -34,7 +36,10 @@ class ProfileDetailsController extends GetxController {
           debugPrint("Failed to retrieve data: ${response.responseData}");
         }
       } catch (e) {
+        isLoading.value = false;
         debugPrint("Error occurred: $e");
+      } finally {
+        isLoading.value = false;
       }
     } else {
       debugPrint("Token is null");
