@@ -1,7 +1,7 @@
 class ProfileResponse {
   final String id;
   final String? fullName;
-  final int? age;
+  final String? age;
   final String? profileImage;
   final String isVerified;
   final String? country;
@@ -27,7 +27,7 @@ class ProfileResponse {
     return ProfileResponse(
       id: json['id'] as String,
       fullName: json['fullName'] as String?,
-      age: json['age'] as int?,
+      age: json['age'] as String?,
       profileImage: json['profileImage'] as String?,
       isVerified: json['isVerified'] as String,
       country: json['country'] as String?,

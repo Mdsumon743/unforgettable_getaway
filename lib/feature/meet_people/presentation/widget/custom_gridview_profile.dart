@@ -38,6 +38,7 @@ class CustomGridviewProfile extends StatelessWidget {
               }
               return GestureDetector(
                 onTap: () {
+                  debugPrint("=========${data.country}");
                   Get.to(() => const ProfileDetails());
                 },
                 child: CustomProfileViewCard(

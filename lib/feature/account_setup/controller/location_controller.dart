@@ -42,7 +42,7 @@ class LocationController extends GetxController {
   Future<Position> getCurrentLocation() async {
     bool serviceEnabled = await checkLocationServices();
     if (!serviceEnabled) {
-      throw Exception('Location services are disabled.');
+      debugPrint("Your Location Service disable");
     }
 
     LocationPermission permission = await Geolocator.checkPermission();
