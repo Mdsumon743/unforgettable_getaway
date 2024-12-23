@@ -9,7 +9,7 @@ class ProfileResponse {
   final String? city;
   final UserStatus? user;
   final String? status;
-  final String? flag; // Existing flag property
+  final String? flag; 
 
   ProfileResponse({
     required this.id,
