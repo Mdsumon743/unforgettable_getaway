@@ -137,7 +137,7 @@ class AccountController extends GetxController {
   }
 
   Map<String, dynamic> saveUserInformation() {
-    String? country = countryController.selectedCountry.value ;
+    String? country = countryController.selectedCountry.value;
     String? city = cityController.selectedCity.value;
     String name = nameEditingController.text;
     String day = selectedDate.value?.day.toString() ?? '';
@@ -146,6 +146,7 @@ class AccountController extends GetxController {
     String gender = genderSelectedValue.value == 0 ? 'FEMALE' : 'MALE';
     var latitude = locationcontroller.latitude;
     var longitude = locationcontroller.longitude;
+    var flag = countryController.flag;
 
     String height = heights[heightSelectedIndex.value];
     List userfavoriteList = favoriteList.toList();
@@ -161,6 +162,7 @@ class AccountController extends GetxController {
       "interests": userfavoriteList,
       "locationLat": latitude.toString(),
       "locationLang": longitude.toString(),
+      "flag": flag
     };
     bodyData = userInformation;
     debugPrint("====bodyData======$bodyData");

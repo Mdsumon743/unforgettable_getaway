@@ -8,6 +8,7 @@ class ProfileResponse {
   final String? city;
   final UserStatus? user;
   final String? status;
+  final String? flag; // Added flag property
 
   ProfileResponse({
     required this.id,
@@ -19,6 +20,7 @@ class ProfileResponse {
     this.city,
     this.user,
     this.status,
+    this.flag, // Include flag in the constructor
   });
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class ProfileResponse {
       city: json['city'] as String?,
       user: json['user'] != null ? UserStatus.fromJson(json['user']) : null,
       status: json['status'] as String?,
+      flag: json['flag'] as String?, // Parse flag from JSON
     );
   }
 
@@ -46,6 +49,7 @@ class ProfileResponse {
       'city': city,
       'user': user?.toJson(),
       'status': status,
+      'flag': flag, // Include flag in JSON output
     };
   }
 }

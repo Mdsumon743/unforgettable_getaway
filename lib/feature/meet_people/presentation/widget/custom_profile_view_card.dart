@@ -65,15 +65,14 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: 120.w,
-                            child: CustomAnimationText(
-                                text: "$name,$age $country",
-                                textStyle: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.sp,
-                                    color: Colors.white)),
-                          ),
+                          CustomTextPopins(
+                          max: 1,
+                          textOverflow: TextOverflow.ellipsis,
+                          text: "$name, $age $country ",
+                          fontWeight: FontWeight.w600,
+                          size: 13.sp,
+                          color: Colors.white,
+                                                    ),
                           Container(
                             margin: const EdgeInsets.only(left: 2),
                             width: 8.w,

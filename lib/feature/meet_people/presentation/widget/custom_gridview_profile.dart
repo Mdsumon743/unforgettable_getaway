@@ -44,8 +44,8 @@ class CustomGridviewProfile extends StatelessWidget {
                   image: data.profileImage ??
                       "https://i.ibb.co.com/nrs3FjM/images.png",
                   adress: "${data.city} ${data.country} ",
-                  age: data.age.toString(),
-                  country: data.country,
+                  age: data.age.toString() ,
+                  country: data.flag ?? "🇧🇩",
                   distance: "3 km from you",
                   level: svg,
                   love: "assets/images/unlove.svg",
