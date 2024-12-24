@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/bio_controller.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
 
 class Bio extends StatelessWidget {
-  const Bio({super.key});
+  final String? bio;
+  const Bio({super.key, this.bio});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController bio = TextEditingController();
-    bio.text =
-        """Hey, I’m Dakota! I’m all about adventure, laughter, and good vibes. Love exploring new places, trying new things, and meeting cool people. Looking for someone to share exciting moments and create lasting memories together!""";
+    final biocontroller = Get.put(BioController());
+
+    biocontroller.bioController.text = """$bio""";
+
     return Container(
       margin: EdgeInsets.all(10.r),
       padding: EdgeInsets.symmetric(horizontal: 20.r),
@@ -25,13 +29,30 @@ class Bio extends StatelessWidget {
               size: 20.sp,
               color: Colors.white,
             ),
-            CustomTextPopins(
-              text: "Edit",
-              fontWeight: FontWeight.w400,
-              size: 16.sp,
-              decoration: TextDecoration.underline,
-              color: const Color(0xffFFF6B2),
-            ),
+            Obx(() => GestureDetector(
+                  onTap: () {
+                    biocontroller.editBio();
+                  },
+                  child: biocontroller.isLoading.value
+                      ? Center(
+                          child: SizedBox(
+                            height: 20.h,
+                            width: 20.w,
+                            child: const CircularProgressIndicator(
+                              color: Color(0xffFFF6B2),
+                            ),
+                          ),
+                        )
+                      : CustomTextPopins(
+                          text: biocontroller.bio.value == "Update"
+                              ? "Update"
+                              : "Edit",
+                          fontWeight: FontWeight.w400,
+                          size: 16.sp,
+                          decoration: TextDecoration.underline,
+                          color: const Color(0xffFFF6B2),
+                        ),
+                )),
           ]),
           SizedBox(
             height: 10.h,
@@ -48,12 +69,12 @@ class Bio extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            min: 4,
-            controller: bio,
-            colorTrue: true,
-            
-          ),
+          Obx(() => CustomTextField(
+                min: 4,
+                enable: biocontroller.isBio.value,
+                controller: biocontroller.bioController,
+                colorTrue: true,
+              )),
         ],
       ),
     );

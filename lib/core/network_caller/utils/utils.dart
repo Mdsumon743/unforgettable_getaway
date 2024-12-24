@@ -9,4 +9,5 @@ class Utils {
   static const profile = "/profiles";
   static const getme = "/profiles/getMe";
   static const  getsingleProfile = "/profiles/";
+  static const logout = "/auth/logout";
 }

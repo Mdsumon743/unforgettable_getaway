@@ -13,6 +13,7 @@ import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_s
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
 import 'package:unforgettable_getaway/feature/home/presentation/screen/home.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/profile_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
@@ -43,8 +44,14 @@ class AppRoute {
   static const String height = "/height";
   static const String profile = "/profile";
   static const String interestSelectionScreen = "/interestSelectionScreen";
+  static const String profileDetils = "/profileDetils";
 
   static final route = [
+        GetPage(
+        name: profileDetils,
+        page: () => const ProfileDetails(),
+        transition: Transition.rightToLeft),
+   
     GetPage(
         name: profile,
         page: () => const Profile(),

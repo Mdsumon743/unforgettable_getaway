@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
-import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/profile_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_profile_view_card.dart';
 
 class CustomGridviewProfile extends StatelessWidget {
@@ -44,7 +44,7 @@ class CustomGridviewProfile extends StatelessWidget {
 
                   profileDetailsController
                       .getSignleProfileDetails(data.userId.toString());
-                  Get.to(() => const ProfileDetails());
+                  Get.toNamed(AppRoute.profileDetils);
                 },
                 child: CustomProfileViewCard(
                   image: data.profileImage ??
