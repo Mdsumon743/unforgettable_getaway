@@ -35,7 +35,6 @@ class AccountController extends GetxController {
         initialDate: selectedDate.value,
         firstDate: DateTime(1988),
         lastDate: DateTime(2101),
-  
         initialDatePickerMode: type == 'date'
             ? DatePickerMode.day
             : type == 'year'
