@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_appbar.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_inter.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/custom_textfeild_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_gridview_profile.dart';
 import '../../../message/presentation/screen/chat/chat_list.dart';
@@ -15,6 +16,13 @@ class MeetPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = Get.put(CustomTextFieldSearchController());
+    final AllProfileController allProfileController =
+        Get.put(AllProfileController());
+
+    Future<void> refreshData() async {
+      await allProfileController.getUserProfiles();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const CustomAppBar(),
@@ -50,23 +58,27 @@ class MeetPeople extends StatelessWidget {
                     ),
                   ),
                 )
-              : SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(15.r),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomTextIner(
-                            text: "Nearest people around you ⭐",
-                            fontWeight: FontWeight.w500,
-                            size: 16.sp,
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          const CustomGridviewProfile()
-                        ],
+              : RefreshIndicator(
+                color: Colors.amber,
+                  onRefresh: refreshData,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.all(15.r),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomTextIner(
+                              text: "Nearest people around you ⭐",
+                              fontWeight: FontWeight.w500,
+                              size: 16.sp,
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            const CustomGridviewProfile()
+                          ],
+                        ),
                       ),
                     ),
                   ),

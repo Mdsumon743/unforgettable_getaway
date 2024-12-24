@@ -62,11 +62,9 @@ class ProfileDetails extends StatelessWidget {
                 flag: data?.flag ?? "Unknown",
                 gellery: data?.gallery ?? [],
                 height: data?.height ?? "Unknown",
-                interst: "Unknown",
                 intersted: data?.interests ?? [],
                 language: data?.language ?? "Unknown",
                 relationshipStatus: data?.relationship ?? "Unknown",
-                status: "Unknown",
                 work: data?.work ?? "Unknown",
               )
             ],

@@ -148,33 +148,33 @@ Widget buildDetails({
               size: 18.sp,
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Wrap(
-              spacing: 6.0,
-              runSpacing: -5.0,
-              runAlignment: WrapAlignment.spaceAround,
-              children: [
-                buildChip(
-                  "🌍 Traveling",
+          GridView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: intersted?.length,
+            itemBuilder: (context, index) {
+              var favoriteListItem = intersted?[index];
+              return Align(
+                alignment: Alignment.centerLeft,
+                child: Wrap(
+                  spacing: 10.0,
+                  runSpacing: -5.0,
+                  runAlignment: WrapAlignment.spaceAround,
+                  children: [
+                    buildChip(favoriteListItem, size: 10),
+                  ],
                 ),
-                buildChip(
-                  "🎬 Movie",
-                ),
-                buildChip(
-                  "🎮 Games",
-                ),
-                buildChip(
-                  "📷 Traveling",
-                ),
-                buildChip(
-                  "📔 Book",
-                ),
-              ],
+              );
+            },
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              childAspectRatio: 3.0,
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 20.h,
           ),
           Align(
             alignment: Alignment.centerLeft,
