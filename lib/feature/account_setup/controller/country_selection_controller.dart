@@ -4,7 +4,7 @@ class CountrySelectionController extends GetxController {
   String searchText = '';
   bool isClickOnCountry = false;
   RxString selectedCountry = ''.obs;
-  String flag = '';
+  RxString flag = ''.obs;
 
   void searchCountry(String value) {
     searchText = value;
@@ -14,7 +14,7 @@ class CountrySelectionController extends GetxController {
   void selectCountry(bool value, String country, String flagValue) {
     isClickOnCountry = value;
     selectedCountry.value = country;
-    flag = flagValue;
+    flag = flagValue.obs;
     update();
   }
 }

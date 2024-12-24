@@ -13,12 +13,17 @@ class ProfileDetailsController extends GetxController {
       Rx<SingleProfileDetails?>(null);
 
   Future<void> getSignleProfileDetails(String userID) async {
+    profileDetailsData.value = null;
+    update();
+
+
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
     debugPrint("Token: $token");
     if (token != null) {
       try {
         isLoading.value = true;
+        update();
         final response = await NetworkCaller().getRequest(
             Utils.baseUrl + Utils.getsingleProfile + userID,
             token: token);
@@ -39,10 +44,16 @@ class ProfileDetailsController extends GetxController {
         isLoading.value = false;
         debugPrint("Error occurred: $e");
       } finally {
+        update();
         isLoading.value = false;
       }
     } else {
       debugPrint("Token is null");
+      update();
     }
   }
+
+  
+
+  
 }

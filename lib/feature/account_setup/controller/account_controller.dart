@@ -35,7 +35,7 @@ class AccountController extends GetxController {
         initialDate: selectedDate.value,
         firstDate: DateTime(1988),
         lastDate: DateTime(2101),
-        // initialEntryMode: DatePickerEntryMode.calendar,
+  
         initialDatePickerMode: type == 'date'
             ? DatePickerMode.day
             : type == 'year'
@@ -147,7 +147,7 @@ class AccountController extends GetxController {
     String gender = genderSelectedValue.value == 0 ? 'FEMALE' : 'MALE';
     var latitude = locationcontroller.latitude;
     var longitude = locationcontroller.longitude;
-    var flag = countryController.flag;
+    var flag = countryController.flag.value;
 
     String height = heights[heightSelectedIndex.value];
     List userfavoriteList = favoriteList.toList();

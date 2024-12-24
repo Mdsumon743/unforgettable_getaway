@@ -52,7 +52,7 @@ class CitySelectionScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            countrySController.flag,
+                            countrySController.flag.value,
                             style: const TextStyle(fontSize: 24),
                           ),
                           SizedBox(width: 8.0.w),

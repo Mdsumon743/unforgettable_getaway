@@ -187,8 +187,6 @@ Widget buildDetails({
           ),
           buildRow("Age", "$age"),
           buildRow("Height", "$height"),
-          buildRow("Status", "Signle"),
-          buildRow("Interested", "Men"),
           buildRow("Relationship Status", "$relationshipStatus"),
           buildRow("Language", "$language"),
           buildRow("Work", "$work"),
