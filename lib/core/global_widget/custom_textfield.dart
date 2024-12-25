@@ -92,7 +92,6 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-
 class CustomTextField2 extends StatelessWidget {
   final TextEditingController? controller;
   final bool? obscureText;
@@ -108,8 +107,9 @@ class CustomTextField2 extends StatelessWidget {
   final bool? colorTrue;
   final bool? enable;
 
-  const CustomTextField2({super.key, 
-     this.controller,
+  const CustomTextField2({
+    super.key,
+    this.controller,
     this.obscureText,
     this.keyboardType,
     this.textInputAction,
@@ -156,7 +156,7 @@ class CustomTextField2 extends StatelessWidget {
                   ),
             minLines: min,
             focusNode: focusNode,
-            enabled: enable, 
+            enabled: enable,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: textStyle(

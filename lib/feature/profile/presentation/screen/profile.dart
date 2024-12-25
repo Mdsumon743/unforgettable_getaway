@@ -8,7 +8,6 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/bio_controller.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorite_list.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorites_me.dart';
-import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile_edit.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/about.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/bio.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorited.dart';
@@ -81,6 +80,7 @@ class Profile extends StatelessWidget {
                       right: 5,
                       child: GestureDetector(
                         onTap: () {
+                          profilecontroller.updateData();
                           Get.toNamed(AppRoute.profileEdit);
                         },
                         child: Container(

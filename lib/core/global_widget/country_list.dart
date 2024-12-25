@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/const/const.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 
-Widget countrylist(bool? isColor ) {
+Widget countrylist(bool? isColor) {
   final controller = Get.put(FilterController());
   return DropdownButtonFormField<String>(
     value: controller.selectedCountry.value,

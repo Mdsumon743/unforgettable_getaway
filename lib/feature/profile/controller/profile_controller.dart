@@ -17,10 +17,51 @@ class ProfileController extends GetxController {
   TextEditingController userName = TextEditingController();
   TextEditingController fullName = TextEditingController();
   TextEditingController language = TextEditingController();
+  TextEditingController genderText = TextEditingController();
+  TextEditingController heightText = TextEditingController();
   var gender = "".obs;
   var height = "".obs;
   TextEditingController work = TextEditingController();
   TextEditingController age = TextEditingController();
+
+  Map<String, dynamic> upadateNewData = {};
+
+  Map<String, dynamic> saveUserInformation() {
+    String? country = "Bangladesh";
+    String? fullname = fullName.text;
+    String? updateUserNmae = userName.text;
+    String? updategender = gender.value;
+    String? updateHeight = height.value;
+    String? updateAge = age.text;
+    String? updateWork = work.text;
+    String? updateLanguage = language.text;
+    String? flag = "🇧🇩 ";
+
+    Map<String, dynamic> userInformation = {
+      "fullName": fullname,
+      "country": country,
+      "gender": updategender,
+      "height": updateHeight,
+      "age": updateAge,
+      "work": updateWork,
+      "language": updateLanguage,
+      "username": updateUserNmae,
+      "flag": flag
+    };
+    upadateNewData = userInformation;
+    debugPrint("====bodyData======$upadateNewData");
+    return userInformation;
+  }
+
+  void updateGender(String selectedGender) {
+    gender.value = selectedGender;
+    genderText.text = gender.value;
+  }
+
+  void updateHeight(String selectedHeight) {
+    height.value = selectedHeight;
+    heightText.text = height.value;
+  }
 
   Rx<UserData?> userData = Rx<UserData?>(null);
 
@@ -126,6 +167,16 @@ class ProfileController extends GetxController {
     } else {
       Get.snackbar("Permission Denied", "Camera permission is required.");
     }
+  }
+
+  updateData() {
+    userName.text = userData.value?.username.toString() ?? "Unknown";
+    fullName.text = userData.value?.fullName.toString() ?? "Unknown";
+    language.text = userData.value?.language.toString() ?? "Unknown";
+    height.value = userData.value?.height.toString() ?? "Unknown";
+    age.text = userData.value?.age.toString() ?? "Unknown";
+    gender.value = userData.value?.gender.toString() ?? "Unknown";
+    work.text = userData.value?.work.toString() ?? "Unknown";
   }
 
   void showImagePickerDialog(BuildContext context) {
