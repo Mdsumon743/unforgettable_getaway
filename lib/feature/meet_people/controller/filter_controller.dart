@@ -6,10 +6,11 @@ import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 class FilterController extends GetxController {
-  var selectedCountry = "🇺🇲 United States".obs;
+  var selectedCountry = "".obs;
 
   void updateCountry(String country) {
     selectedCountry.value = country;
+    
   }
 
   void showCountryPicker(BuildContext context) {

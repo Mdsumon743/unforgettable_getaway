@@ -159,9 +159,7 @@ class CustomTextField2 extends StatelessWidget {
             enabled: enable,
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: textStyle(
-                  14.sp,
-                  AppColors.whiteColor.withOpacity(0.9).withOpacity(0.6),
+              hintStyle: textStyle(14.sp, AppColors.whiteColor.withOpacity(0.9),
                   FontWeight.w300),
               filled: true,
               fillColor: AppColors.yellowColor.withOpacity(0.01),

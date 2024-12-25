@@ -197,11 +197,11 @@ class ProfileEdit extends StatelessWidget {
                             itemBuilder: (BuildContext context) => [
                               PopupMenuItem(
                                 onTap: () {},
-                                value: 'Male',
+                                value: 'MALE',
                                 child: const Text('Male'),
                               ),
                               const PopupMenuItem(
-                                value: 'Female',
+                                value: 'FEMALE',
                                 child: Text('Female'),
                               ),
                             ],
@@ -279,6 +279,58 @@ class ProfileEdit extends StatelessWidget {
                         height: 20.h,
                       ),
                       CustomTextPopins(
+                        text: "Relation Status",
+                        fontWeight: FontWeight.w400,
+                        size: 14.sp,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Obx(
+                        () => CustomTextField2(
+                          controller: profileController.statusText,
+                          enable: false,
+                          hintText: profileController.status.value,
+                          suffix: PopupMenuButton<String>(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.r)),
+                            onSelected: (valueindex) {
+                              profileController.updatestaus(valueindex);
+                            },
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(
+                                value: 'SINGLE',
+                                child: Text('Single'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'MARRIED',
+                                child: Text('Married'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'INRELATIONSHIP',
+                                child: Text('in a Relationship'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'COMPLICATED',
+                                child: Text('It’s Complicated'),
+                              ),
+                            ],
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      CustomTextPopins(
+                        max: 1,
                         text: "Work",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
@@ -303,15 +355,26 @@ class ProfileEdit extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  CustomButton(
-                    onPressed: () {
-                      if (key.currentState!.validate()) {}
-                    },
-                    text: "Update Profile",
-                    borderRadius: 30.r,
-                    backgroundColor: const Color(0xffFFDF00),
-                    textColor: Colors.black,
-                  )
+                  Obx(() => profileController.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.amber,
+                          ),
+                        )
+                      : CustomButton(
+                          onPressed: () {
+                            if (key.currentState!.validate()) {
+                              profileController.saveUserInformation();
+                              profileController.submitUserData(
+                                  profileImage:
+                                      profileController.avatarFile.value);
+                            }
+                          },
+                          text: "Update Profile",
+                          borderRadius: 30.r,
+                          backgroundColor: const Color(0xffFFDF00),
+                          textColor: Colors.black,
+                        ))
                 ],
               ),
             ),
