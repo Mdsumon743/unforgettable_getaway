@@ -94,7 +94,7 @@ class BioController extends GetxController {
         }
       } catch (e) {
         debugPrint('====An error occurred: $e');
-      } finally {}
+      }
     }
   }
 

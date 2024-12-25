@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/service/service.dart';
@@ -11,6 +14,13 @@ import '../model/profile_data.dart';
 
 class ProfileController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  TextEditingController userName = TextEditingController();
+  TextEditingController fullName = TextEditingController();
+  TextEditingController language = TextEditingController();
+  var gender = "".obs;
+  var height = "".obs;
+  TextEditingController work = TextEditingController();
+  TextEditingController age = TextEditingController();
 
   Rx<UserData?> userData = Rx<UserData?>(null);
 
@@ -74,5 +84,79 @@ class ProfileController extends GetxController {
     } else {
       debugPrint("Token is null");
     }
+  }
+
+  var avatarFile = Rx<File?>(null);
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> requestCameraPermission() async {
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      await Permission.camera.request();
+    }
+  }
+
+  Future<void> requestStoragePermission() async {
+    var status = await Permission.manageExternalStorage.status;
+    if (!status.isGranted) {
+      await Permission.manageExternalStorage.request();
+    }
+  }
+
+  Future<void> pickImageFromGallery() async {
+    await requestStoragePermission();
+    if (await Permission.manageExternalStorage.isGranted) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        avatarFile.value = File(image.path);
+      }
+    } else {
+      Get.snackbar("Permission Denied", "Storage permission is required.");
+    }
+  }
+
+  Future<void> pickImageFromCamera() async {
+    await requestCameraPermission();
+    if (await Permission.camera.isGranted) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+      if (image != null) {
+        avatarFile.value = File(image.path);
+      }
+    } else {
+      Get.snackbar("Permission Denied", "Camera permission is required.");
+    }
+  }
+
+  void showImagePickerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Select Image Source"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Camera"),
+                onTap: () {
+                  pickImageFromCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text("Gallery"),
+                onTap: () {
+                  pickImageFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

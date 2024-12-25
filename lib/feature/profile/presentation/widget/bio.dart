@@ -69,7 +69,7 @@ class Bio extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          Obx(() => CustomTextField(
+          Obx(() => CustomTextField2(
                 min: 4,
                 enable: biocontroller.isBio.value,
                 controller: biocontroller.bioController,

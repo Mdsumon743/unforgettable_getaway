@@ -183,7 +183,7 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              const CustomTextField(),
+              const CustomTextField2(),
               SizedBox(
                 height: 24.h,
               ),
@@ -198,7 +198,7 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-              const CustomTextField(),
+              const CustomTextField2(),
               SizedBox(
                 height: 24.h,
               ),
@@ -213,7 +213,7 @@ class PaymentMethod extends StatelessWidget {
               SizedBox(
                 height: 8.h,
               ),
-         Obx(()=>CustomTextField(suffix:Padding(
+         Obx(()=>CustomTextField2(suffix:Padding(
            padding: const EdgeInsets.symmetric(horizontal: 10),
            child: Image.asset(paymentcontroller.img.value,height: 24,width: 30,),
          ),)),
@@ -233,7 +233,7 @@ class PaymentMethod extends StatelessWidget {
                           color: Colors.white,
                         ),
                         SizedBox(height: 8.h),
-                        const CustomTextField(),
+                        const CustomTextField2(),
                       ],
                     ),
                   ),
@@ -251,7 +251,7 @@ class PaymentMethod extends StatelessWidget {
                         SizedBox(
                           height: 8.h,
                         ),
-                        const CustomTextField(),
+                        const CustomTextField2(),
                       ],
                     ),
                   ),
@@ -276,7 +276,7 @@ class PaymentMethod extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 160.w,
-                      child: const CustomTextField(),
+                      child: const CustomTextField2(),
                     ),
                   ],
                 ),

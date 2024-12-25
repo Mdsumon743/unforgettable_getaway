@@ -20,6 +20,7 @@ import 'package:unforgettable_getaway/feature/notification/presentation/screen/n
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/show_notification.dart';
 import 'package:unforgettable_getaway/feature/onboarding/presentation/screen/onboarding.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile_edit.dart';
 import 'package:unforgettable_getaway/feature/tour_book/presentation/screen/tour.dart';
 
 class AppRoute {
@@ -45,13 +46,17 @@ class AppRoute {
   static const String profile = "/profile";
   static const String interestSelectionScreen = "/interestSelectionScreen";
   static const String profileDetils = "/profileDetils";
+  static const String profileEdit = "/profileEdit";
 
   static final route = [
-        GetPage(
+    GetPage(
+        name: profileEdit,
+        page: () => const ProfileEdit(),
+        transition: Transition.rightToLeft),
+    GetPage(
         name: profileDetils,
         page: () => const ProfileDetails(),
         transition: Transition.rightToLeft),
-   
     GetPage(
         name: profile,
         page: () => const Profile(),

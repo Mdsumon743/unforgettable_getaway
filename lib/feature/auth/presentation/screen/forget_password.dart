@@ -43,7 +43,7 @@ class ForgetScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: forgotController.forgotText,
                       hintText: 'Example@email.com',
                       validator: FormValidation.validateEmail,

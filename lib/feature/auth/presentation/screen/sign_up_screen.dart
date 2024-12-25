@@ -52,7 +52,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: signUpController.emailText,
                       hintText: 'Enter your mail address',
                       validator: FormValidation.validateEmail,
@@ -65,7 +65,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: signUpController.passText,
                       max: 1,
                       hintText: '*********',
@@ -80,7 +80,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: signUpController.confirmPaassText,
                       max: 1,
                       hintText: '*********',

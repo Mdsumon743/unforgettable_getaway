@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/bio_controller.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorite_list.dart';
@@ -80,7 +81,7 @@ class Profile extends StatelessWidget {
                       right: 5,
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => const ProfileEdit());
+                          Get.toNamed(AppRoute.profileEdit);
                         },
                         child: Container(
                           padding: EdgeInsets.all(3.r),

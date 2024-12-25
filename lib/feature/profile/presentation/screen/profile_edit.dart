@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/country_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
 
@@ -12,6 +14,7 @@ class ProfileEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController profileController = Get.put(ProfileController());
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -39,34 +42,46 @@ class ProfileEdit extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                CircleAvatar(
-                    radius: 60.h,
-                    backgroundImage: const AssetImage("assets/images/2.png")),
+                Obx(() => CircleAvatar(
+                      radius: 60.h,
+                      backgroundImage: profileController.avatarFile.value !=
+                              null
+                          ? FileImage(profileController.avatarFile.value!)
+                          : CachedNetworkImageProvider(profileController
+                                      .userData.value?.profileImage ??
+                                  "https://i.ibb.co.com/nrs3FjM/images.png")
+                              as ImageProvider,
+                    )),
                 SizedBox(
                   height: 20.h,
                 ),
-                Container(
-                  height: 40.h,
-                  width: 180.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: Colors.white.withOpacity(0.2),
-                      border: Border.all(
-                          color: Colors.white.withOpacity(.1), width: 1)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                      CustomTextPopins(
-                        text: "Add Photo",
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                        size: 16.sp,
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    profileController.showImagePickerDialog(context);
+                  },
+                  child: Container(
+                    height: 40.h,
+                    width: 180.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: Colors.white.withOpacity(0.2),
+                        border: Border.all(
+                            color: Colors.white.withOpacity(.1), width: 1)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        CustomTextPopins(
+                          text: "Add Photo",
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          size: 16.sp,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -93,7 +108,8 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
+                    CustomTextField2(
+                      controller: profileController.userName,
                       colorTrue: true,
                     ),
                     SizedBox(
@@ -108,7 +124,8 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
+                    CustomTextField2(
+                      controller: profileController.fullName,
                       colorTrue: true,
                     ),
                     SizedBox(
@@ -136,7 +153,8 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
+                    CustomTextField2(
+                      controller: profileController.language,
                       colorTrue: true,
                     ),
                     SizedBox(
@@ -151,12 +169,15 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
-                      suffix: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),
+                    CustomTextField2(
+                        enable: false,
+                        suffix: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.white,
+                          ),
+                        )),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -169,11 +190,8 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
-                      suffix: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
+                    CustomTextField2(
+                      controller: profileController.age,
                     ),
                     SizedBox(
                       height: 20.h,
@@ -187,12 +205,16 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
-                      suffix: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),
+                    CustomTextField2(
+                        enable: false,
+                        suffix: IconButton(
+                            onPressed: () {
+                              debugPrint("=========clioked");
+                            },
+                            icon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
+                            ))),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -205,11 +227,9 @@ class ProfileEdit extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    const CustomTextField(
-                      suffix: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
+                    CustomTextField2(
+                      colorTrue: true,
+                      controller: profileController.work,
                     )
                   ],
                 ),
