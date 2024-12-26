@@ -51,7 +51,9 @@ class ProfileDetails extends StatelessWidget {
                     background: CachedNetworkImage(
                       imageUrl: data?.profileImage ??
                           "https://i.ibb.co.com/nrs3FjM/images.png",
-                    )),
+                          fit: BoxFit.fill,
+                          
+                    ),),
               ),
               buildDetails(
                 name: data?.fullName ?? "Unknown",
