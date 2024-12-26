@@ -17,7 +17,6 @@ import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/pr
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/chat_list.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/empty_message.dart';
-import 'package:unforgettable_getaway/feature/message/presentation/screen/message.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/show_notification.dart';

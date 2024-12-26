@@ -5,6 +5,6 @@ class AppRouts {
   static const String otpScreen = "/otpScreen";
 
   static List<GetPage> routes = [
-    GetPage(name: otpScreen, page: () => OtpScreen()),
+    GetPage(name: otpScreen, page: () => const OtpScreen()),
   ];
 }

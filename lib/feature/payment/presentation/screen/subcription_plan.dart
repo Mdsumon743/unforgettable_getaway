@@ -5,7 +5,7 @@ import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/screen/payment_method.dart';
 
-import '../../controller/SubscriptionController.dart';
+import '../../controller/subcribtion_plan.dart';
 import '../widget/custom_plan.dart';
 
 class SubscriptionPlan extends StatelessWidget {
@@ -147,7 +147,7 @@ class SubscriptionPlan extends StatelessWidget {
                       onPressed: controller.selectedPlan.value.isNotEmpty
 
                           ? () {
-                              Get.to(() =>  PaymentMethod());
+                              Get.to(() =>  const PaymentMethod());
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -160,7 +160,7 @@ class SubscriptionPlan extends StatelessWidget {
                           borderRadius: BorderRadius.circular(40.r),
                         ),
                       ),
-                      child:  Text(
+                      child:  const Text(
                         'Subscribe Now',
                         style: TextStyle(
                           fontWeight:FontWeight.w500,

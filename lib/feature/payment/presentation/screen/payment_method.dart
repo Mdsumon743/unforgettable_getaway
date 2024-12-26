@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/payment/controller/PaymentController.dart';
+import 'package:unforgettable_getaway/feature/payment/controller/payment_controller.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/screen/final_page.dart';
 import 'package:unforgettable_getaway/feature/payment/presentation/widget/custom_payment.dart';
 import '../../../../core/global_widget/custom_text_popins.dart';
