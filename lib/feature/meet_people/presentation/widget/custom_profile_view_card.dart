@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_animation_text.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/favorite_controller.dart';
 
 class CustomProfileViewCard extends StatelessWidget {
+  final String? userId;
   final String? level;
   final String? love;
   final String? name;
@@ -24,10 +27,12 @@ class CustomProfileViewCard extends StatelessWidget {
       this.country,
       this.adress,
       this.distance,
-      this.image});
+      this.image,
+      this.userId});
 
   @override
   Widget build(BuildContext context) {
+    final FavoriteController favoriteController = Get.put(FavoriteController());
     return Container(
       padding: EdgeInsets.all(5.r),
       decoration: const BoxDecoration(color: Colors.transparent),
@@ -56,7 +61,12 @@ class CustomProfileViewCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(love ?? "assets/images/unlove.svg")
+                      GestureDetector(
+                          onTap: () {
+                            favoriteController.addFavoritList(userId ?? "");
+                          },
+                          child: SvgPicture.asset(
+                              love ?? "assets/images/unlove.svg"))
                     ],
                   ),
                   Column(

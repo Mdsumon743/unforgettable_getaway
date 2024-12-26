@@ -34,6 +34,8 @@ class CustomGridviewProfile extends StatelessWidget {
               String svg = "";
               String love = "";
               var data = allprofileController.allProfiles[index];
+              var userId = data.userId;
+
               if (data.isVerified == "NEW") {
                 svg = "assets/images/new.svg";
               } else {
@@ -62,6 +64,7 @@ class CustomGridviewProfile extends StatelessWidget {
                   distance: "3 km from you",
                   level: svg,
                   love: love,
+                  userId: userId.toString(),
                   name: data.fullName,
                 ),
               );

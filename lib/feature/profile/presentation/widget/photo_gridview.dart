@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PhotoGridview extends StatelessWidget {
-  const PhotoGridview({super.key});
+  final String? main;
+  const PhotoGridview({super.key, this.main});
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +18,23 @@ class PhotoGridview extends StatelessWidget {
         StaggeredGridTile.count(
           mainAxisCellCount: 2,
           crossAxisCellCount: 2,
-          child: imageContainer("assets/images/mian.png", 'Main', false),
+          child: imageContainer(
+              main ?? "https://i.ibb.co.com/nrs3FjM/images.png", 'Main', false),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main2.png", '2', false),
+          child: imageContainer("assets/images/main2.png", '2', true),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main3.png", '3', false),
+          child: imageContainer("assets/images/main3.png", '3', true),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
           mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '4', false),
+          child: imageContainer("assets/images/main5.png", '4', true),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,
@@ -61,7 +64,8 @@ Widget imageContainer(String image, String number, bool no) {
             : null,
         image: no
             ? null
-            : DecorationImage(image: AssetImage(image), fit: BoxFit.fill)),
+            : DecorationImage(
+                image: CachedNetworkImageProvider(image), fit: BoxFit.fill)),
     child: no
         ? Container(
             decoration: BoxDecoration(

@@ -166,7 +166,9 @@ class Profile extends StatelessWidget {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 20.r),
-                  child: const PhotoGridview(),
+                  child: PhotoGridview(
+                      main:
+                          profilecontroller.userData.value?.profileImage ?? ""),
                 ),
                 SizedBox(
                   height: 10.h,
