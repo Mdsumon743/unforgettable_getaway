@@ -50,12 +50,11 @@ class CustomPlan extends StatelessWidget {
               scale: 1.5,
               child: Radio(
                 value: tittle,
-                groupValue:isSelected?tittle:'',
+                groupValue: isSelected ? tittle : '',
                 onChanged: (_) => onTap(),
                 activeColor: const Color(0xffFFDF00),
               ),
             ),
-
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 class ProfileResponse {
   final String id;
-  final String? userId; // Added userId property
+  final String? userId;
   final String? fullName;
   final String? age;
   final String? profileImage;
@@ -9,7 +9,8 @@ class ProfileResponse {
   final String? city;
   final UserStatus? user;
   final String? status;
-  final String? flag; 
+  final String? flag;
+  final bool? isFavorite; // New field added
 
   ProfileResponse({
     required this.id,
@@ -23,6 +24,7 @@ class ProfileResponse {
     this.user,
     this.status,
     this.flag,
+    this.isFavorite,
   });
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
@@ -37,7 +39,8 @@ class ProfileResponse {
       city: json['city'] as String?,
       user: json['user'] != null ? UserStatus.fromJson(json['user']) : null,
       status: json['status'] as String?,
-      flag: json['flag'] as String?, 
+      flag: json['flag'] as String?,
+      isFavorite: json['isFavorite'] as bool?,
     );
   }
 
@@ -54,6 +57,7 @@ class ProfileResponse {
       'user': user?.toJson(),
       'status': status,
       'flag': flag,
+      'isFavorite': isFavorite, 
     };
   }
 }

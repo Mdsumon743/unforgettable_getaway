@@ -32,12 +32,19 @@ class CustomGridviewProfile extends StatelessWidget {
                 crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
             itemBuilder: (context, index) {
               String svg = "";
+              String love = "";
               var data = allprofileController.allProfiles[index];
               if (data.isVerified == "NEW") {
                 svg = "assets/images/new.svg";
               } else {
                 svg = "assets/images/level.svg";
               }
+              if (data.isFavorite == true) {
+                love = "assets/images/love.svg";
+              } else {
+                love = "assets/images/unlove.svg";
+              }
+
               return GestureDetector(
                 onTap: () {
                   debugPrint("=========${data.country}");
@@ -54,7 +61,7 @@ class CustomGridviewProfile extends StatelessWidget {
                   country: data.flag ?? "🇧🇩",
                   distance: "3 km from you",
                   level: svg,
-                  love: "assets/images/unlove.svg",
+                  love: love,
                   name: data.fullName,
                 ),
               );
