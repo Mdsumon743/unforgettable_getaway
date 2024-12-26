@@ -11,7 +11,7 @@ import '../widget/custom_appbar1.dart';
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
-  final MessageController controller = Get.put(MessageController());
+  final MesseageController controller = Get.put(MesseageController());
   MessagePage({
     super.key,
     required this.img,

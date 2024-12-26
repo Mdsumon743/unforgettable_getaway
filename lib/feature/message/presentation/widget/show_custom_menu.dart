@@ -5,11 +5,12 @@ import '../../../../core/global_widget/custom_text_popins.dart';
 import '../../../../core/utils/assetpath.dart';
 import '../../controller/messeage_controllred.dart';
 
-final SwitchController controller = Get.put(SwitchController());
+final MesseageController controller = Get.put(MesseageController());
+
 class ShowCustomMenuController extends GetxController {
   RxString selectedItem1 = 'Item 1'.obs;
-  void showPopupMenu1(BuildContext context){
-     showMenu(
+  void showPopupMenu1(BuildContext context) {
+    showMenu(
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       context: context,
@@ -27,8 +28,7 @@ class ShowCustomMenuController extends GetxController {
             height: 30.h,
             child: Row(
               children: [
-                Obx(() =>
-                    Transform.scale(
+                Obx(() => Transform.scale(
                       scale: 0.6,
                       child: Switch(
                         value: controller.isSwitched.value,
@@ -55,7 +55,9 @@ class ShowCustomMenuController extends GetxController {
             height: 30.h,
             child: Row(
               children: [
-                SizedBox(width: 12.w,),
+                SizedBox(
+                  width: 12.w,
+                ),
                 Image.asset(Assetpath.block),
                 const SizedBox(
                   width: 10,

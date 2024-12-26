@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
@@ -47,20 +48,20 @@ class ProfileDetails extends StatelessWidget {
                 floating: true,
                 scrolledUnderElevation: 0,
                 flexibleSpace: FlexibleSpaceBar(
-                    expandedTitleScale: 1,
-                    background: CachedNetworkImage(
-                      imageUrl: data?.profileImage ??
-                          "https://i.ibb.co.com/nrs3FjM/images.png",
-                          fit: BoxFit.fill,
-                          
-                    ),),
+                  expandedTitleScale: 1,
+                  background: CachedNetworkImage(
+                    imageUrl: data?.profileImage ??
+                        "https://i.ibb.co.com/nrs3FjM/images.png",
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
               buildDetails(
                 name: data?.fullName ?? "Unknown",
+                aboutMe: data?.about ?? "Unknown",
                 address:
                     "${data?.city ?? "Unknown"} ${data?.country ?? "Unknown"}",
                 age: data?.age ?? "Unknown",
-                about: data?.age ?? "Unknown",
                 flag: data?.flag ?? "Unknown",
                 gellery: data?.gallery ?? [],
                 height: data?.height ?? "Unknown",
@@ -86,22 +87,26 @@ class ProfileDetails extends StatelessWidget {
                   blurRadius: 10,
                   offset: const Offset(2, 10))
             ]),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomCircleButton(
+                ontap: () {
+                  Get.back();
+                },
                 size: false,
-                iconData: Icon(
+                iconData: const Icon(
                   Icons.close,
                   size: 24,
                 )),
             CustomCircleButton(
-                size: true,
-                iconData: Icon(
-                  Icons.message,
-                  size: 34,
-                )),
-            CustomCircleButton(
+              ontap: () {
+                Get.toNamed("");
+              },
+              size: true,
+              iconData: SvgPicture.asset("assets/icons/sms.svg"),
+            ),
+            const CustomCircleButton(
                 size: false,
                 iconData: Icon(
                   Icons.favorite_sharp,

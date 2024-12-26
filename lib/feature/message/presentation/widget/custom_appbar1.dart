@@ -19,7 +19,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
   final ShowCustomMenuController controller =
       Get.put(ShowCustomMenuController());
-  final MessageController controller1 = Get.put(MessageController());
+  final MesseageController controller1 = Get.put(MesseageController());
   @override
   Widget build(BuildContext context) {
     return AppBar(

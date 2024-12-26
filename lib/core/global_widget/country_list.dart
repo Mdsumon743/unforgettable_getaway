@@ -22,7 +22,7 @@ Widget countrylist(bool? isColor) {
       }
     },
     items: Const.countries
-        .toSet() // Remove duplicates, if any
+        .toSet() 
         .map<DropdownMenuItem<String>>((String country) {
       return DropdownMenuItem<String>(
         value: country,

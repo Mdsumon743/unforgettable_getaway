@@ -7,8 +7,8 @@ import '../../../../../core/utils/assetpath.dart';
 import '../../../../meet_people/presentation/screen/search_location.dart';
 import 'chat_list.dart';
 
-class SearchListPage extends StatelessWidget {
-  const SearchListPage({super.key});
+class EmptyMessage extends StatelessWidget {
+  const EmptyMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

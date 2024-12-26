@@ -12,10 +12,9 @@ Widget buildDetails({
   String? age,
   String? address,
   String? flag,
-  String? about,
   List? intersted,
   String? height,
-  String? status,
+  String? aboutMe,
   String? interst,
   String? relationshipStatus,
   String? language,
@@ -119,23 +118,18 @@ Widget buildDetails({
               size: 18.sp,
             ),
           ),
-          RichText(
-              text: TextSpan(children: [
-            TextSpan(
-                text:
-                    "Hey! I’m Dakota, a free spirit who loves exploring new places, meeting new people, and enjoying life to the fullest. Whether I’m at the....",
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400)),
-            TextSpan(
-                text: "Read More",
-                style: GoogleFonts.poppins(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xffFFF6B2),
-                ))
-          ])),
+          SizedBox(
+            height: 10.h,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: CustomTextPopins(
+                textAlign: TextAlign.start,
+                text: """$aboutMe""",
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                size: 14.sp),
+          ),
           SizedBox(
             height: 10.h,
           ),

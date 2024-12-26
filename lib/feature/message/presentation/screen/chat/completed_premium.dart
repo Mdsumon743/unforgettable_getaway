@@ -10,7 +10,7 @@ import '../../../controller/messeage_controllred.dart';
 class CompletedPremium extends StatelessWidget {
   final String img;
   final String text;
-  final MessageController1 controller1 = Get.put(MessageController1());
+  final MesseageController controller1 = Get.put(MesseageController());
   final TextEditingController textController = TextEditingController();
 
   CompletedPremium({required this.img, required this.text, super.key});
