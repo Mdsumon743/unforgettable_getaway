@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_circle_button.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/message.dart';
 
 class ProfileDetails extends StatelessWidget {
   const ProfileDetails({
@@ -101,7 +103,7 @@ class ProfileDetails extends StatelessWidget {
                 )),
             CustomCircleButton(
               ontap: () {
-                Get.toNamed("");
+                Get.to(() =>  MessagePage(text: '', img: '',));
               },
               size: true,
               iconData: SvgPicture.asset("assets/icons/sms.svg"),

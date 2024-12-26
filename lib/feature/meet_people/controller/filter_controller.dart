@@ -6,11 +6,10 @@ import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 class FilterController extends GetxController {
-  var selectedCountry = "".obs;
+  var selectedCountry = Rxn<String>(); // Use Rxn<String> for nullable observables
 
   void updateCountry(String country) {
     selectedCountry.value = country;
-    
   }
 
   void showCountryPicker(BuildContext context) {

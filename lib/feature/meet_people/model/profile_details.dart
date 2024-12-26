@@ -1,4 +1,6 @@
 class SingleProfileDetails {
+  final String? id;
+  final String? userId;
   final String? fullName;
   final String? username;
   final String? profileImage;
@@ -20,6 +22,8 @@ class SingleProfileDetails {
   final UserProfileStatus? user;
 
   SingleProfileDetails({
+    this.id,
+    this.userId,
     this.fullName,
     this.username,
     this.profileImage,
@@ -43,6 +47,8 @@ class SingleProfileDetails {
 
   factory SingleProfileDetails.fromJson(Map<String, dynamic> json) {
     return SingleProfileDetails(
+      id: json['id'],
+      userId: json['userId'],
       fullName: json['fullName'],
       username: json['username'],
       profileImage: json['profileImage'],
@@ -61,12 +67,16 @@ class SingleProfileDetails {
       age: json['age'],
       height: json['height'],
       work: json['work'],
-      user: json['user'] != null ? UserProfileStatus.fromJson(json['user']) : null,
+      user: json['user'] != null
+          ? UserProfileStatus.fromJson(json['user'])
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
+      'userId': userId,
       'fullName': fullName,
       'username': username,
       'profileImage': profileImage,
@@ -91,7 +101,7 @@ class SingleProfileDetails {
 
   @override
   String toString() {
-    return 'ProfileResponse(fullName: $fullName, username: $username, profileImage: $profileImage, '
+    return 'ProfileResponse(id: $id, userId: $userId, fullName: $fullName, username: $username, profileImage: $profileImage, '
         'gallery: $gallery, isVerified: $isVerified, about: $about, country: $country, flag: $flag, '
         'city: $city, interests: $interests, locationLang: $locationLang, locationLat: $locationLat, '
         'relationship: $relationship, language: $language, gender: $gender, age: $age, height: $height, '

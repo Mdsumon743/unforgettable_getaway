@@ -13,17 +13,14 @@ Widget countrylist(bool? isColor) {
   }
 
   return DropdownButtonFormField<String>(
-    value: controller.selectedCountry.value.isNotEmpty
-        ? controller.selectedCountry.value
-        : null,
+    value: controller.selectedCountry.value,
     onChanged: (String? newValue) {
       if (newValue != null) {
         controller.updateCountry(newValue);
       }
     },
-    items: Const.countries
-        .toSet() 
-        .map<DropdownMenuItem<String>>((String country) {
+    items:
+        Const.countries.toSet().map<DropdownMenuItem<String>>((String country) {
       return DropdownMenuItem<String>(
         value: country,
         child: Text(country),

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import '../../../../../core/utils/assetpath.dart';
 import '../../../../meet_people/presentation/screen/search_location.dart';
-import 'chat_list.dart';
 
 class EmptyMessage extends StatelessWidget {
   const EmptyMessage({super.key});
@@ -34,9 +32,6 @@ class EmptyMessage extends StatelessWidget {
                 ),
                 SizedBox(height: 10.h),
                 CustomTextFieldSearch(
-                  ontap: () {
-                    Get.to(() => ChatListPage());
-                  },
                   hintText: "Search",
                   color: Colors.white.withOpacity(0.8),
                   prefixIcon: Icon(
