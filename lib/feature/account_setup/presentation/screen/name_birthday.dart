@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/account_setup/presentation/screen/gender_selection_screen.dart';
+import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
 
 class NameBirthdayScreen extends StatelessWidget {
@@ -37,6 +38,7 @@ class NameBirthdayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final acccountController = Get.put(AccountController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
@@ -75,7 +77,7 @@ class NameBirthdayScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-              nameTextField(),
+              nameTextField(acccountController),
               SizedBox(height: 30.h),
               Text(
                 'Your birthday',
@@ -86,72 +88,7 @@ class NameBirthdayScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Date',
-                          style: textStyle(
-                            14.sp,
-                            AppColors.whiteColor.withOpacity(0.9),
-                            FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        inputTextField(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 14.w),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Month',
-                          style: textStyle(
-                            14.sp,
-                            AppColors.whiteColor.withOpacity(0.9),
-                            FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        inputTextField(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 14.w),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Year',
-                          style: textStyle(
-                            14.sp,
-                            AppColors.whiteColor.withOpacity(0.9),
-                            FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        inputTextField(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              birthDayDateSelection(acccountController, context),
               SizedBox(height: 16.h),
               Text(
                 'It’s never too early to count down',
@@ -179,15 +116,19 @@ class NameBirthdayScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 130.h),
-              CustomButton(
-                text: 'Next',
-                textColor: AppColors.darkBrown1,
-                backgroundColor: AppColors.whiteColor.withOpacity(0.5),
-                onPressed: () {
-                  Get.to(() => const GenderSelectionScreen());
-                },
-                borderRadius: 40,
-              )
+              Obx(() => CustomButton(
+                    text: 'Next',
+                    textColor: AppColors.darkBrown1,
+                    backgroundColor: acccountController.userAge < 18
+                        ? AppColors.whiteColor.withOpacity(0.5)
+                        : AppColors.yellowColor,
+                    onPressed: () {
+                      if (acccountController.userAge >= 18) {
+                        Get.toNamed(AppRoute.gender);
+                      } else {}
+                    },
+                    borderRadius: 40,
+                  ))
             ],
           ),
         ),
@@ -195,49 +136,108 @@ class NameBirthdayScreen extends StatelessWidget {
     );
   }
 
-  inputTextField() {
-    return TextField(
-      textAlign: TextAlign.center,
-      style: textStyle(
-        16.sp,
-        AppColors.whiteColor,
-        FontWeight.w400,
-      ),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 30.sp),
-        fillColor: AppColors.whiteColor.withOpacity(0.01),
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.whiteColor.withOpacity(0.8),
+  birthDayDateSelection(
+    AccountController acccountController,
+    BuildContext context,
+  ) {
+    return Row(
+      children: [
+        Obx(
+          () => dateSelection(
+            acccountController,
+            acccountController.selectedDate.value?.day.toString() ?? "",
+            "Date",
+            'day',
+            2,
+            context,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.whiteColor.withOpacity(0.5),
+        SizedBox(width: 14.w),
+        Obx(
+          () => dateSelection(
+            acccountController,
+            acccountController.selectedDate.value?.month.toString() ?? "",
+            "Month",
+            'month',
+            2,
+            context,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.whiteColor.withOpacity(0.5),
+        SizedBox(width: 14.w),
+        Obx(
+          () => dateSelection(
+            acccountController,
+            acccountController.selectedDate.value?.year.toString() ?? "",
+            "Year",
+            'year',
+            3,
+            context,
           ),
         ),
+      ],
+    );
+  }
+
+  dateSelection(
+    AccountController acccountController,
+    String date,
+    String label,
+    String type,
+    int flex,
+    BuildContext context,
+  ) {
+    return Expanded(
+      flex: 1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: textStyle(
+              14.sp,
+              AppColors.whiteColor.withOpacity(0.9),
+              FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          GestureDetector(
+            onTap: () {
+              acccountController.selectDate(context, type);
+            },
+            child: Container(
+              height: 50,
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor.withOpacity(0.01),
+                border: Border.all(
+                  color: AppColors.whiteColor.withOpacity(0.5),
+                ),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Text(
+                date,
+                style: const TextStyle(color: AppColors.whiteColor),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
 
-  nameTextField() {
+  nameTextField(AccountController acccountController) {
     return TextField(
+      controller: acccountController.nameEditingController,
       style: textStyle(
         16.sp,
         AppColors.whiteColor,
         FontWeight.w400,
       ),
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 30.sp),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10.sp),
         fillColor: AppColors.whiteColor.withOpacity(0.01),
         filled: true,
         border: OutlineInputBorder(

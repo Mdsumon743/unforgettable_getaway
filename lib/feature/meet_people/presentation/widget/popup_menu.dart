@@ -1,11 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile.dart';
 
 class DropdownMenuController extends GetxController {
+  final ProfileController profileController = Get.put(ProfileController());
   RxString selectedItem = 'Item 1'.obs;
 
   void showPopupMenu(BuildContext context) async {
@@ -22,9 +26,11 @@ class DropdownMenuController extends GetxController {
       ),
       items: [
         PopupMenuItem(
+          onTap: () {
+            Get.toNamed(AppRoute.tourpage);
+          },
           value: 'Item 1',
-          child: Container(
-            color: const Color(0xffFFDF00),
+          child: SizedBox(
             width: 160.w,
             height: 50.h,
             child: Row(
@@ -66,7 +72,7 @@ class DropdownMenuController extends GetxController {
         ),
         PopupMenuItem(
           onTap: () {
-            Get.to(()=>const Profile());
+            Get.to(() => const Profile());
           },
           value: 'Item 3',
           child: SizedBox(
@@ -74,7 +80,12 @@ class DropdownMenuController extends GetxController {
             height: 50.h,
             child: Row(
               children: [
-                Image.asset(Assetpath.profile),
+                CircleAvatar(
+                  radius: 20.r,
+                  backgroundImage: CachedNetworkImageProvider(
+                      profileController.userData.value?.profileImage ??
+                          "https://i.ibb.co.com/nrs3FjM/images.png"),
+                ),
                 const SizedBox(
                   width: 10,
                 ),
@@ -91,8 +102,8 @@ class DropdownMenuController extends GetxController {
       ],
       elevation: 8.0,
       constraints: const BoxConstraints(
-        maxWidth: 200, 
-        maxHeight: 200, 
+        maxWidth: 200,
+        maxHeight: 200,
       ),
     );
   }

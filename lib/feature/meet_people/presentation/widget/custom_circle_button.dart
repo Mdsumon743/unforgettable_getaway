@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCircleButton extends StatelessWidget {
-  final Icon iconData;
+  final Widget iconData;
   final bool size;
   final void Function()? ontap;
   const CustomCircleButton(

@@ -25,6 +25,7 @@ class SearchLocation extends StatelessWidget {
               children: [
                 const CustomTextFieldSearch(
                   keyboardType: TextInputType.text,
+                  color: Colors.white,
                   hintText: 'Search for people by city ',
                   prefixIcon: Icon(
                     Icons.search,
@@ -113,6 +114,7 @@ class CustomTextFieldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = Get.put(CustomTextFieldSearchController());
+        final FocusNode focusNode = FocusNode();
 
     return SingleChildScrollView(
       child: Column(
@@ -124,6 +126,7 @@ class CustomTextFieldSearch extends StatelessWidget {
               border: Border.all(color: const Color(0xff737268), width: 1.5),
             ),
             child: TextFormField(
+              focusNode: focusNode,
               textInputAction: textInputAction,
               onChanged: (query) => searchController.filterSuggestions(query),
               controller: controller,

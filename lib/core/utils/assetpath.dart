@@ -1,5 +1,6 @@
 class Assetpath {
   static const String logoOnboarding = "assets/images/logo.png";
+  static const String logo = "assets/images/logo_image.png";
   static const String notification = "assets/icons/notification.png";
   static const String menu = "assets/icons/menu.png";
   static const String location = "assets/icons/location_on.png";
@@ -30,4 +31,32 @@ class Assetpath {
   static const String boking = "assets/icons/boking.png";
   static const String noti1 = "assets/icons/notification1.png";
   static const String noti2 = "assets/icons/notification.png";
+  static const String noti3 = "assets/images/noti3.png";
+  static const String chat1 = "assets/images/chat1.png";
+  static const String chat2 = "assets/images/chat2.png";
+  static const String chat3 = "assets/images/chat3.png";
+  static const String chat4 = "assets/images/chat4.png";
+  static const String chat5 = "assets/images/chat5.png";
+  static const String chat6 = "assets/images/chat6.png";
+  static const String chat7 = "assets/images/chat7.png";
+  static const String searchList = "assets/images/search_list.png";
+  static const String popup1 = "assets/icons/popup1.png";
+  static const String popup2 = "assets/icons/popup2.png";
+  static const String check = "assets/icons/check.png";
+  static const String visa = "assets/images/visa.png";
+  static const String paypal = "assets/images/paypal.png";
+  static const String pay = "assets/images/pay.png";
+  static const String gpay = "assets/images/gpay.png";
+  static const String creditcard = "assets/images/creditcard.png";
+  static const String cross = "assets/images/cross.png";
+  static const String finalpic = "assets/images/finalpic.png";
+  static const String tour = "assets/images/booking.png";
+  static const String date = "assets/images/finddate.png";
+  static const String creative = "assets/images/creative.png";
+  static const String send2= "assets/images/send2.png";
+  static const String video = "assets/icons/video.png";
+  static const String audio = "assets/icons/audio.png";
+  static const String block = "assets/icons/block.png";
+  static const String logout = "assets/icons/logout.png";
 }
+

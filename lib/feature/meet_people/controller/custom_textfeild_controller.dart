@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/helper/shared_prefarences_helper.dart';
+
 class CustomTextFieldSearchController extends GetxController {
   TextEditingController search = TextEditingController();
-
+  SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  RxBool isAccount = true.obs;
   RxList<String> citiesAndCountries = RxList([
     "New York, USA",
     "London, UK",
@@ -21,6 +24,17 @@ class CustomTextFieldSearchController extends GetxController {
     "Rome, Italy",
     "Cairo, Egypt"
   ]);
+
+  saveValue() async {
+    await preferencesHelper.init();
+    preferencesHelper.setBool("FirstTime", isAccount.value);
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    saveValue();
+  }
 
   RxList<String> filteredSuggestions = RxList([]);
 
@@ -42,7 +56,7 @@ class CustomTextFieldSearchController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-   
+
     search.dispose();
   }
 }

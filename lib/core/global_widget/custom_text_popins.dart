@@ -30,9 +30,12 @@ class CustomTextPopins extends StatelessWidget {
       maxLines: max,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
+        
         decoration: decoration,
         decorationColor: color,
           color: color, fontSize: size, fontWeight: fontWeight),
     );
   }
 }
+
+
