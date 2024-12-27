@@ -9,13 +9,15 @@ import '../../../core/network_caller/utils/utils.dart';
 class ProfileDetailsController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   RxBool isLoading = false.obs;
+  RxString image = "".obs;
+  RxString userName = "".obs;
+  RxString userID = "".obs;
   Rx<SingleProfileDetails?> profileDetailsData =
       Rx<SingleProfileDetails?>(null);
 
   Future<void> getSignleProfileDetails(String userID) async {
     profileDetailsData.value = null;
     update();
-
 
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
@@ -37,6 +39,8 @@ class ProfileDetailsController extends GetxController {
                   : jsonDecode(response.responseData);
           profileDetailsData.value = SingleProfileDetails.fromJson(jsonData);
           debugPrint("====ProfileDetails======${profileDetailsData.value}");
+          image.value = profileDetailsData.value!.profileImage!;
+       
         } else {
           debugPrint("Failed to retrieve data: ${response.responseData}");
         }
@@ -52,8 +56,4 @@ class ProfileDetailsController extends GetxController {
       update();
     }
   }
-
-  
-
-  
 }

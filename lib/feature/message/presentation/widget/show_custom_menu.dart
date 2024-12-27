@@ -5,7 +5,7 @@ import '../../../../core/global_widget/custom_text_popins.dart';
 import '../../../../core/utils/assetpath.dart';
 import '../../controller/messeage_controllred.dart';
 
-final MesseageController controller = Get.put(MesseageController());
+final MesseageController controller = Get.put(MesseageController(""));
 
 class ShowCustomMenuController extends GetxController {
   RxString selectedItem1 = 'Item 1'.obs;

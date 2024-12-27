@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/build_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_circle_button.dart';
-import 'package:unforgettable_getaway/feature/message/presentation/screen/message.dart';
+import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/completed_premium.dart';
 
 class ProfileDetails extends StatelessWidget {
   const ProfileDetails({
@@ -15,7 +17,9 @@ class ProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
     final profileDetailsController = Get.put(ProfileDetailsController());
+    final messageController = Get.put(MesseageController(""));
 
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
@@ -101,8 +105,26 @@ class ProfileDetails extends StatelessWidget {
                   size: 24,
                 )),
             CustomCircleButton(
-              ontap: () {
-                Get.to(() =>  MessagePage(text: '', img: '',));
+              ontap: () async {
+                await preferencesHelper.init();
+                String? userId = preferencesHelper.getString("userId") ?? "";
+                messageController.joinChatRoom(
+                    userId,
+                    profileDetailsController.profileDetailsData.value?.userId ??
+                        "Unknown");
+
+                Get.to(() => CompletedPremium(
+                      userid: userId,
+                      reciverId: profileDetailsController
+                              .profileDetailsData.value?.userId ??
+                          '',
+                      text: profileDetailsController
+                              .profileDetailsData.value?.fullName ??
+                          "Unknown",
+                      img: profileDetailsController
+                              .profileDetailsData.value?.profileImage ??
+                          "https://i.ibb.co.com/nrs3FjM/images.png",
+                    ));
               },
               size: true,
               iconData: SvgPicture.asset("assets/icons/sms.svg"),

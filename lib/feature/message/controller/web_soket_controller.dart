@@ -1,5 +1,90 @@
-import 'package:get/get.dart';
+import 'dart:convert';
 
-class WebSoketController extends GetxController{
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
+
+class WebSoketController extends GetxController {
+  WebSocketChannel? _channel;
+  Function(String)? onMessageReceived;
+
+  // Method to set the callback
+  void setOnMessageReceived(Function(String) callback) {
+    onMessageReceived = callback;
+  }
+
+  // Initialize WebSocket connection
+  void sendMessage(
+      String chatroomId, String senderId, String receiverId, String content) {
+    final message = jsonEncode({
+      'type': 'sendMessage',
+      'chatroomId': chatroomId,
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'content': content,
+    });
+
+    _channel?.sink.add(message);
+
+    debugPrint('Message sent to WebSocket: $message');
+  }
+
+  void initSocket() {
+    _channel = WebSocketChannel.connect(
+      Uri.parse('ws://192.168.11.20:5003'),
+    );
+
+    _channel?.stream.listen(
+      (message) {
+        debugPrint('Received WebSocket message: $message');
+        onMessageReceived?.call(message);
+      },
+      onError: (error) {
+        debugPrint('WebSocket error: $error');
+      },
+      onDone: () {
+        debugPrint('WebSocket connection closed');
+      },
+    );
+
+    debugPrint("WebSocket initialized and connected.");
+  }
+
   
- }
+  void joinRoom(String user1Id, String user2Id) {
+    final message = jsonEncode({
+      'type': 'joinRoom',
+      'user1Id': user1Id,
+      'user2Id': user2Id,
+    });
+    _channel?.sink.add(message);
+    if (kDebugMode) {
+      print(
+          '=============Joined room with user1Id: $user1Id and user2Id: $user2Id');
+    }
+  }
+
+  // Send a chat message
+
+  // Emit typing notification
+  void emitTyping(String typingRoomId, String username) {
+    final message = jsonEncode({
+      'type': 'typing',
+      'typingRoomId': typingRoomId,
+      'username': username,
+    });
+    _channel?.sink.add(message);
+    if (kDebugMode) {
+      print('Typing notification sent for username: $username');
+    }
+  }
+
+  // Disconnect WebSocket
+  void disconnect() {
+    _channel?.sink.close(status.goingAway);
+    if (kDebugMode) {
+      print('WebSocket connection closed');
+    }
+  }
+}

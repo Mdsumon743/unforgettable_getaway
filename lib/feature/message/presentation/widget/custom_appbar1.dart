@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,12 +20,13 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
   final ShowCustomMenuController controller =
       Get.put(ShowCustomMenuController());
-  final MesseageController controller1 = Get.put(MesseageController());
+  final MesseageController controller1 = Get.put(MesseageController(""));
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: const Color(0xff1A1110),
       elevation: 0,
+      scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
       title: Row(
@@ -37,7 +39,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           CircleAvatar(
             radius: 20.r,
-            backgroundImage: AssetImage(profileImage),
+            backgroundImage: CachedNetworkImageProvider(profileImage),
           ),
           SizedBox(width: 12.w),
           Column(
@@ -93,7 +95,9 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-        SizedBox(width: 10.w,),
+        SizedBox(
+          width: 10.w,
+        ),
         GestureDetector(
           onTap: () {
             controller.showPopupMenu1(context);
@@ -106,6 +110,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
+
   @override
   Size get preferredSize => Size.fromHeight(56.h);
 }

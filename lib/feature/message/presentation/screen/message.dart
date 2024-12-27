@@ -11,7 +11,7 @@ import '../widget/custom_appbar1.dart';
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
-  final MesseageController controller = Get.put(MesseageController());
+  final MesseageController controller = Get.put(MesseageController(""));
   MessagePage({
     super.key,
     required this.img,
@@ -61,12 +61,15 @@ class MessagePage extends StatelessWidget {
                 }
                 return ListView.builder(
                   reverse: true,
-                  itemCount: controller.messages.length,
+                  itemCount: controller.messagesSender.length,
                   itemBuilder: (context, index) {
+                    bool isUserMessage = controller.isUserMessage(index);
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Align(
-                        alignment: Alignment.centerRight,
+                        alignment: isUserMessage
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: Container(
                           constraints: BoxConstraints(
                             maxWidth: MediaQuery.of(context).size.width * 0.5,
@@ -74,14 +77,17 @@ class MessagePage extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               top: 8, right: 10, left: 8, bottom: 10),
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white30,
-                                width: 2.w,
-                              ),
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20)),
+                            border: Border.all(
+                              color: Colors.white30,
+                              width: 2.w,
+                            ),
+                            color: isUserMessage
+                                ? Colors.white.withOpacity(0.1)
+                                : Colors.blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           child: Text(
-                            controller.messages[index],
+                            controller.messagesSender[index],
                             style: GoogleFonts.poppins(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -114,7 +120,7 @@ class MessagePage extends StatelessWidget {
                     Expanded(
                         child: TextField(
                       onTap: () {
-                        if (controller.messages.length >= 2) {
+                        if (controller.messagesSender.length >= 2) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -150,7 +156,7 @@ class MessagePage extends StatelessWidget {
                           : IconButton(
                               onPressed: () {
                                 if (textController.text.isNotEmpty) {
-                                  controller.sendMessage(textController.text);
+                                
                                   textController.clear();
                                 }
                               },
