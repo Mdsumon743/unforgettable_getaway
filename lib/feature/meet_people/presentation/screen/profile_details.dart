@@ -19,7 +19,7 @@ class ProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
     final profileDetailsController = Get.put(ProfileDetailsController());
-    final messageController = Get.put(MesseageController(""));
+    final messageController = Get.put(MesseageController());
 
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),

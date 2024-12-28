@@ -2,28 +2,24 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
 import 'package:unforgettable_getaway/feature/message/controller/web_soket_controller.dart';
 
 class MesseageController extends GetxController {
+  SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   var isSwitched = false.obs;
   var selectedOption = ''.obs;
-  var messages = <String>[].obs;
-  var messagesSender =
-      <String>[].obs; // Keeps track of the sender of each message
   var isSecondMessageTriggered = false.obs;
-  var chatroomId = ''.obs; // Stores the current chatroom ID
-  String userid = ''; // Stores the current user's ID
+  var messages = <Map<String, dynamic>>[].obs;
+  var chatroomId = ''.obs;
+  String userid = '';
 
   final WebSoketController webSocketController = WebSoketController();
-
-  // Initialize the controller with userid
-  MesseageController(String userid) {
-    this.userid = userid;
-  }
 
   @override
   void onInit() {
     super.onInit();
+    loadUserId();
     webSocketController.initSocket();
     debugPrint("WebSocket initialized.");
     webSocketController.setOnMessageReceived((message) {
@@ -37,6 +33,11 @@ class MesseageController extends GetxController {
     debugPrint("Switch toggled: $value");
   }
 
+  Future<void> loadUserId() async {
+    await preferencesHelper.init();
+    userid = preferencesHelper.getString("userId") ?? "";
+  }
+
   void selectOption(String value) {
     selectedOption.value = value;
     debugPrint("Selected option: $value");
@@ -47,22 +48,20 @@ class MesseageController extends GetxController {
     debugPrint("Initializing chat between $user1Id and $user2Id");
   }
 
-  // void sendMessage(String senderId, String receiverId, String content) {
-  //   if (content.isNotEmpty && chatroomId.isNotEmpty) {
-  //     debugPrint("Sending message: $content");
-  //     sendMessageRealtime(chatroomId.value, senderId, receiverId, content);
-  //   } else {
-  //     debugPrint(
-  //         "Failed to send message. Chatroom ID is empty or content is empty.");
-  //   }
-  // }
+  void sendMessage(String senderId, String receiverId, String content) {
+    if (content.isNotEmpty && chatroomId.isNotEmpty) {
+      debugPrint("Sending message: $content");
+      sendMessageRealtime(chatroomId.value, senderId, receiverId, content);
+    } else {
+      debugPrint(
+          "Failed to send message. Chatroom ID is empty or content is empty.");
+    }
+  }
 
   void sendMessageRealtime(
       String chatroomId, String senderId, String receiverId, String content) {
     webSocketController.sendMessage(chatroomId, senderId, receiverId, content);
-    messages.insert(0, content);
-    messagesSender.insert(
-        0, 'user'); // Indicates the message is sent by the user
+
     debugPrint("Message sent: $content");
   }
 
@@ -71,46 +70,69 @@ class MesseageController extends GetxController {
     debugPrint("Joined chat room with $user1Id and $user2Id");
   }
 
+  // void _handleIncomingMessage(String rawMessage) {
+  //   final decodedMessage = jsonDecode(rawMessage);
+
+  //   if (decodedMessage['type'] == 'loadMessages') {
+  //     final conversation = decodedMessage['conversation'];
+  //     if (conversation != null && conversation['id'] != null) {
+  //       chatroomId.value = conversation['id'];
+  //       messages.clear();
+  //       update();
+  //       refresh();
+  //       for (var msg in conversation['messages']) {
+  //         messages
+  //             .add({'content': msg['content'], 'senderId': msg['senderId']});
+  //         update();
+  //         refresh();
+  //       }
+  //     }
+  //   } else if (decodedMessage['type'] == 'receiveMessage' ||
+  //       decodedMessage['type'] == 'messageSent') {
+  //     final message = decodedMessage['message'];
+  //     if (message != null) {
+  //       messages.add({
+  //         'content': message['content'],
+  //         'senderId': message['senderId'],
+  //       });
+  //     }
+  //     update();
+  //     refresh();
+  //   }
+  // }
   void _handleIncomingMessage(String rawMessage) {
     final decodedMessage = jsonDecode(rawMessage);
-
-    debugPrint("Handling incoming message: $decodedMessage");
 
     if (decodedMessage['type'] == 'loadMessages') {
       final conversation = decodedMessage['conversation'];
       if (conversation != null && conversation['id'] != null) {
         chatroomId.value = conversation['id'];
-        debugPrint("Chatroom ID assigned: ${chatroomId.value}");
-
-        if (conversation['messages'] != null) {
-          messages.clear();
-          messagesSender.clear();
-
-          for (var msg in conversation['messages']) {
-            messages.add(msg['content']);
-            // Compare senderId with userid to determine alignment
-            messagesSender.add(msg['senderId'] == userid ? 'user' : 'other');
-          }
-          debugPrint("Loaded messages: ${conversation['messages']}");
+        messages.clear(); // Clear to prevent duplication
+        for (var msg in conversation['messages']) {
+          _addMessage(msg['content'], msg['senderId']);
         }
       }
     } else if (decodedMessage['type'] == 'receiveMessage' ||
         decodedMessage['type'] == 'messageSent') {
-      // Handle incoming real-time messages
       final message = decodedMessage['message'];
       if (message != null) {
-        messages.insert(0, message['content']);
-        messagesSender.insert(
-            0, message['senderId'] == userid ? 'user' : 'other');
-        debugPrint("Real-time message received: ${message['content']}");
+        _addMessage(message['content'], message['senderId']);
       }
     }
   }
 
-  bool isUserMessage(int index) {
-    debugPrint(
-        "Checking if message at index $index is user message: ${messagesSender[index] == 'user'}");
-    return messagesSender[index] == 'user';
+  void _addMessage(String content, String senderId) {
+    if (!messages.any(
+        (msg) => msg['content'] == content && msg['senderId'] == senderId)) {
+      messages.add({'content': content, 'senderId': senderId});
+      debugPrint("Added message: $content from $senderId");
+    } else {
+      debugPrint("Duplicate message ignored: $content from $senderId");
+    }
+  }
+
+  bool isUserMessage(String senderId) {
+    return senderId == userid;
   }
 
   @override

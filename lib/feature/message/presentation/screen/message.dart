@@ -11,7 +11,7 @@ import '../widget/custom_appbar1.dart';
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
-  final MesseageController controller = Get.put(MesseageController(""));
+  final MesseageController controller = Get.put(MesseageController());
   MessagePage({
     super.key,
     required this.img,
@@ -61,9 +61,9 @@ class MessagePage extends StatelessWidget {
                 }
                 return ListView.builder(
                   reverse: true,
-                  itemCount: controller.messagesSender.length,
+                  itemCount: controller.messages.length,
                   itemBuilder: (context, index) {
-                    bool isUserMessage = controller.isUserMessage(index);
+                    bool isUserMessage = controller.isUserMessage("");
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Align(
@@ -87,7 +87,8 @@ class MessagePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
-                            controller.messagesSender[index],
+                            // controller.messages[index],
+                            "",
                             style: GoogleFonts.poppins(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -120,7 +121,7 @@ class MessagePage extends StatelessWidget {
                     Expanded(
                         child: TextField(
                       onTap: () {
-                        if (controller.messagesSender.length >= 2) {
+                        if (controller.messages.length >= 2) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
