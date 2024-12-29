@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/feature/meet_people/model/all_profile.dart';
+import 'package:unforgettable_getaway/feature/message/controller/chatlist_controller.dart';
 import 'dart:isolate';
 import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
 class AllProfileController extends GetxController {
+  ChatlistController chatlistController = Get.put(ChatlistController());
   RxBool isLoading = false.obs;
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
 
@@ -84,5 +86,6 @@ class AllProfileController extends GetxController {
   void onInit() {
     super.onInit();
     getUserProfiles();
+    chatlistController.getMyChatList();
   }
 }

@@ -157,7 +157,6 @@ class MessagePage extends StatelessWidget {
                           : IconButton(
                               onPressed: () {
                                 if (textController.text.isNotEmpty) {
-                                
                                   textController.clear();
                                 }
                               },

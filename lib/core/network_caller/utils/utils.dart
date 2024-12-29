@@ -12,4 +12,5 @@ class Utils {
   static const logout = "/auth/logout";
   static const favorite = "/favorites";
   static const deleteFavorite = "/favorites/";
+  static const getMyChatList = "/messages/getMyChat";
 }
