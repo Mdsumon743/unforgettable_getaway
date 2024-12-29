@@ -70,88 +70,89 @@ class ChatListPage extends StatelessWidget {
                   size: 14.sp,
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      var chatData = chatlistController.allChatList[index];
-                      var time =
-                          extractTime((chatData.lastMessageDate.toString()));
-                      return GestureDetector(
-                        onTap: () {
-                          messeageController.joinChatRoom(
-                              messeageController.userid, chatData.user.userId);
-                          Get.to(() => CompletedPremium(
-                                img: chatData.user.profileImage ??
-                                    "https://i.ibb.co.com/nrs3FjM/images.png",
-                                text: chatData.user.fullName,
-                                userid: messeageController.userid,
-                                reciverId: chatData.user.userId,
-                              ));
-                        },
-                        child: ListTile(
-                            title: Text(
-                              chatData.user.fullName,
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp),
-                            ),
-                            subtitle: Text(
-                              chatData.lastMessage ?? "",
-                              style: GoogleFonts.poppins(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            leading: CircleAvatar(
-                              radius: 25.r,
-                              backgroundImage: CachedNetworkImageProvider(
-                                chatData.user.profileImage ??
-                                    "https://i.ibb.co.com/nrs3FjM/images.png",
-                              ),
-                            ),
-                            trailing: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  time,
+              Obx(() => Expanded(
+                    child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          var chatData = chatlistController.allChatList[index];
+                          var time = extractTime(
+                              (chatData.lastMessageDate.toString()));
+                          return GestureDetector(
+                            onTap: () {
+                              messeageController.joinChatRoom(
+                                  messeageController.userid,
+                                  chatData.user.userId);
+                              Get.to(() => CompletedPremium(
+                                    img: chatData.user.profileImage ??
+                                        "https://i.ibb.co.com/nrs3FjM/images.png",
+                                    text: chatData.user.fullName,
+                                    userid: messeageController.userid,
+                                    reciverId: chatData.user.userId,
+                                  ));
+                            },
+                            child: ListTile(
+                                title: Text(
+                                  chatData.user.fullName,
                                   style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w400,
+                                      color: const Color(0xFFFFFFFF),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp),
+                                ),
+                                subtitle: Text(
+                                  chatData.lastMessage ?? "",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white.withOpacity(0.8),
                                     fontSize: 14.sp,
-                                    color: Colors.white.withOpacity(0.9),
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                                // Flexible(
-                                //   child: Container(
-                                //     height: 15.h,
-                                //     width: 15.w,
-                                //     decoration: BoxDecoration(
-                                //       color: const Color(0xFFFFDF00),
-                                //       borderRadius: BorderRadius.circular(12.r),
-                                //     ),
-                                //     alignment: Alignment.center,
-                                //     child: Text(
-                                //       "2",
-                                //       style: GoogleFonts.poppins(
-                                //         color: const Color(0xFF1A1110),
-                                //         fontSize: 12.sp,
-                                //         fontWeight: FontWeight.w400,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
-                            )),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider(
-                        color: Colors.black,
-                      );
-                    },
-                    itemCount: chatlistController.allChatList.length),
-              ),
+                                leading: CircleAvatar(
+                                  radius: 25.r,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    chatData.user.profileImage ??
+                                        "https://i.ibb.co.com/nrs3FjM/images.png",
+                                  ),
+                                ),
+                                trailing: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      time,
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14.sp,
+                                        color: Colors.white.withOpacity(0.9),
+                                      ),
+                                    ),
+                                    // Flexible(
+                                    //   child: Container(
+                                    //     height: 15.h,
+                                    //     width: 15.w,
+                                    //     decoration: BoxDecoration(
+                                    //       color: const Color(0xFFFFDF00),
+                                    //       borderRadius: BorderRadius.circular(12.r),
+                                    //     ),
+                                    //     alignment: Alignment.center,
+                                    //     child: Text(
+                                    //       "2",
+                                    //       style: GoogleFonts.poppins(
+                                    //         color: const Color(0xFF1A1110),
+                                    //         fontSize: 12.sp,
+                                    //         fontWeight: FontWeight.w400,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ],
+                                )),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            color: Colors.black,
+                          );
+                        },
+                        itemCount: chatlistController.allChatList.length),
+                  )),
             ],
           ),
         ),

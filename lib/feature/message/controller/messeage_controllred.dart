@@ -70,36 +70,6 @@ class MesseageController extends GetxController {
     debugPrint("Joined chat room with $user1Id and $user2Id");
   }
 
-  // void _handleIncomingMessage(String rawMessage) {
-  //   final decodedMessage = jsonDecode(rawMessage);
-
-  //   if (decodedMessage['type'] == 'loadMessages') {
-  //     final conversation = decodedMessage['conversation'];
-  //     if (conversation != null && conversation['id'] != null) {
-  //       chatroomId.value = conversation['id'];
-  //       messages.clear();
-  //       update();
-  //       refresh();
-  //       for (var msg in conversation['messages']) {
-  //         messages
-  //             .add({'content': msg['content'], 'senderId': msg['senderId']});
-  //         update();
-  //         refresh();
-  //       }
-  //     }
-  //   } else if (decodedMessage['type'] == 'receiveMessage' ||
-  //       decodedMessage['type'] == 'messageSent') {
-  //     final message = decodedMessage['message'];
-  //     if (message != null) {
-  //       messages.add({
-  //         'content': message['content'],
-  //         'senderId': message['senderId'],
-  //       });
-  //     }
-  //     update();
-  //     refresh();
-  //   }
-  // }
   void _handleIncomingMessage(String rawMessage) {
     final decodedMessage = jsonDecode(rawMessage);
 
@@ -107,7 +77,7 @@ class MesseageController extends GetxController {
       final conversation = decodedMessage['conversation'];
       if (conversation != null && conversation['id'] != null) {
         chatroomId.value = conversation['id'];
-        messages.clear(); // Clear to prevent duplication
+        messages.clear();
         for (var msg in conversation['messages']) {
           _addMessage(msg['content'], msg['senderId']);
         }

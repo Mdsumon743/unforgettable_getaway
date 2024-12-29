@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
 class WebSoketController extends GetxController {
   WebSocketChannel? _channel;
@@ -51,7 +50,6 @@ class WebSoketController extends GetxController {
     debugPrint("WebSocket initialized and connected.");
   }
 
-  
   void joinRoom(String user1Id, String user2Id) {
     final message = jsonEncode({
       'type': 'joinRoom',
@@ -80,11 +78,16 @@ class WebSoketController extends GetxController {
     }
   }
 
-  // Disconnect WebSocket
   void disconnect() {
-    _channel?.sink.close(status.goingAway);
-    if (kDebugMode) {
-      print('WebSocket connection closed');
+    try {
+      _channel?.sink.close(1000);
+      if (kDebugMode) {
+        print('WebSocket connection closed successfully.');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error while closing WebSocket: $e');
+      }
     }
   }
 }
