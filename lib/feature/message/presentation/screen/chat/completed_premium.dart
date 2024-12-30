@@ -38,6 +38,7 @@ class CompletedPremium extends StatelessWidget {
       appBar: CustomChatAppBar(
         profileImage: img,
         userName: text,
+        receiverId: reciverId,
         statusText: 'Active now',
         showCallIcon: true,
       ),

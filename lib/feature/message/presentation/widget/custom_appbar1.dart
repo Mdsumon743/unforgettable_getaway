@@ -2,25 +2,34 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/widget/show_custom_menu.dart';
-import '../../controller/messeage_controllred.dart';
+
+import '../../../../core/utils/assetpath.dart';
+import '../../controller/audio_video_controller.dart';
 
 class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String profileImage;
   final String userName;
   final String statusText;
+  final String? receiverId;
   final bool showCallIcon;
+
   CustomChatAppBar({
     super.key,
     required this.profileImage,
     required this.userName,
     required this.statusText,
+    this.receiverId,
     this.showCallIcon = false,
   });
+
   final ShowCustomMenuController controller =
       Get.put(ShowCustomMenuController());
-  final MesseageController controller1 = Get.put(MesseageController());
+  final MesseageController messageController = Get.put(MesseageController());
+  final CallController callController =
+      Get.put(CallController()); // Initialize CallController
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -85,12 +94,22 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  callController.createOffer(receiverId ?? "");
+                  Get.snackbar(
+                      "Video Call", "Starting video call with $userName");
+                },
                 icon: Image.asset(Assetpath.video),
               ),
               SizedBox(height: 5.h),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  callController.isVideoEnabled.value = false; // Disable video
+                  callController.createOffer(receiverId ?? "");
+
+                  Get.snackbar(
+                      "Audio Call", "Starting audio call with $userName");
+                },
                 icon: Image.asset(Assetpath.audio),
               ),
             ],

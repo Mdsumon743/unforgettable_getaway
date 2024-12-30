@@ -129,6 +129,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  dart_webrtc:
+    dependency: transitive
+    description:
+      name: dart_webrtc
+      sha256: e65506edb452148220efab53d8d2f8bb9d827bd8bcd53cf3a3e6df70b27f3d86
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.10"
   dbus:
     dependency: transitive
     description:
@@ -437,6 +445,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webrtc:
+    dependency: "direct main"
+    description:
+      name: flutter_webrtc
+      sha256: "3efe9828f19a07d29a51a726759ad0c70a840d231548a1c7d0332075a94db1df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.12.5+hotfix.1"
   geocoding:
     dependency: "direct main"
     description:
@@ -757,6 +773,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: c8245ada5f1717ed44271ed1c26b8ce85ca3228fd2ffdb75468ab01979309d61
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
   matcher:
     dependency: transitive
     description:
@@ -933,6 +957,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.6"
+  platform_detect:
+    dependency: transitive
+    description:
+      name: platform_detect
+      sha256: a62f99417fc4fa2d099ce0ccdbb1bd3977920f2a64292c326271f049d4bc3a4f
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -941,6 +973,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  pub_semver:
+    dependency: transitive
+    description:
+      name: pub_semver
+      sha256: "7b3cfbf654f3edd0c6298ecd5be782ce997ddf0e00531b9464b55245185bbbbd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.5"
   rxdart:
     dependency: transitive
     description:
@@ -1210,6 +1250,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  webrtc_interface:
+    dependency: transitive
+    description:
+      name: webrtc_interface
+      sha256: abec3ab7956bd5ac539cf34a42fa0c82ea26675847c0966bb85160400eea9388
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   webview_flutter:
     dependency: "direct main"
     description:

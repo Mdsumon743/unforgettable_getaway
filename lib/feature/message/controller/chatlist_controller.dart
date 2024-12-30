@@ -83,6 +83,6 @@ class ChatlistController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    startPolling(interval: const Duration(seconds: 5));
+    startPolling(interval: const Duration(hours: 2));
   }
 }
