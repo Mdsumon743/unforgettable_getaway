@@ -8,12 +8,10 @@ class WebSoketController extends GetxController {
   WebSocketChannel? _channel;
   Function(String)? onMessageReceived;
 
-  // Method to set the callback
   void setOnMessageReceived(Function(String) callback) {
     onMessageReceived = callback;
   }
 
-  // Initialize WebSocket connection
   void sendMessage(
       String chatroomId, String senderId, String receiverId, String content) {
     final message = jsonEncode({
@@ -27,6 +25,22 @@ class WebSoketController extends GetxController {
     _channel?.sink.add(message);
 
     debugPrint('Message sent to WebSocket: $message');
+  }
+
+  void sendOffer(String roomId, String receiverId, String sdp) {
+    final offerMessage = jsonEncode({
+      'type': 'offer',
+      'offer': {
+        'type': 'sendOffer',
+        'sdp': sdp,
+      },
+      'receiverId': receiverId,
+      'roomId': roomId,
+    });
+
+    _channel?.sink.add(offerMessage);
+
+    debugPrint('Offer sent to WebSocket: $offerMessage');
   }
 
   void initSocket() {
@@ -63,9 +77,6 @@ class WebSoketController extends GetxController {
     }
   }
 
-  // Send a chat message
-
-  // Emit typing notification
   void emitTyping(String typingRoomId, String username) {
     final message = jsonEncode({
       'type': 'typing',

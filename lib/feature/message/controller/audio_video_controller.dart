@@ -1,16 +1,19 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
+import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
 import 'package:unforgettable_getaway/feature/message/controller/web_soket_controller.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as rtc;
 
 class CallController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   final WebSoketController webSocketController = Get.put(WebSoketController());
+  final MesseageController messeageController = Get.put(MesseageController());
   RxString senderId = "".obs;
+  RxString waiting = "Waiting for remote video...".obs;
+
   RTCPeerConnection? _peerConnection;
   MediaStream? localStream;
   MediaStream? remoteStream;
@@ -18,11 +21,14 @@ class CallController extends GetxController {
   var isAudioEnabled = true.obs;
   var isVideoEnabled = true.obs;
   var isInCall = false.obs;
+  var currentMediaType = ''.obs;
+  var otherId = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
     loadUserId();
+    webSocketController.initSocket();
     webSocketController.setOnMessageReceived(_handleSignalingMessage);
   }
 
@@ -32,19 +38,22 @@ class CallController extends GetxController {
     senderId.value = userid ?? "";
   }
 
-  /// Handle incoming WebSocket signaling messages
   void _handleSignalingMessage(String message) async {
+    debugPrint('Received signaling message: $message');
     final data = jsonDecode(message);
     final type = data['type'];
 
     switch (type) {
       case 'offer':
-        await _handleOffer(data);
+        debugPrint('Handling received offer: $data');
+        _showIncomingCallDialog(data);
         break;
       case 'answer':
+        debugPrint('Handling received answer: $data');
         await _handleAnswer(data);
         break;
       case 'candidate':
+        debugPrint('Handling received ICE candidate: ${data['candidate']}');
         await _handleCandidate(data['candidate']);
         break;
       default:
@@ -52,72 +61,128 @@ class CallController extends GetxController {
     }
   }
 
-  /// Create and send an offer
-  Future<void> createOffer(String receiverId) async {
-    try {
-      _peerConnection = await _createPeerConnection();
-      localStream = await _createMediaStream();
+  void _showIncomingCallDialog(Map<String, dynamic> data) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Incoming Call'),
+        content: Text('You have an incoming ${data['mediaType']} call.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+              _handleOffer(data);
+            },
+            child: const Text('Accept'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+              _declineCall(data['senderId']);
+            },
+            child: const Text('Decline'),
+          ),
+        ],
+      ),
+    );
+  }
 
-      localStream?.getTracks().forEach((track) {
-        _peerConnection?.addTrack(track, localStream!);
-      });
+  void _declineCall(String senderId) {
+    webSocketController.sendMessage(
+      '',
+      this.senderId.value,
+      senderId,
+      jsonEncode({"type": "decline"}),
+    );
+  }
+
+  Future<void> createOffer(
+    String receiverId, {
+    required bool isVideoCall,
+    String? mediaFilePath,
+  }) async {
+    try {
+      debugPrint('Creating offer for receiver: $receiverId');
+      currentMediaType.value = mediaFilePath != null
+          ? 'file'
+          : isVideoCall
+              ? 'video'
+              : 'audio';
+
+      _peerConnection = await _createPeerConnection(receiverId);
+
+      if (currentMediaType.value != 'file') {
+        localStream = await _createMediaStream(isVideoCall);
+        localStream?.getTracks().forEach((track) {
+          debugPrint('Adding local track: ${track.label}');
+          _peerConnection?.addTrack(track, localStream!);
+        });
+      }
 
       final offer = await _peerConnection!.createOffer();
+      debugPrint('Created offer SDP: ${offer.sdp}');
       await _peerConnection!.setLocalDescription(offer);
 
-      debugPrint("========SDP Offer===========: ${offer.sdp}"); 
+      final roomId = messeageController.chatroomId.value;
 
-      webSocketController.sendMessage(
-        '',
-        senderId.value,
+      webSocketController.sendOffer(
+        roomId,
         receiverId,
-        jsonEncode({"type": "offer", "sdp": offer.sdp}),
+        offer.sdp ?? "v=0",
       );
+
+      debugPrint('Sent offer to WebSocket for receiver: $receiverId');
     } catch (e) {
       debugPrint('Error creating offer: $e');
     }
   }
 
-  /// Handle incoming offer
   Future<void> _handleOffer(Map<String, dynamic> data) async {
     try {
-      _peerConnection = await _createPeerConnection();
+      debugPrint('Handling incoming offer with data: $data');
+      final mediaType = data['mediaType'];
+      currentMediaType.value = mediaType;
 
-      final offer = RTCSessionDescription(data['offer']['sdp'], 'offer');
+      _peerConnection = await _createPeerConnection(otherId.value);
+
+      final offer = RTCSessionDescription(data['sdp'], 'offer');
       await _peerConnection!.setRemoteDescription(offer);
+      debugPrint('Set remote description for received offer');
 
-      localStream = await _createMediaStream();
-      localStream?.getTracks().forEach((track) {
-        _peerConnection?.addTrack(track, localStream!);
-      });
+      if (mediaType != 'file') {
+        localStream = await _createMediaStream(mediaType == 'video');
+        localStream?.getTracks().forEach((track) {
+          debugPrint('Adding local track for offer: ${track.label}');
+          _peerConnection?.addTrack(track, localStream!);
+        });
+      }
 
       final answer = await _peerConnection!.createAnswer();
+      debugPrint('Created answer SDP: ${answer.sdp}');
       await _peerConnection!.setLocalDescription(answer);
 
-      debugPrint("SDP Answer: ${answer.sdp}"); // Print SDP answer
-
-      webSocketController.sendMessage(
-        '',
-        senderId.value,
+      webSocketController.sendOffer(
+        data['roomId'],
         data['senderId'],
-        jsonEncode({"type": "answer", "sdp": answer.sdp}),
+        answer.sdp ?? "v=0",
       );
+
+      debugPrint('Sent answer to WebSocket for sender: ${data['senderId']}');
     } catch (e) {
       debugPrint('Error handling offer: $e');
     }
   }
 
-  /// Handle incoming answer
   Future<void> _handleAnswer(Map<String, dynamic> data) async {
     try {
+      debugPrint('Handling incoming answer: $data');
       final answer = RTCSessionDescription(data['sdp'], 'answer');
       await _peerConnection?.setRemoteDescription(answer);
+      debugPrint('Set remote description for received answer');
     } catch (e) {
       debugPrint('Error handling answer: $e');
     }
   }
 
-  /// Handle incoming ICE candidate
   Future<void> _handleCandidate(Map<String, dynamic> candidate) async {
     try {
       final rtcCandidate = RTCIceCandidate(
@@ -131,12 +196,11 @@ class CallController extends GetxController {
     }
   }
 
-  /// Create a WebRTC PeerConnection
-  Future<RTCPeerConnection> _createPeerConnection() async {
+  Future<RTCPeerConnection> _createPeerConnection(String reciverId) async {
     final config = {
       "iceServers": [
         {
-          "urls": "stun:stun.l.google.com:19302", // STUN server
+          "urls": "stun:stun.l.google.com:19302",
         },
       ]
     };
@@ -151,12 +215,12 @@ class CallController extends GetxController {
     };
 
     peerConnection.onIceCandidate = (candidate) {
+      // ignore: unnecessary_null_comparison
       if (candidate != null) {
-        webSocketController.sendMessage(
-          '',
-          senderId.value,
-          '',
-          jsonEncode({"type": "candidate", "candidate": candidate.toMap()}),
+        webSocketController.sendOffer(
+          messeageController.chatroomId.value, // Use the current room ID
+          reciverId, // The receiver ID (set appropriately)
+          candidate.toMap()['candidate'] ?? '',
         );
       }
     };
@@ -164,22 +228,22 @@ class CallController extends GetxController {
     return peerConnection;
   }
 
-  /// Create a local media stream
-  Future<MediaStream> _createMediaStream() async {
+  Future<MediaStream> _createMediaStream(bool isVideoCall) async {
     final constraints = {
       "audio": isAudioEnabled.value,
-      "video": isVideoEnabled.value ? {"facingMode": "user"} : false,
+      "video": isVideoCall ? {"facingMode": "user"} : false,
     };
 
-    return await rtc.navigator.mediaDevices.getUserMedia(constraints);
+    return await rtc.mediaDevices.getUserMedia(constraints);
   }
 
-  /// End the call and clean up resources
   void endCall() {
     _peerConnection?.close();
     _peerConnection = null;
     localStream?.dispose();
     remoteStream?.dispose();
     isInCall.value = false;
+    currentMediaType.value = '';
   }
 }
+

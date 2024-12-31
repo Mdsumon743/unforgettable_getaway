@@ -60,6 +60,8 @@ dependencies:
   image_picker: ^1.1.2
   permission_handler: ^11.3.1
   flutter_webrtc: ^0.12.5+hotfix.1
+  zego_uikit_prebuilt_call: ^4.16.19
+  zego_uikit_signaling_plugin: ^2.8.8
 
   
 

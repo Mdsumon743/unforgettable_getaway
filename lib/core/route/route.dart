@@ -54,9 +54,10 @@ class AppRoute {
 
   static final route = [
     GetPage(
-        name: chatList,
-        page: () => const ShowMessageScreen(),
-        transition: Transition.rightToLeft),
+      name: chatList,
+      page: () => const ShowMessageScreen(),
+      transition: Transition.rightToLeft,
+    ),
     GetPage(
         name: emptyMessage,
         page: () => const EmptyMessage(),

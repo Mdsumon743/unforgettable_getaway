@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/call.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/widget/show_custom_menu.dart';
-
 import '../../../../core/utils/assetpath.dart';
 import '../../controller/audio_video_controller.dart';
 
@@ -27,8 +27,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ShowCustomMenuController controller =
       Get.put(ShowCustomMenuController());
   final MesseageController messageController = Get.put(MesseageController());
-  final CallController callController =
-      Get.put(CallController()); // Initialize CallController
+  final CallController callController = Get.put(CallController());
 
   @override
   Widget build(BuildContext context) {
@@ -95,20 +94,18 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  callController.createOffer(receiverId ?? "");
-                  Get.snackbar(
-                      "Video Call", "Starting video call with $userName");
+                  Get.to(
+                      () => VideoCall(name: userName, id: receiverId ?? '122'));
                 },
                 icon: Image.asset(Assetpath.video),
               ),
               SizedBox(height: 5.h),
               IconButton(
                 onPressed: () {
-                  callController.isVideoEnabled.value = false; // Disable video
-                  callController.createOffer(receiverId ?? "");
-
-                  Get.snackbar(
-                      "Audio Call", "Starting audio call with $userName");
+                  Get.to(() => AudioCall(
+                        name: userName,
+                        id: receiverId ?? '122',
+                      ));
                 },
                 icon: Image.asset(Assetpath.audio),
               ),
