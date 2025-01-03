@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +21,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final signInFormKey = GlobalKey<FormState>();
     final SignUpController signUpController = Get.put(SignUpController());
+
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: Form(
@@ -90,10 +93,10 @@ class SignUpScreen extends StatelessWidget {
                     SizedBox(height: 30.h),
                     Obx(() => signUpController.isLoading.value
                         ? const Center(
-                          child:  CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: Colors.amber,
                             ),
-                        )
+                          )
                         : CustomButton(
                             text: "Sign Up",
                             textColor: const Color(0XFF0D0D0C),

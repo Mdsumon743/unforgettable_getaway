@@ -45,7 +45,7 @@ class WebSoketController extends GetxController {
 
   void initSocket() {
     _channel = WebSocketChannel.connect(
-      Uri.parse('ws://192.168.11.20:5003'),
+      Uri.parse('ws://167.99.119.39:5003'),
     );
 
     _channel?.stream.listen(
@@ -63,6 +63,7 @@ class WebSoketController extends GetxController {
 
     debugPrint("WebSocket initialized and connected.");
   }
+ 
 
   void joinRoom(String user1Id, String user2Id) {
     final message = jsonEncode({
