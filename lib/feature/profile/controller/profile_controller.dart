@@ -29,6 +29,7 @@ class ProfileController extends GetxController {
   TextEditingController age = TextEditingController();
   var isLoading = false.obs;
   var avatarFile = Rx<File?>(null);
+  var selectedImages = <File>[].obs;
   Map<String, dynamic> upadateNewData = {};
 
   updatestaus(String selectedStatus) {
@@ -111,7 +112,54 @@ class ProfileController extends GetxController {
         debugPrint('====An error occurred: $e');
       } finally {
         isLoading.value = false;
+        await getUserProfiles();
       }
+    }
+  }
+
+  Future<void> uploadMultipleImages() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+
+    if (token != null) {
+      try {
+        isLoading.value = true;
+        final url = Uri.parse('${Utils.baseUrl}${Utils.uploadGallery}');
+        debugPrint("API URL: $url");
+
+        var request = http.MultipartRequest('PUT', url);
+        request.headers.addAll({
+          'Authorization': 'Bearer $token',
+        });
+        for (var image in selectedImages) {
+          request.files.add(await http.MultipartFile.fromPath(
+            'gallery',
+            image.path,
+          ));
+        }
+        var streamedResponse = await request.send();
+        var response = await http.Response.fromStream(streamedResponse);
+
+        if (response.statusCode == 200) {
+          debugPrint('Success: ${response.body}');
+          Get.snackbar("Upload Success", "Images uploaded successfully.");
+        } else {
+          debugPrint('Error: ${response.statusCode}, ${response.body}');
+          Get.snackbar(
+            "Upload Failed",
+            "Failed to upload images. Error: ${response.body}",
+          );
+        }
+      } catch (e) {
+        debugPrint('An error occurred: $e');
+        Get.snackbar("Upload Error", "An error occurred: $e");
+      } finally {
+        isLoading.value = false;
+        await getUserProfiles();
+      }
+    } else {
+      debugPrint("Token is null. Please log in again.");
+      Get.snackbar("Authentication Error", "Please log in to upload images.");
     }
   }
 
@@ -193,24 +241,51 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> pickImageFromGallery() async {
+  Future<void> pickImageFromGallery(bool isProfile) async {
     await requestStoragePermission();
     if (await Permission.manageExternalStorage.isGranted) {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        avatarFile.value = File(image.path);
+      if (isProfile) {
+        final XFile? image =
+            await _picker.pickImage(source: ImageSource.gallery);
+        if (image != null) {
+          avatarFile.value = File(image.path);
+        }
+      } else {
+        if (selectedImages.length >= 5) {
+          Get.snackbar("Limit Reached", "You can select up to 5 images only.");
+          return;
+        }
+
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final List<XFile>? images = await _picker.pickMultiImage();
+        if (images != null && images.isNotEmpty) {
+          if (selectedImages.length + images.length > 5) {
+            Get.snackbar(
+              "Limit Reached",
+              "You can only select up to 5 images in total.",
+            );
+            return;
+          }
+          selectedImages
+              .addAll(images.map((image) => File(image.path)).toList());
+          await uploadMultipleImages();
+        }
       }
     } else {
       Get.snackbar("Permission Denied", "Storage permission is required.");
     }
   }
 
-  Future<void> pickImageFromCamera() async {
+  Future<void> pickImageFromCamera(bool isProfile) async {
     await requestCameraPermission();
     if (await Permission.camera.isGranted) {
       final XFile? image = await _picker.pickImage(source: ImageSource.camera);
       if (image != null) {
-        avatarFile.value = File(image.path);
+        if (isProfile) {
+          avatarFile.value = File(image.path);
+        } else {
+          selectedImages.add(File(image.path));
+        }
       }
     } else {
       Get.snackbar("Permission Denied", "Camera permission is required.");
@@ -230,10 +305,12 @@ class ProfileController extends GetxController {
         userData.value?.country.toString() ?? "Unknown";
   }
 
-  void showImagePickerDialog(BuildContext context) {
+  void showImagePickerDialog(BuildContext context, bool isProfile) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (
+        BuildContext context,
+      ) {
         return AlertDialog(
           title: const Text("Select Image Source"),
           content: Column(
@@ -243,7 +320,7 @@ class ProfileController extends GetxController {
                 leading: const Icon(Icons.camera),
                 title: const Text("Camera"),
                 onTap: () {
-                  pickImageFromCamera();
+                  pickImageFromCamera(isProfile);
                   Navigator.of(context).pop();
                 },
               ),
@@ -251,7 +328,7 @@ class ProfileController extends GetxController {
                 leading: const Icon(Icons.photo_library),
                 title: const Text("Gallery"),
                 onTap: () {
-                  pickImageFromGallery();
+                  pickImageFromGallery(isProfile);
                   Navigator.of(context).pop();
                 },
               ),

@@ -64,7 +64,7 @@ class ProfileEdit extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      profileController.showImagePickerDialog(context);
+                      profileController.showImagePickerDialog(context,true);
                     },
                     child: Container(
                       height: 40.h,

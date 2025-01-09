@@ -38,8 +38,9 @@ class GalleryGridview extends StatelessWidget {
               padding: EdgeInsets.all(10.r),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  image:
-                      DecorationImage(image: CachedNetworkImageProvider(data))),
+                  image: DecorationImage(
+                      image: CachedNetworkImageProvider(data),
+                      fit: BoxFit.fill)),
             );
           }
         },
