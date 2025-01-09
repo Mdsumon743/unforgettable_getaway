@@ -74,7 +74,8 @@ class ProfileDetails extends StatelessWidget {
                 language: data?.language ?? "Unknown",
                 relationshipStatus: data?.relationship ?? "Unknown",
                 work: data?.work ?? "Unknown",
-              )
+              ),
+            
             ],
           );
         }

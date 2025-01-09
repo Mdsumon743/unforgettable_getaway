@@ -33,6 +33,7 @@ class ShowCustomMenuController extends GetxController {
                       child: Switch(
                         value: controller.isSwitched.value,
                         onChanged: (value) {
+                          controller.autoTranslateMessages();
                           controller.toggleSwitch(value);
                           Navigator.pop(context);
                         },

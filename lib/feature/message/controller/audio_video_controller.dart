@@ -246,4 +246,3 @@ class CallController extends GetxController {
     currentMediaType.value = '';
   }
 }
-

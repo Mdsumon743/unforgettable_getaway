@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
@@ -9,10 +9,12 @@ class MesseageController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   var isSwitched = false.obs;
   var selectedOption = ''.obs;
+  var callId = ''.obs;
   var isSecondMessageTriggered = false.obs;
   var messages = <Map<String, dynamic>>[].obs;
   var chatroomId = ''.obs;
   String userid = '';
+  RxBool isTranslate = false.obs;
 
   final WebSoketController webSocketController = WebSoketController();
 
@@ -96,6 +98,7 @@ class MesseageController extends GetxController {
         (msg) => msg['content'] == content && msg['senderId'] == senderId)) {
       messages.add({'content': content, 'senderId': senderId});
       debugPrint("Added message: $content from $senderId");
+      debugPrint("All Messeage============$messages");
     } else {
       debugPrint("Duplicate message ignored: $content from $senderId");
     }
@@ -103,6 +106,47 @@ class MesseageController extends GetxController {
 
   bool isUserMessage(String senderId) {
     return senderId == userid;
+  }
+
+  Future<String> translateTextToSpanish(String text) async {
+    const apiKey = 'AIzaSyCeCF3mAeGPc1WAAMpGwtQq1Mskp0e7DF8';
+    const String targetLanguage = 'es';
+    final Uri url = Uri.parse(
+        'https://translation.googleapis.com/language/translate/v2?key=$apiKey');
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'q': text,
+        'target': targetLanguage,
+      }),
+    );
+    debugPrint("================${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      isTranslate.value = true;
+      debugPrint("======TranslateText=========${response.body}");
+      return jsonResponse['data']['translations'][0]['translatedText'];
+    } else {
+      throw Exception('Failed to translate text: ${response.body}');
+    }
+  }
+
+  Future<void> autoTranslateMessages() async {
+    try {
+      for (var message in messages) {
+        if (message['translatedContent'] == null) {
+          final translatedText =
+              await translateTextToSpanish(message['content']);
+          message['translatedContent'] = translatedText;
+        }
+      }
+      messages.refresh();
+      debugPrint("=======All messages auto-translated successfully.$messages");
+    } catch (e) {
+      debugPrint("Error during auto-translation: $e");
+    }
   }
 
   @override

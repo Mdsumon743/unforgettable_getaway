@@ -18,7 +18,7 @@ class VideoCall extends StatelessWidget {
           "88b6e3057f73c2956905006a16c5dd075f22387fa9feee61fadb6b6135707614",
       userID: id,
       userName: name,
-      callID: "1234",
+      callID: '112233',
       config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
     );
   }
@@ -41,7 +41,7 @@ class AudioCall extends StatelessWidget {
           "88b6e3057f73c2956905006a16c5dd075f22387fa9feee61fadb6b6135707614",
       userID: id,
       userName: name,
-      callID: "1234",
+      callID: '112233',
       config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall(),
     );
   }

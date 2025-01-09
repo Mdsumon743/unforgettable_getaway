@@ -91,31 +91,35 @@ class CompletedPremium extends StatelessWidget {
                               ? Alignment.centerRight
                               : Alignment.centerLeft,
                           child: Container(
-                            constraints: BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width * 0.5,
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 8, right: 10, left: 8, bottom: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white30,
-                                width: 2.w,
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.5,
                               ),
-                              color: isUserMessage
-                                  ? Colors.white.withOpacity(0.1)
-                                  : Colors.blue.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              controller.messages[index]['content'],
-                              style: GoogleFonts.poppins(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white.withOpacity(0.9),
+                              padding: const EdgeInsets.only(
+                                  top: 8, right: 10, left: 8, bottom: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white30,
+                                  width: 2.w,
+                                ),
+                                color: isUserMessage
+                                    ? Colors.white.withOpacity(0.1)
+                                    : Colors.blue.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              softWrap: true,
-                            ),
-                          ),
+                              child: Text(
+                                controller.isTranslate.value
+                                    ? (controller.messages[index]
+                                            ['translatedContent'] ??
+                                        controller.messages[index]['content'])
+                                    : controller.messages[index]['content'],
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white.withOpacity(0.9),
+                                ),
+                                softWrap: true,
+                              )),
                         ),
                       );
                     },

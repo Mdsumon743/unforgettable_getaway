@@ -13,4 +13,5 @@ class Utils {
   static const favorite = "/favorites";
   static const deleteFavorite = "/favorites/";
   static const getMyChatList = "/messages/getMyChat";
+  static const uploadGallery = "/profiles/uploadGalleryImage";
 }

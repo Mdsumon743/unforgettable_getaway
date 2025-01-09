@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,10 +23,13 @@ class PhotoGridview extends StatelessWidget {
           child: imageContainer(
               main ?? "https://i.ibb.co.com/nrs3FjM/images.png", 'Main', false),
         ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main2.png", '2', true),
+        GestureDetector(
+          onTap: () {},
+          child: StaggeredGridTile.count(
+            crossAxisCellCount: 1,
+            mainAxisCellCount: 1,
+            child: imageContainer("assets/images/main2.png", '2', true),
+          ),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: 1,

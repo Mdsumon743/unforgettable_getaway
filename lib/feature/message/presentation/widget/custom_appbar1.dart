@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
-import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/call.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/zego_call.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/widget/show_custom_menu.dart';
 import '../../../../core/utils/assetpath.dart';
 import '../../controller/audio_video_controller.dart';
