@@ -10,6 +10,7 @@ import '../../../core/network_caller/utils/utils.dart';
 
 class ChatlistController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+
   RxBool isLoading = false.obs;
   RxList<ChatData> allChatList = <ChatData>[].obs;
 
@@ -63,15 +64,7 @@ class ChatlistController extends GetxController {
     }
   }
 
-  void startPolling({required Duration interval}) {
-    _pollingTimer?.cancel();
 
-    _pollingTimer = Timer.periodic(interval, (timer) async {
-      await getMyChatList();
-    });
-
-    debugPrint("[LOG] Polling started with interval: $interval");
-  }
 
   void stopPolling() {
     _pollingTimer?.cancel();
@@ -80,9 +73,5 @@ class ChatlistController extends GetxController {
     debugPrint("[LOG] Polling stopped.");
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    startPolling(interval: const Duration(hours: 2));
-  }
+
 }
