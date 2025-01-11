@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-
 import 'package:unforgettable_getaway/app.dart';
 import 'package:unforgettable_getaway/core/binding/binding.dart';
 import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
@@ -14,7 +16,7 @@ class FinalPage extends StatelessWidget {
         backgroundColor: const Color(0xff1A1110),
         actions: [
          IconButton(onPressed: (){
-           
+           Get.toNamed(AppRoute.meet);
          }, icon:Image.asset(Assetpath.cross,height: 24.h,width: 24.w,))
 
         ],
