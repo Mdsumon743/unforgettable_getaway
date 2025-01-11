@@ -7,7 +7,6 @@ import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
-import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 
 class LoginOrSignupScreen extends StatelessWidget {
   const LoginOrSignupScreen({super.key});
@@ -80,7 +79,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.to(() => const SearchLocation());
+                        
                           },
                       ),
                     ],
