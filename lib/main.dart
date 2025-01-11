@@ -15,7 +15,6 @@ import 'core/helper/shared_prefarences_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey = publickey;
-  Stripe.instance;
   await Firebase.initializeApp();
   AppBingding().dependencies();
   OnboardingController().onInit();

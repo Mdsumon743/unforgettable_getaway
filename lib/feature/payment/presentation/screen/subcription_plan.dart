@@ -3,18 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
-import 'package:unforgettable_getaway/feature/payment/presentation/screen/payment_method.dart';
+import 'package:unforgettable_getaway/feature/payment/controller/stripe_service.dart';
 
 import '../../controller/subcribtion_plan.dart';
 import '../widget/custom_plan.dart';
 
 class SubscriptionPlan extends StatelessWidget {
-  SubscriptionPlan({super.key});
-
-  final SubscriptionController controller = Get.put(SubscriptionController());
+  const SubscriptionPlan({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final SubscriptionController controller = Get.put(SubscriptionController());
+
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
       appBar: AppBar(
@@ -48,34 +48,30 @@ class SubscriptionPlan extends StatelessWidget {
                 color: Colors.white,
               ),
               const SizedBox(height: 32),
-              Obx(() => CustomPlan(
-                    tittle: 'Weekly Plan',
-                    sub: '\$8.95 / 7 Days',
-                    isSelected: controller.selectedPlan.value == 'Weekly Plan',
-                    onTap: () {
-                      controller.selectPlan('Weekly Plan');
-                    },
-                  )),
-              const SizedBox(height: 24),
-              Obx(() => CustomPlan(
-                    tittle: 'Monthly Plan',
-                    sub: '\$15.35 / 30 Days',
-                    isSelected: controller.selectedPlan.value == 'Monthly Plan',
-                    onTap: () {
-                      controller.selectPlan('Monthly Plan');
-                    },
-                  )),
-              const SizedBox(height: 24),
-              Obx(() => CustomPlan(
-                    tittle: 'Yearly Plan',
-                    sub: '\$45.55 / 1 Year',
-                    isSelected: controller.selectedPlan.value == 'Yearly Plan',
-                    onTap: () {
-                      controller.selectPlan('Yearly Plan');
-                    },
-                  )),
-              const SizedBox(
-                height: 32,
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.allPlan.length,
+                itemBuilder: (context, index) {
+                  final data = controller.allPlan[index];
+                  return Padding(
+                      padding: EdgeInsets.only(bottom: 24.0.r),
+                      child: Obx(
+                        () => CustomPlan(
+                          tittle: data.planName,
+                          sub: '\$${data.price} / ${data.duration} Days',
+                          isSelected:
+                              controller.selectedPlan.value == data.planName,
+                          onTap: () {
+                            controller.selectPlan(
+                                data.planName, data.price, data.id);
+                          },
+                        ),
+                      ));
+                },
+              ),
+              SizedBox(
+                height: 32.h,
               ),
               Row(
                 children: [
@@ -141,35 +137,38 @@ class SubscriptionPlan extends StatelessWidget {
                 height: 75.h,
               ),
               SizedBox(
-                height:48.h,
-                width:335.w,
-                child: Obx(() => ElevatedButton(
-                      onPressed: controller.selectedPlan.value.isNotEmpty
-
-                          ? () {
-                              Get.to(() =>  const PaymentMethod());
-                            }
-                          : null,
-                      style: ElevatedButton.styleFrom(
-
-                        backgroundColor:
-                            controller.selectedPlan.value.isNotEmpty
-                                ? const Color(0xffFFDF00)
-                                : Colors.grey, // Button color changes
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.r),
+                height: 48.h,
+                width: 335.w,
+                child: Obx(() => controller.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.amber,
                         ),
-                      ),
-                      child:  const Text(
-                        'Subscribe Now',
-                        style: TextStyle(
-                          fontWeight:FontWeight.w500,
-                           fontSize:18,
-
-                          color: Color(0xff333329),
+                      )
+                    : ElevatedButton(
+                        onPressed: controller.selectedPlan.value.isNotEmpty
+                            ? () {
+                                StripeService.instance.setupPaymentMethod();
+                              }
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              controller.selectedPlan.value.isNotEmpty
+                                  ? const Color(0xffFFDF00)
+                                  : Colors.grey, 
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.r),
+                          ),
                         ),
-                      ),
-                    )),
+                        child: const Text(
+                          'Subscribe Now',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Color(0xff333329),
+                          ),
+                        ),
+                      )),
               ),
             ],
           ),

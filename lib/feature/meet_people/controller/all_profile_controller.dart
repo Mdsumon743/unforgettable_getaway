@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/feature/meet_people/model/all_profile.dart';
 import 'package:unforgettable_getaway/feature/message/controller/chatlist_controller.dart';
 import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
+import 'package:unforgettable_getaway/feature/payment/controller/subcribtion_plan.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 import 'dart:isolate';
 import '../../../core/helper/shared_prefarences_helper.dart';
@@ -14,6 +14,8 @@ import '../../../core/network_caller/utils/utils.dart';
 class AllProfileController extends GetxController {
   ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
+  SubscriptionController subscriptionController =
+      Get.put(SubscriptionController());
   NotificationController notificationController =
       Get.put(NotificationController());
   RxBool isLoading = false.obs;
@@ -106,6 +108,7 @@ class AllProfileController extends GetxController {
   void onInit() {
     super.onInit();
     getUserProfiles();
-    startPolling(interval: const Duration(seconds: 30));
+    subscriptionController.getAllPlan();
+    startPolling(interval: const Duration(minutes: 30));
   }
 }

@@ -15,4 +15,6 @@ class Utils {
   static const getMyChatList = "/messages/getMyChat";
   static const uploadGallery = "/profiles/uploadGalleryImage";
   static const notification = "/notifications";
+  static const plan = "/plans";
+  static const payment = "/payments";
 }
