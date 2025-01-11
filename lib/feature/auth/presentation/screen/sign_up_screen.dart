@@ -168,7 +168,6 @@ class SignUpScreen extends StatelessWidget {
   }
 
   signUpWithSocialMedia(SocialLogin sociallogin) {
-    
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
