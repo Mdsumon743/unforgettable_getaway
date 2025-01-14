@@ -109,6 +109,7 @@ class AllProfileController extends GetxController {
     super.onInit();
     getUserProfiles();
     subscriptionController.getAllPlan();
-    startPolling(interval: const Duration(minutes: 30));
+    chatlistController.getMyChatList();
+    startPolling(interval: const Duration(seconds: 20));
   }
 }
