@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -63,10 +65,13 @@ class MessagePage extends StatelessWidget {
                   reverse: true,
                   itemCount: controller.messages.length,
                   itemBuilder: (context, index) {
+                    bool isUserMessage = controller.isUserMessage("");
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Align(
-                        alignment: Alignment.centerRight,
+                        alignment: isUserMessage
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: Container(
                           constraints: BoxConstraints(
                             maxWidth: MediaQuery.of(context).size.width * 0.5,
@@ -74,14 +79,18 @@ class MessagePage extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               top: 8, right: 10, left: 8, bottom: 10),
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white30,
-                                width: 2.w,
-                              ),
-                              color: Colors.white.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20)),
+                            border: Border.all(
+                              color: Colors.white30,
+                              width: 2.w,
+                            ),
+                            color: isUserMessage
+                                ? Colors.white.withOpacity(0.1)
+                                : Colors.blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           child: Text(
-                            controller.messages[index],
+                            // controller.messages[index],
+                            "",
                             style: GoogleFonts.poppins(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
@@ -150,7 +159,6 @@ class MessagePage extends StatelessWidget {
                           : IconButton(
                               onPressed: () {
                                 if (textController.text.isNotEmpty) {
-                                  controller.sendMessage(textController.text);
                                   textController.clear();
                                 }
                               },

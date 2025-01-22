@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +13,7 @@ import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/sign_up_controller.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/social_login.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -19,6 +22,8 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final signInFormKey = GlobalKey<FormState>();
     final SignUpController signUpController = Get.put(SignUpController());
+    final SocialLogin socialLogin = Get.put(SocialLogin());
+
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: Form(
@@ -90,10 +95,10 @@ class SignUpScreen extends StatelessWidget {
                     SizedBox(height: 30.h),
                     Obx(() => signUpController.isLoading.value
                         ? const Center(
-                          child:  CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: Colors.amber,
                             ),
-                        )
+                          )
                         : CustomButton(
                             text: "Sign Up",
                             textColor: const Color(0XFF0D0D0C),
@@ -117,7 +122,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    signUpWithSocialMedia(),
+                    signUpWithSocialMedia(socialLogin),
                   ],
                 ),
                 SizedBox(height: 50.h),
@@ -162,12 +167,14 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  signUpWithSocialMedia() {
+  signUpWithSocialMedia(SocialLogin sociallogin) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            sociallogin.googleSignIn();
+          },
           child: Container(
             padding: EdgeInsets.all(18.sp),
             decoration: BoxDecoration(
@@ -182,7 +189,9 @@ class SignUpScreen extends StatelessWidget {
         ),
         SizedBox(width: 20.w),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            sociallogin.loginWithFacebook();
+          },
           child: Container(
             padding: EdgeInsets.all(18.sp),
             decoration: BoxDecoration(

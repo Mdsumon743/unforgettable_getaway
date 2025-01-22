@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/binding/binding.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 
+final navigatorkey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -22,11 +24,10 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             getPages: AppRoute.route,
+            navigatorKey: navigatorkey,
             initialBinding: AppBingding(),
             initialRoute: AppRoute.onboarding,
           );
         });
-        
   }
 }
-

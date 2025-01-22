@@ -5,8 +5,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PhotoGridview extends StatelessWidget {
+  final void Function()? ontap;
+  final List<String>? gallery;
   final String? main;
-  const PhotoGridview({super.key, this.main});
+  const PhotoGridview({super.key, this.main, this.gallery, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,45 +16,37 @@ class PhotoGridview extends StatelessWidget {
       crossAxisCount: 3,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
-      children: [
-        StaggeredGridTile.count(
-          mainAxisCellCount: 2,
-          crossAxisCellCount: 2,
-          child: imageContainer(
-              main ?? "https://i.ibb.co.com/nrs3FjM/images.png", 'Main', false),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main2.png", '2', true),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main3.png", '3', true),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '4', true),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '5', true),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '6', true),
-        ),
-      ],
+      children: List.generate(6, (index) {
+        if (index == 0) {
+          return StaggeredGridTile.count(
+            mainAxisCellCount: 2,
+            crossAxisCellCount: 2,
+            child: imageContainer(
+                main ?? "https://i.ibb.co.com/nrs3FjM/images.png",
+                'Main',
+                false),
+          );
+        } else {
+          bool hasImage = gallery != null && gallery!.length > index - 1;
+          return GestureDetector(
+            onTap: ontap,
+            child: StaggeredGridTile.count(
+              crossAxisCellCount: 1,
+              mainAxisCellCount: 1,
+              child: imageContainer(hasImage ? gallery![index - 1] : "",
+                  '${index + 1}', !hasImage),
+            ),
+          );
+        }
+      }),
     );
   }
 }
 
 Widget imageContainer(String image, String number, bool no) {
   return Container(
+    height: 110.h,
+    width: 140.w,
     alignment: Alignment.bottomRight,
     padding: EdgeInsets.all(5.r),
     decoration: BoxDecoration(

@@ -167,6 +167,10 @@ class Profile extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.r, vertical: 20.r),
                   child: PhotoGridview(
+                      ontap: () {
+                        profilecontroller.showImagePickerDialog(context, false);
+                      },
+                      gallery: profilecontroller.userData.value?.gallery ?? [],
                       main:
                           profilecontroller.userData.value?.profileImage ?? ""),
                 ),

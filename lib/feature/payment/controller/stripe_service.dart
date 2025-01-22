@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/key.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/subcribtion_plan.dart';
 
+
 class StripeService {
   StripeService._();
 
-  final SubscriptionController subscriptionController =
-      Get.put(SubscriptionController());
+  final SubscriptionController subscriptionController = Get.put(SubscriptionController());
 
   static final StripeService instance = StripeService._();
 
@@ -82,6 +82,7 @@ class StripeService {
         String paymentMethodId = response.data['payment_method'];
         log('Payment Method ID: $paymentMethodId');
         await subscriptionController.sendPaymentServer(paymentMethodId);
+
       } else {
         log('No payment method returned from Stripe');
       }

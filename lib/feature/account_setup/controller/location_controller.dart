@@ -18,6 +18,13 @@ class LocationController extends GetxController {
   var longitude = 0.0.obs;
   var isLoading = false.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentLocation();
+    getAddressFromCoordinates();
+  }
+
   Future<bool> checkLocationServices() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -41,6 +48,7 @@ class LocationController extends GetxController {
   }
 
   Future<Position> getCurrentLocation() async {
+    debugPrint("================FunctionCalled");
     bool serviceEnabled = await checkLocationServices();
     if (!serviceEnabled) {
       debugPrint("Your Location Service disable");
@@ -319,12 +327,5 @@ class LocationController extends GetxController {
         .join();
 
     return emoji;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getCurrentLocation();
-    getAddressFromCoordinates();
   }
 }

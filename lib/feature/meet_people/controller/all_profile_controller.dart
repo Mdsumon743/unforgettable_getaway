@@ -1,14 +1,26 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/feature/meet_people/model/all_profile.dart';
+import 'package:unforgettable_getaway/feature/message/controller/chatlist_controller.dart';
+import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
+import 'package:unforgettable_getaway/feature/payment/controller/subcribtion_plan.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 import 'dart:isolate';
 import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
 class AllProfileController extends GetxController {
+  ChatlistController chatlistController = Get.put(ChatlistController());
+  ProfileController profileController = Get.put(ProfileController());
+  SubscriptionController subscriptionController =
+      Get.put(SubscriptionController());
+  NotificationController notificationController =
+      Get.put(NotificationController());
   RxBool isLoading = false.obs;
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  Timer? _pollingTimer;
 
   RxList<ProfileResponse> allProfiles = <ProfileResponse>[].obs;
 
@@ -80,9 +92,24 @@ class AllProfileController extends GetxController {
     sendPort.send(processedProfiles);
   }
 
+  void startPolling({required Duration interval}) {
+    _pollingTimer?.cancel();
+
+    _pollingTimer = Timer.periodic(interval, (timer) async {
+      await chatlistController.getMyChatList();
+      await profileController.getUserProfiles();
+      await notificationController.fetchNotifications();
+    });
+
+    debugPrint("[LOG] Polling started with interval: $interval");
+  }
+
   @override
   void onInit() {
     super.onInit();
     getUserProfiles();
+    subscriptionController.getAllPlan();
+    chatlistController.getMyChatList();
+    startPolling(interval: const Duration(seconds: 20));
   }
 }

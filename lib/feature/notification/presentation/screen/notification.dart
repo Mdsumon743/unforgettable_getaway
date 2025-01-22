@@ -1,7 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -43,7 +46,7 @@ class NotificationPage extends StatelessWidget {
                   radius: 25.r,
                   backgroundColor: Colors.white.withOpacity(0.2),
                   child: Image.asset(
-                    notificationController.notificationList[index]['leading'],
+                    Assetpath.noti2,
                     fit: BoxFit.cover,
                     height: 28.h,
                     width: 28.w,
@@ -51,20 +54,12 @@ class NotificationPage extends StatelessWidget {
                   ),
                 ),
                 title: Text(
-                  notificationController.notificationList[index]['title'],
+                  notificationController.notificationList[index].body,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: GoogleFonts.poppins(
-                      fontSize: notificationController.notificationList[index]
-                                  ["size"] ??
-                              false
-                          ? 16.sp
-                          : 14.sp,
-                      fontWeight: notificationController.notificationList[index]
-                                  ["size"] ??
-                              false
-                          ? FontWeight.w600
-                          : FontWeight.w400,
+                      fontSize:  14.sp,
+                      fontWeight:  FontWeight.w400,
                       color: Colors.white),
                 ),
                 subtitle: Column(
@@ -72,8 +67,8 @@ class NotificationPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      notificationController.notificationList[index]
-                          ['subtitle']!,
+                      notificationController.notificationList[index].createdAt.toIso8601String()
+                         ,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: GoogleFonts.poppins(
@@ -82,13 +77,13 @@ class NotificationPage extends StatelessWidget {
                         fontSize: 14.sp,
                       ),
                     ),
-                    Text(
-                      notificationController.notificationList[index]['time'],
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 14.sp,
-                      ),
-                    ),
+                    // Text(
+                    //   notificationController.notificationList[index]['time'],
+                    //   style: TextStyle(
+                    //     color: Colors.white.withOpacity(0.8),
+                    //     fontSize: 14.sp,
+                    //   ),
+                    // ),
                   ],
                 ),
                 trailing: const Column(
