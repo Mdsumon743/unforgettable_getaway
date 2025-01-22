@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,6 @@ import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
-
 import '../../../core/helper/shared_prefarences_helper.dart';
 
 class SocialLogin extends GetxController {
@@ -52,6 +52,41 @@ class SocialLogin extends GetxController {
       }
     } catch (e) {
       debugPrint(e.toString());
+    }
+  }
+
+  Future<UserCredential> signInGoogleIos() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        debugPrint("Google Sign-In was canceled by the user.");
+        return Future.error("Sign-In Canceled");
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        debugPrint("User Name: ${user.displayName}");
+        debugPrint("User Email: ${user.email}");
+        debugPrint("User UID: ${user.uid}");
+      }
+
+      return userCredential;
+    } catch (error) {
+      debugPrint("Error during Google Sign-In: $error");
+      return Future.error(error);
     }
   }
 
