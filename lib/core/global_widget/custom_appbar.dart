@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     var userData = profileController.userData.value;
     return AppBar(
       scrolledUnderElevation: 0,
-      toolbarHeight: 165.h,
+      toolbarHeight: 175.h,
       backgroundColor: AppColors.darkBrown,
       leading: const SizedBox(),
       shape: RoundedRectangleBorder(
@@ -99,7 +99,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 5.h,
                 ),
                 CustomTextFieldSearch(
                   fillColor: const Color(0xff302827),
@@ -114,7 +114,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: Image.asset(Assetpath.filter)),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 15.h,
                 ),
               ],
             ),

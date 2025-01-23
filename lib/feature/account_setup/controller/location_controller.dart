@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,8 +23,64 @@ class LocationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCurrentLocation();
-    getAddressFromCoordinates();
+    fetchLocationForIOS();
+    // getCurrentLocation();
+    // getAddressFromCoordinates();
+  }
+
+  Future<void> fetchLocationForIOS() async {
+    if (Platform.isIOS) {
+      bool serviceEnabled;
+      LocationPermission permission;
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        debugPrint('Location services are disabled.');
+        return;
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          debugPrint('Location permissions are denied.');
+          return;
+        }
+      }
+      if (permission == LocationPermission.deniedForever) {
+        debugPrint('Location permissions are permanently denied.');
+        return;
+      }
+
+      try {
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+
+        latitude.value = position.latitude;
+        longitude.value = position.longitude;
+
+        debugPrint('Latitude: ${latitude.value}');
+        debugPrint('Longitude: ${longitude.value}');
+
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+            position.latitude, position.longitude);
+
+        if (placemarks.isNotEmpty) {
+          Placemark placemark = placemarks.first;
+          country.value = placemark.country ?? "Unknown";
+          city.value = placemark.locality ?? "Unknown";
+          flag.value = countryToEmoji(country.value);
+          debugPrint('City: ${city.value}');
+          debugPrint('Country: ${country.value}');
+          debugPrint('Country: ${flag.value}');
+          Get.toNamed(AppRoute.namebirthScreen);
+        } else {
+          debugPrint('No placemarks found for the location.');
+        }
+      } catch (e) {
+        debugPrint('Error fetching location: $e');
+      }
+    } else {
+      debugPrint('This function is designed to run on iOS only.');
+    }
   }
 
   Future<bool> checkLocationServices() async {

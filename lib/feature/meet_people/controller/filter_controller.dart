@@ -6,7 +6,7 @@ import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
 class FilterController extends GetxController {
-  var selectedCountry = Rxn<String>(); // Use Rxn<String> for nullable observables
+  var selectedCountry = Rxn<String>();
 
   void updateCountry(String country) {
     selectedCountry.value = country;
@@ -101,10 +101,13 @@ class FilterController extends GetxController {
                         SizedBox(
                           width: 5.w,
                         ),
-                        CustomTextPopins(
-                          text: "Use my current location",
-                          color: const Color(0xff8C7B00),
-                          size: 16.sp,
+                        GestureDetector(
+                          onTap: () {},
+                          child: CustomTextPopins(
+                            text: "Use my current location",
+                            color: const Color(0xff8C7B00),
+                            size: 16.sp,
+                          ),
                         )
                       ],
                     )

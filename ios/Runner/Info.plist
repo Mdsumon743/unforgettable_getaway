@@ -15,8 +15,12 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
-
-
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to provide nearby recommendations and better services.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location helps us provide seamless functionality, even in the background.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location for enhanced functionality at all times.</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>GIDClientID</key>

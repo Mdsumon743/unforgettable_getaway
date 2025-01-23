@@ -27,7 +27,7 @@ class CitySelectionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 40.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
