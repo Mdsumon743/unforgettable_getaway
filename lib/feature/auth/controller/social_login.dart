@@ -78,9 +78,38 @@ class SocialLogin extends GetxController {
       final User? user = userCredential.user;
 
       if (user != null) {
-        debugPrint("User Name: ${user.displayName}");
-        debugPrint("User Email: ${user.email}");
-        debugPrint("User UID: ${user.uid}");
+        Map<String, dynamic> userCredintial = {
+          "username": user.displayName.toString(),
+          "email": user.email.toString(),
+          "profileImage": user.photoURL.toString(),
+          "fcpmToken": preferencesHelper.getString("fcm_token")
+        };
+
+        final response = await NetworkCaller().postRequest(
+            Utils.baseUrl + Utils.googleLogin,
+            body: userCredintial);
+
+        if (response.isSuccess) {
+          await preferencesHelper.setString(
+              "userToken", response.responseData['accessToken']);
+          await preferencesHelper.setString(
+              "userId", response.responseData['id']);
+          bool? accountSetup = response.responseData["accountSetup"] ?? false;
+          profileController.getUserProfiles().then(
+            (value) {
+              if (accountSetup == false) {
+                Get.offAllNamed(AppRoute.selectCountry);
+              } else {
+                Get.offAllNamed(AppRoute.meet);
+              }
+            },
+          );
+
+          debugPrint("======login===Succes");
+          debugPrint("======name===${user.displayName}");
+          debugPrint("======email===${user.email}");
+          debugPrint("======photo===${user.photoURL}");
+        }
       }
 
       return userCredential;
@@ -90,27 +119,24 @@ class SocialLogin extends GetxController {
     }
   }
 
-
   Future<void> loginWithFacebooIosk() async {
-  try {
-    final LoginResult result = await FacebookAuth.instance.login(); // Trigger Facebook Login
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
 
-    if (result.status == LoginStatus.success) {
-      // Access Token
-      final AccessToken accessToken = result.accessToken!;
-      print("Access Token: ${accessToken.tokenString}");
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+        debugPrint("Access Token: ${accessToken.tokenString}");
 
-      // Fetch user data
-      final userData = await FacebookAuth.instance.getUserData(fields: "name,email,picture");
-      print("User Data: $userData");
-    } else {
-      print("Login failed: ${result.message}");
+        final userData = await FacebookAuth.instance
+            .getUserData(fields: "name,email,picture");
+        debugPrint("User Data: $userData");
+      } else {
+        debugPrint("Login failed: ${result.message}");
+      }
+    } catch (e) {
+      debugPrint("Error during Facebook login: $e");
     }
-  } catch (e) {
-    print("Error during Facebook login: $e");
   }
-}
-
 
   String? userName;
   String? userEmail;
