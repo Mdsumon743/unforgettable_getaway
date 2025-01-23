@@ -90,6 +90,28 @@ class SocialLogin extends GetxController {
     }
   }
 
+
+  Future<void> loginWithFacebooIosk() async {
+  try {
+    final LoginResult result = await FacebookAuth.instance.login(); // Trigger Facebook Login
+
+    if (result.status == LoginStatus.success) {
+      // Access Token
+      final AccessToken accessToken = result.accessToken!;
+      print("Access Token: ${accessToken.tokenString}");
+
+      // Fetch user data
+      final userData = await FacebookAuth.instance.getUserData(fields: "name,email,picture");
+      print("User Data: $userData");
+    } else {
+      print("Login failed: ${result.message}");
+    }
+  } catch (e) {
+    print("Error during Facebook login: $e");
+  }
+}
+
+
   String? userName;
   String? userEmail;
   String? userProfilePic;

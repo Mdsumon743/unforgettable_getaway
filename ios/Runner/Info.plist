@@ -11,23 +11,22 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>GIDClientID</key>
-		<string>125723717439-e33b3s7nggv371s973s21ro3teue2bcr.apps.googleusercontent.com</string>
+	<string>125723717439-e33b3s7nggv371s973s21ro3teue2bcr.apps.googleusercontent.com</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 
-<key>CFBundleURLTypes</key>
-<array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-		
-
-			<string>com.googleusercontent.apps.125723717439-e33b3s7nggv371s973s21ro3teue2bcr</string>
-		</array>
-	</dict>
-</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.125723717439-e33b3s7nggv371s973s21ro3teue2bcr</string>
+				<string>fb888504579764089</string> <!-- Facebook URL Scheme -->
+			</array>
+		</dict>
+	</array>
 
 	<key>CFBundleName</key>
 	<string>unforgettable_getaway</string>
@@ -62,5 +61,18 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Facebook Login Configurations -->
+	<key>FacebookAppID</key>
+	<string>888504579764089</string>
+	<key>FacebookDisplayName</key>
+	<string>unforgettable_getaway</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

@@ -144,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(width: 20.w),
                         GestureDetector(
                           onTap: () {
-                            socialLogin.loginWithFacebook();
+                            socialLogin.loginWithFacebooIosk();
                           },
                           child: Container(
                             padding: EdgeInsets.all(20.sp),
