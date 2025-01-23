@@ -81,31 +81,29 @@ class NotificationController extends GetxController {
   Future<void> saveTokenForiOS() async {
     try {
       if (GetPlatform.isIOS) {
-        NotificationSettings settings =
-            await _firebaseMessaging.requestPermission(
+        await _firebaseMessaging.requestPermission(
           alert: true,
           badge: true,
           sound: true,
         );
 
-        if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-          print('User granted permission for notifications');
+        print('User granted permission for notifications');
 
-          String? apnsToken = await _firebaseMessaging.getAPNSToken();
-          print('APNs Token: $apnsToken');
+        String? apnsToken = await _firebaseMessaging.getAPNSToken();
+        print('APNs Token: $apnsToken');
 
-          String? fcmToken = await _firebaseMessaging.getToken();
-          if (fcmToken != null) {
-            await preferencesHelper.init();
-            await preferencesHelper.setString('fcm_token', fcmToken);
+        String? fcmToken = await _firebaseMessaging.getToken();
+        if (fcmToken != null) {
+          await preferencesHelper.init();
+          await preferencesHelper.setString('fcm_token', fcmToken);
 
-            print("FCM Token for iOS: $fcmToken");
-          } else {
-            print("Failed to get FCM token on iOS.");
-          }
+          print("FCM Token for iOS: $fcmToken");
         } else {
-          print('User denied notification permissions on iOS');
+          print("Failed to get FCM token on iOS.");
         }
+
+        _firebaseMessaging.setForegroundNotificationPresentationOptions(
+            alert: true, sound: true, badge: true);
       } else {
         print("saveTokenForiOS function is being called on a non-iOS platform");
       }
