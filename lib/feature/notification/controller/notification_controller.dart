@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,7 +7,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart';
 import 'package:unforgettable_getaway/feature/notification/model/notification.dart';
-
 import '../../../core/network_caller/service/service.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
@@ -31,11 +28,9 @@ class NotificationController extends GetxController {
   }
 
   void _initializeLocalNotifications() {
-    // Android settings
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    // iOS settings
     DarwinInitializationSettings initializationSettingsIOS =
         const DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -43,17 +38,14 @@ class NotificationController extends GetxController {
       requestSoundPermission: true,
     );
 
-    // Combined platform settings
     InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
 
-    // Initialize local notifications
     _localNotificationsPlugin.initialize(
       initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        // Handle notification tap
         print("Notification clicked with payload: ${response.payload}");
       },
     );
