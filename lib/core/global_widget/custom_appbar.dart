@@ -99,7 +99,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 10.h,
                 ),
                 CustomTextFieldSearch(
                   fillColor: const Color(0xff302827),
@@ -114,7 +114,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       child: Image.asset(Assetpath.filter)),
                 ),
                 SizedBox(
-                  height: 15.h,
+                  height: 10.h,
                 ),
               ],
             ),

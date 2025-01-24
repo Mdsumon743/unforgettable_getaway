@@ -21,37 +21,37 @@ class SocialLogin extends GetxController {
           "username": user.displayName.toString(),
           "email": user.email.toString(),
           "profileImage": user.photoUrl.toString(),
-          "fcpmToken": preferencesHelper.getString("fcm_token")
+          "fcpmToken": preferencesHelper.getString("fcm_token"),
         };
 
         final response = await NetworkCaller().postRequest(
-            Utils.baseUrl + Utils.googleLogin,
-            body: userCredintial);
+          Utils.baseUrl + Utils.googleLogin,
+          body: userCredintial,
+        );
 
         if (response.isSuccess) {
+          final responseData = response.responseData as Map<String, dynamic>;
           await preferencesHelper.setString(
-              "userToken", response.responseData['accessToken']);
-          await preferencesHelper.setString(
-              "userId", response.responseData['id']);
-          bool? accountSetup = response.responseData["accountSetup"] ?? false;
-          profileController.getUserProfiles().then(
-            (value) {
-              if (accountSetup == false) {
-                Get.offAllNamed(AppRoute.selectCountry);
-              } else {
-                Get.offAllNamed(AppRoute.meet);
-              }
-            },
-          );
+              "userToken", responseData['accessToken']);
+          await preferencesHelper.setString("userId", responseData['id']);
+          bool accountSetup = responseData["accountSetup"] ?? false;
 
-          debugPrint("======login===Succes");
+          profileController.getUserProfiles().then((value) {
+            if (!accountSetup) {
+              Get.offAllNamed(AppRoute.selectCountry);
+            } else {
+              Get.offAllNamed(AppRoute.meet);
+            }
+          });
+
+          debugPrint("======login===Success");
           debugPrint("======name===${user.displayName}");
           debugPrint("======email===${user.email}");
           debugPrint("======photo===${user.photoUrl}");
         }
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("Error during Google Sign-In: $e");
     }
   }
 
@@ -79,33 +79,33 @@ class SocialLogin extends GetxController {
 
       if (user != null) {
         Map<String, dynamic> userCredintial = {
-          "username": user.displayName.toString(),
-          "email": user.email.toString(),
-          "profileImage": user.photoURL.toString(),
-          "fcpmToken": preferencesHelper.getString("fcm_token")
+          "username": user.displayName ?? "",
+          "email": user.email ?? "",
+          "profileImage": user.photoURL ?? "",
+          "fcpmToken": preferencesHelper.getString("fcm_token") ?? "",
         };
 
         final response = await NetworkCaller().postRequest(
-            Utils.baseUrl + Utils.googleLogin,
-            body: userCredintial);
+          Utils.baseUrl + Utils.googleLogin,
+          body: userCredintial,
+        );
 
         if (response.isSuccess) {
+          final responseData = response.responseData as Map<String, dynamic>;
           await preferencesHelper.setString(
-              "userToken", response.responseData['accessToken']);
-          await preferencesHelper.setString(
-              "userId", response.responseData['id']);
-          bool? accountSetup = response.responseData["accountSetup"] ?? false;
-          profileController.getUserProfiles().then(
-            (value) {
-              if (accountSetup == false) {
-                Get.offAllNamed(AppRoute.selectCountry);
-              } else {
-                Get.offAllNamed(AppRoute.meet);
-              }
-            },
-          );
+              "userToken", responseData['accessToken']);
+          await preferencesHelper.setString("userId", responseData['id']);
+          bool accountSetup = responseData["accountSetup"] ?? false;
 
-          debugPrint("======login===Succes");
+          profileController.getUserProfiles().then((value) {
+            if (!accountSetup) {
+              Get.offAllNamed(AppRoute.selectCountry);
+            } else {
+              Get.offAllNamed(AppRoute.meet);
+            }
+          });
+
+          debugPrint("======login===Success");
           debugPrint("======name===${user.displayName}");
           debugPrint("======email===${user.email}");
           debugPrint("======photo===${user.photoURL}");
@@ -118,6 +118,7 @@ class SocialLogin extends GetxController {
       return Future.error(error);
     }
   }
+
 
   Future<void> loginWithFacebooIosk() async {
     try {

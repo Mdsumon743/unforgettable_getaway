@@ -46,6 +46,8 @@ class ChatlistController extends GetxController {
             final dataList = responseData['data'] as List<dynamic>;
             allChatList.value = dataList
                 .map((item) => ChatData.fromJson(item as Map<String, dynamic>))
+                .toList()
+                .followedBy(allChatList)
                 .toList();
           } else {
             debugPrint("[ERROR] Unexpected response format: $responseData");
@@ -64,14 +66,9 @@ class ChatlistController extends GetxController {
     }
   }
 
-
-
   void stopPolling() {
     _pollingTimer?.cancel();
     _pollingTimer = null;
-
     debugPrint("[LOG] Polling stopped.");
   }
-
-
 }
