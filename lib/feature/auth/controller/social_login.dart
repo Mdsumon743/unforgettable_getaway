@@ -5,11 +5,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 
 import '../../../core/helper/shared_prefarences_helper.dart';
 
 class SocialLogin extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  final profileController = Get.put(ProfileController());
   Future<void> googleSignIn() async {
     GoogleSignIn googleSignIn = GoogleSignIn();
     try {
@@ -31,7 +33,17 @@ class SocialLogin extends GetxController {
               "userToken", response.responseData['accessToken']);
           await preferencesHelper.setString(
               "userId", response.responseData['id']);
-          Get.offAllNamed(AppRoute.selectCountry);
+          bool? accountSetup = response.responseData["accountSetup"] ?? false;
+          profileController.getUserProfiles().then(
+            (value) {
+              if (accountSetup == false) {
+                Get.offAllNamed(AppRoute.selectCountry);
+              } else {
+                Get.offAllNamed(AppRoute.meet);
+              }
+            },
+          );
+
           debugPrint("======login===Succes");
           debugPrint("======name===${user.displayName}");
           debugPrint("======email===${user.email}");

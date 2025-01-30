@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,30 +120,29 @@ class PhoneNumberVerification extends StatelessWidget {
                           height: 5.h,
                         ),
                         TextField(
-                            onChanged: (value) {
-                              phoneController.updatePhoneNumber(value);
-                            },
-                            keyboardType: TextInputType.phone,
-                            style: const TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                                borderSide: BorderSide(
-                                    color: Colors.white.withOpacity(0.7)),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                                borderSide: BorderSide(
-                                    color: Colors.white.withOpacity(0.7)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                                borderSide: BorderSide(
-                                    color: Colors.white.withOpacity(0.7)),
-                              ),
+                          onChanged: (value) {
+                            phoneController.updatePhoneNumber(value);
+                          },
+                          keyboardType: TextInputType.phone,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.7)),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.7)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.r),
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.7)),
                             ),
                           ),
-                        
+                        ),
                       ])),
                 ],
               ),
@@ -175,7 +176,9 @@ class PhoneNumberVerification extends StatelessWidget {
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.r)),
-              onPressed: () {Get.to(()=>const PhoneNumberOTPSubmit());},
+              onPressed: () {
+                Get.to(() => const PhoneNumberOTPSubmit());
+              },
               child: const Icon(
                 Icons.arrow_forward_ios,
                 color: Color(0xff8C7B00),

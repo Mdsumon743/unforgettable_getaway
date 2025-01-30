@@ -55,6 +55,15 @@ dependencies:
   easy_date_timeline: ^2.0.6
   geolocator: ^13.0.2
   geocoding: ^3.0.0
+  web_socket_channel: ^3.0.1
+  cached_network_image: ^3.4.1
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
+  flutter_webrtc: ^0.12.5+hotfix.1
+  zego_uikit_prebuilt_call: ^4.16.19
+  zego_uikit_signaling_plugin: ^2.8.8
+  flutter_stripe: ^11.3.0
+  dio: ^5.7.0
 
   
 

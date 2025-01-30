@@ -9,6 +9,8 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/home/controller/home_controller.dart';
 import 'package:unforgettable_getaway/feature/home/presentation/widget/select_button.dart';
 
+import '../../../profile/controller/profile_controller.dart';
+
 class Home extends StatelessWidget {
   const Home({
     super.key,
@@ -17,6 +19,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
+    final profileController = Get.put(ProfileController());
 
     return SafeArea(
       child: Scaffold(
@@ -54,7 +57,10 @@ class Home extends StatelessWidget {
                               "Explore exciting destinations\nand book your next adventure.",
                           image: Assetpath.tour,
                           isActive: controller.selectedIndex.value == 0,
-                          onTap: () => controller.selectButton(0),
+                          onTap: () {
+                            profileController.getUserProfiles();
+                            controller.selectButton(0);
+                          } ,
                         )),
                     SizedBox(height: 20.h),
                     Obx(() => SelectButton(
@@ -63,7 +69,10 @@ class Home extends StatelessWidget {
                               "Connect with people\nworldwide & make new friends.",
                           image: Assetpath.date,
                           isActive: controller.selectedIndex.value == 1,
-                          onTap: () => controller.selectButton(1),
+                          onTap: () {
+                                controller.selectButton(1);
+                                profileController.getUserProfiles();
+                          } 
                         )),
                   ],
                 ),
@@ -85,7 +94,7 @@ class Home extends StatelessWidget {
                     : AppColors.yellowColor.withOpacity(0.3),
                 onPressed: () {
                   if (controller.selectedIndex.value == 1) {
-                    Get.offAllNamed(AppRoute.meet);
+                    Get.offAllNamed(AppRoute.searchLocaiton);
                   } else {
                     Get.toNamed(AppRoute.tourpage);
                   }

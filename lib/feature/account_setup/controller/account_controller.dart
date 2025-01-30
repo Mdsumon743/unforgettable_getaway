@@ -19,6 +19,7 @@ class AccountController extends GetxController {
   RxInt heightSelectedIndex = 2.obs;
   RxBool isLoading = false.obs;
   RxList favoriteList = [].obs;
+  RxString age = "".obs;
   Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   RxInt userAge = 0.obs;
   Map<String, dynamic> bodyData = {};
@@ -26,6 +27,7 @@ class AccountController extends GetxController {
   final countryController = Get.put(CountrySelectionController());
   final locationcontroller = Get.put(LocationController());
   final cityController = Get.put(CityController());
+  final locationController = Get.put(LocationController());
 
   Future<void> selectDate(BuildContext context, String type) async {
     final DateTime? picked = await showDatePicker(
@@ -33,7 +35,6 @@ class AccountController extends GetxController {
         initialDate: selectedDate.value,
         firstDate: DateTime(1988),
         lastDate: DateTime(2101),
-        // initialEntryMode: DatePickerEntryMode.calendar,
         initialDatePickerMode: type == 'date'
             ? DatePickerMode.day
             : type == 'year'
@@ -96,8 +97,8 @@ class AccountController extends GetxController {
       final previousMonth = DateTime(currentDate.year, currentDate.month, 0);
       days += previousMonth.day;
     }
-
-    debugPrint('Age: $years years, $months months, $days days');
+    age.value = years.toString();
+    debugPrint('==========>>>Age: $years years, $months months, $days days');
     return years;
   }
 
@@ -136,8 +137,8 @@ class AccountController extends GetxController {
   }
 
   Map<String, dynamic> saveUserInformation() {
-    String country = countryController.selectedCountry;
-    String city = cityController.selectedCity.value;
+    String? country = countryController.selectedCountry.value;
+    String? city = cityController.selectedCity.value;
     String name = nameEditingController.text;
     String day = selectedDate.value?.day.toString() ?? '';
     String month = selectedDate.value?.month.toString() ?? '';
@@ -145,6 +146,7 @@ class AccountController extends GetxController {
     String gender = genderSelectedValue.value == 0 ? 'FEMALE' : 'MALE';
     var latitude = locationcontroller.latitude;
     var longitude = locationcontroller.longitude;
+    var flag = countryController.flag.value;
 
     String height = heights[heightSelectedIndex.value];
     List userfavoriteList = favoriteList.toList();
@@ -160,6 +162,8 @@ class AccountController extends GetxController {
       "interests": userfavoriteList,
       "locationLat": latitude.toString(),
       "locationLang": longitude.toString(),
+      "flag": flag,
+      "age": age.value
     };
     bodyData = userInformation;
     debugPrint("====bodyData======$bodyData");

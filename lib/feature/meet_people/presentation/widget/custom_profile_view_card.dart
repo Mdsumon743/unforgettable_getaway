@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/core/global_widget/custom_animation_text.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/favorite_controller.dart';
 
 class CustomProfileViewCard extends StatelessWidget {
+  final String? userId;
   final String? level;
   final String? love;
   final String? name;
   final String? age;
   final String? image;
   final String? country;
-  final bool? status;
   final String? adress;
   final String? distance;
   const CustomProfileViewCard(
@@ -21,13 +25,14 @@ class CustomProfileViewCard extends StatelessWidget {
       this.name,
       this.age,
       this.country,
-      this.status,
       this.adress,
       this.distance,
-      this.image});
+      this.image,
+      this.userId});
 
   @override
   Widget build(BuildContext context) {
+    final FavoriteController favoriteController = Get.put(FavoriteController());
     return Container(
       padding: EdgeInsets.all(5.r),
       decoration: const BoxDecoration(color: Colors.transparent),
@@ -47,7 +52,8 @@ class CustomProfileViewCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                   image: DecorationImage(
                       repeat: ImageRepeat.repeat,
-                      image: AssetImage(image ?? "assets/images/pic.png"),
+                      image: NetworkImage(
+                          image ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
                       fit: BoxFit.fill)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +61,12 @@ class CustomProfileViewCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(love ?? "assets/images/unlove.svg")
+                      GestureDetector(
+                          onTap: () {
+                            favoriteController.addFavoritList(userId ?? "");
+                          },
+                          child: SvgPicture.asset(
+                              love ?? "assets/images/unlove.svg"))
                     ],
                   ),
                   Column(
@@ -64,11 +75,15 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomTextPopins(
-                            text: "$name$age $country",
-                            fontWeight: FontWeight.w600,
-                            size: 13.sp,
-                            color: Colors.white,
+                          Expanded(
+                            child: CustomTextPopins(
+                              max: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                              text: "$name, $age $country ",
+                              fontWeight: FontWeight.w600,
+                              size: 13.sp,
+                              color: Colors.white,
+                            ),
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 2),
@@ -84,11 +99,14 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         children: [
                           Image.asset(Assetpath.onLocation),
-                          CustomTextPopins(
-                            text: "$adress",
-                            size: 11.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
+                          SizedBox(
+                            width: 120.w,
+                            child: CustomAnimationText(
+                                text: "$adress",
+                                textStyle: GoogleFonts.poppins(
+                                    fontSize: 11.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400)),
                           ),
                         ],
                       ),

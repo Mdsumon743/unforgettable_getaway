@@ -12,7 +12,7 @@ class OnboardingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
- profileController.getUserProfiles();
+    profileController.getUserProfiles();
 
     Timer(
       const Duration(seconds: 3),
@@ -27,7 +27,6 @@ class OnboardingController extends GetxController {
     bool isAccoutSetup = preferencesHelper.getBool('FirstTime') ?? false;
     final String? userToken = preferencesHelper.getString("userToken");
     if (userToken != null && isAccoutSetup == true) {
-     
       Get.offAllNamed(AppRoute.searchLocaiton);
     } else if (userToken != null && isAccoutSetup == false) {
       Get.offAllNamed(AppRoute.selectCountry);

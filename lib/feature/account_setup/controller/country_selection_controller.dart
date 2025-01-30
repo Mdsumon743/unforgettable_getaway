@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 class CountrySelectionController extends GetxController {
   String searchText = '';
   bool isClickOnCountry = false;
-  String selectedCountry = '';
-  String flag = '';
+  RxString selectedCountry = ''.obs;
+  RxString flag = ''.obs;
 
   void searchCountry(String value) {
     searchText = value;
@@ -13,8 +13,8 @@ class CountrySelectionController extends GetxController {
 
   void selectCountry(bool value, String country, String flagValue) {
     isClickOnCountry = value;
-    selectedCountry = country;
-    flag = flagValue;
+    selectedCountry.value = country;
+    flag = flagValue.obs;
     update();
   }
 }

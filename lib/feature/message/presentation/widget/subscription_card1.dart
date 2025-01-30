@@ -8,7 +8,7 @@ import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/c
 class SubcriptionCard1 extends StatelessWidget {
   final String img;
   final String text;
-  SubcriptionCard1({
+  const SubcriptionCard1({
      required this.img,
      required this.text,
      super.key,

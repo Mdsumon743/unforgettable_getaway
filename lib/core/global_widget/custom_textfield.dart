@@ -37,6 +37,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode focusNode = FocusNode();
     return TextFormField(
       controller: controller,
       obscureText: obscureText ?? false,
@@ -53,6 +54,7 @@ class CustomTextField extends StatelessWidget {
               fontSize: 16.sp,
             ),
       minLines: min,
+      focusNode: focusNode,
       decoration: InputDecoration(
         enabled: enable ?? true,
         hintText: hintText,
@@ -86,6 +88,108 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
         ),
       ),
+    );
+  }
+}
+
+class CustomTextField2 extends StatelessWidget {
+  final TextEditingController? controller;
+  final bool? obscureText;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final Function(String)? onChanged;
+  final String? Function(String?)? validator;
+  final int? max;
+  final int? min;
+  final FocusNode? focusNode;
+  final String? hintText;
+  final Widget? suffix;
+  final bool? colorTrue;
+  final bool? enable;
+
+  const CustomTextField2({
+    super.key,
+    this.controller,
+    this.obscureText,
+    this.keyboardType,
+    this.textInputAction,
+    this.onChanged,
+    this.validator,
+    this.max,
+    this.min,
+    this.focusNode,
+    this.hintText,
+    this.suffix,
+    this.colorTrue,
+    this.enable,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.yellowColor.withOpacity(0.01),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(
+          color: AppColors.whiteColor.withOpacity(0.8),
+          width: 1.w,
+        ),
+      ),
+      child: Stack(
+        children: [
+          TextFormField(
+            controller: controller,
+            obscureText: obscureText ?? false,
+            keyboardType: keyboardType,
+            textInputAction: textInputAction,
+            onChanged: onChanged,
+            validator: validator,
+            maxLines: max,
+            style: colorTrue ?? false
+                ? GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400)
+                : TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.sp,
+                  ),
+            minLines: min,
+            focusNode: focusNode,
+            enabled: enable,
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: textStyle(14.sp, AppColors.whiteColor.withOpacity(0.9),
+                  FontWeight.w300),
+              filled: true,
+              fillColor: AppColors.yellowColor.withOpacity(0.01),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+          if (suffix != null)
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: IgnorePointer(
+                ignoring: false,
+                child: suffix,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle textStyle(double fontSize, Color color, FontWeight fontWeight) {
+    return TextStyle(
+      fontSize: fontSize,
+      color: color,
+      fontWeight: fontWeight,
     );
   }
 }

@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PhotoGridview extends StatelessWidget {
-  const PhotoGridview({super.key});
+  final void Function()? ontap;
+  final List<String>? gallery;
+  final String? main;
+  const PhotoGridview({super.key, this.main, this.gallery, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,44 +16,37 @@ class PhotoGridview extends StatelessWidget {
       crossAxisCount: 3,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
-      children: [
-        StaggeredGridTile.count(
-          mainAxisCellCount: 2,
-          crossAxisCellCount: 2,
-          child: imageContainer("assets/images/mian.png", 'Main', false),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main2.png", '2', false),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main3.png", '3', false),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '4', false),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '5', true),
-        ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: imageContainer("assets/images/main5.png", '6', true),
-        ),
-      ],
+      children: List.generate(6, (index) {
+        if (index == 0) {
+          return StaggeredGridTile.count(
+            mainAxisCellCount: 2,
+            crossAxisCellCount: 2,
+            child: imageContainer(
+                main ?? "https://i.ibb.co.com/nrs3FjM/images.png",
+                'Main',
+                false),
+          );
+        } else {
+          bool hasImage = gallery != null && gallery!.length > index - 1;
+          return GestureDetector(
+            onTap: ontap,
+            child: StaggeredGridTile.count(
+              crossAxisCellCount: 1,
+              mainAxisCellCount: 1,
+              child: imageContainer(hasImage ? gallery![index - 1] : "",
+                  '${index + 1}', !hasImage),
+            ),
+          );
+        }
+      }),
     );
   }
 }
 
 Widget imageContainer(String image, String number, bool no) {
   return Container(
+    height: 110.h,
+    width: 140.w,
     alignment: Alignment.bottomRight,
     padding: EdgeInsets.all(5.r),
     decoration: BoxDecoration(
@@ -61,7 +58,8 @@ Widget imageContainer(String image, String number, bool no) {
             : null,
         image: no
             ? null
-            : DecorationImage(image: AssetImage(image), fit: BoxFit.fill)),
+            : DecorationImage(
+                image: CachedNetworkImageProvider(image), fit: BoxFit.fill)),
     child: no
         ? Container(
             decoration: BoxDecoration(

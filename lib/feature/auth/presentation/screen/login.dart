@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: loginController.emailText,
                       hintText: 'Enter your mail address',
                       validator: FormValidation.validateEmail,
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextField(
+                    CustomTextField2(
                       controller: loginController.passText,
                       obscureText: true,
                       hintText: '************',

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,7 +25,7 @@ class CustomPlan extends StatelessWidget {
         height: 98.h,
         width: 335.w,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xff8C7B00) : Colors.transparent,
+          color: isSelected ? const Color(0xff8C7B00) : Colors.transparent, // Change color to yellow when selected
           border: Border.all(
             width: 1,
             color: Colors.white,
@@ -35,28 +34,33 @@ class CustomPlan extends StatelessWidget {
         ),
         child: Center(
           child: ListTile(
-            title: CustomTextPopins(
-              text: tittle,
-              size: 20.h,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+            title: Expanded(
+              child: CustomTextPopins(
+                   textOverflow: TextOverflow.ellipsis,
+                text: tittle,
+                size: 20.h,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
             ),
-            subtitle: CustomTextPopins(
-              text: sub,
-              size: 24.h,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
+            subtitle: Expanded(
+              child: CustomTextPopins(
+                textOverflow: TextOverflow.ellipsis,
+                text: sub,
+                size: 24.h,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             trailing: Transform.scale(
               scale: 1.5,
-              child: Radio(
+              child: Radio<String>(
                 value: tittle,
-                groupValue:isSelected?tittle:'',
-                onChanged: (_) => onTap(),
-                activeColor: const Color(0xffFFDF00),
+                groupValue: isSelected ? tittle : '', // Check if this plan is selected
+                onChanged: (_) => onTap(), // When tapped, call onTap
+                activeColor: Colors.yellow, // Active color of the radio
               ),
             ),
-
           ),
         ),
       ),

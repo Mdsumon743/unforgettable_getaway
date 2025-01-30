@@ -13,7 +13,7 @@ class UserData {
   final String? relationship;
   final String? language;
   final String? gender;
-  final int? age;
+  final String? age;
   final String? height;
   final String? work;
 

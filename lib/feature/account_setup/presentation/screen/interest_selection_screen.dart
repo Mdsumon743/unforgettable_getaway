@@ -7,7 +7,6 @@ import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/account_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/presentation/widget/progress_bar.dart';
-import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 
 class InterestSelectionScreen extends StatelessWidget {
   const InterestSelectionScreen({super.key});
@@ -15,7 +14,7 @@ class InterestSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accountController = Get.put(AccountController());
-    final profileController = Get.put(ProfileController());
+
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
@@ -120,6 +119,7 @@ class InterestSelectionScreen extends StatelessWidget {
                                 : AppColors.whiteColor.withOpacity(0.5),
                         onPressed: () {
                           if (accountController.favoriteList.length >= 5) {
+                            
                             accountController.saveUserInformation();
                             accountController.submitUserData();
                           }
@@ -132,7 +132,7 @@ class InterestSelectionScreen extends StatelessWidget {
                 textColor: AppColors.yellowColor,
                 backgroundColor: AppColors.darkBrown,
                 onPressed: () {
-                  profileController.getUserProfiles();
+                 
                   accountController.saveUserInformation();
                   accountController.submitUserData();
                 },

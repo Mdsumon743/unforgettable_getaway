@@ -13,11 +13,16 @@ import 'package:unforgettable_getaway/feature/auth/presentation/screen/sign_up_s
 import 'package:unforgettable_getaway/feature/auth/presentation/screen/verify_email_screen.dart';
 import 'package:unforgettable_getaway/feature/home/presentation/screen/home.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
+import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/profile_details.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/empty_message.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/show_message_screen.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/empty_notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/notification.dart';
 import 'package:unforgettable_getaway/feature/notification/presentation/screen/show_notification.dart';
 import 'package:unforgettable_getaway/feature/onboarding/presentation/screen/onboarding.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile_edit.dart';
 import 'package:unforgettable_getaway/feature/tour_book/presentation/screen/tour.dart';
 
 class AppRoute {
@@ -40,15 +45,40 @@ class AppRoute {
   static const String searchLocaiton = "/searchLoacation";
   static const String gender = "/gender";
   static const String height = "/height";
-
+  static const String profile = "/profile";
   static const String interestSelectionScreen = "/interestSelectionScreen";
+  static const String profileDetils = "/profileDetils";
+  static const String profileEdit = "/profileEdit";
+  static const String emptyMessage = "/emptyMessage";
+  static const String chatList = "/chatList";
 
   static final route = [
-          GetPage(
+    GetPage(
+      name: chatList,
+      page: () => const ShowMessageScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+        name: emptyMessage,
+        page: () => const EmptyMessage(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: profileEdit,
+        page: () => const ProfileEdit(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: profileDetils,
+        page: () => const ProfileDetails(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: profile,
+        page: () => const Profile(),
+        transition: Transition.rightToLeft),
+    GetPage(
         name: height,
         page: () => const HeightPickerScreen(),
         transition: Transition.rightToLeft),
-        GetPage(
+    GetPage(
         name: gender,
         page: () => const GenderSelectionScreen(),
         transition: Transition.rightToLeft),

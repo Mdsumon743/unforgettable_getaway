@@ -1,14 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import '../../../../../core/utils/assetpath.dart';
 import '../../../../meet_people/presentation/screen/search_location.dart';
-import 'chat_list.dart';
 
-class SearchListPage extends StatelessWidget {
-  const SearchListPage({super.key});
+class EmptyMessage extends StatelessWidget {
+  const EmptyMessage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,35 +17,32 @@ class SearchListPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.r),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.h),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: CustomTextPopins(
-                  text: "Chats",
-                  color: const Color(0xFFFFFFFF),
-                  size: 24.sp,
-                  fontWeight: FontWeight.w500,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: CustomTextPopins(
+                    text: "Chats",
+                    color: const Color(0xFFFFFFFF),
+                    size: 24.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10.h),
-              CustomTextFieldSearch(
-                ontap: () {
-                  Get.to(() => ChatListPage());
-                },
-                hintText: "Search",
-                color: Colors.white.withOpacity(0.8),
-                prefixIcon: Icon(
-                  Icons.search,
+                SizedBox(height: 10.h),
+                CustomTextFieldSearch(
+                  hintText: "Search",
                   color: Colors.white.withOpacity(0.8),
-                  size: 18.w,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white.withOpacity(0.8),
+                    size: 18.w,
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                child: Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(Assetpath.searchList),
@@ -70,8 +67,8 @@ class SearchListPage extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

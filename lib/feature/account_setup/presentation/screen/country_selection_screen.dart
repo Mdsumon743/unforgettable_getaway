@@ -71,6 +71,7 @@ class CountrySelectionScreen extends StatelessWidget {
                           'Cancel',
                           style: textStyle(
                               16.sp,
+                              // ignore: deprecated_member_use
                               AppColors.whiteColor.withOpacity(0.8),
                               FontWeight.w400),
                         ),
