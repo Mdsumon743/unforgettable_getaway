@@ -15,6 +15,7 @@ class MesseageController extends GetxController {
   var chatroomId = ''.obs;
   String userid = '';
   RxBool isTranslate = false.obs;
+  RxString language = "en".obs;
 
   final WebSoketController webSocketController = WebSoketController();
 
@@ -31,8 +32,14 @@ class MesseageController extends GetxController {
   }
 
   void toggleSwitch(bool value) {
+    if (value) {
+      language.value = "es";
+    } else {
+      language.value = "en";
+    }
     isSwitched.value = value;
     debugPrint("Switch toggled: $value");
+    debugPrint("Language: $language");
   }
 
   Future<void> loadUserId() async {
@@ -72,7 +79,7 @@ class MesseageController extends GetxController {
     debugPrint("Joined chat room with $user1Id and $user2Id");
   }
 
-  void _handleIncomingMessage(String rawMessage) {
+  void _handleIncomingMessage(String rawMessage) async {
     final decodedMessage = jsonDecode(rawMessage);
 
     if (decodedMessage['type'] == 'loadMessages') {
@@ -81,14 +88,22 @@ class MesseageController extends GetxController {
         chatroomId.value = conversation['id'];
         messages.clear();
         for (var msg in conversation['messages']) {
-          _addMessage(msg['content'], msg['senderId']);
+          if (isTranslate.value) {
+            final translatedContent =
+                await translateTextToSpanish(msg['content']);
+            _addMessage(translatedContent, msg['senderId']);
+          } else {
+            _addMessage(msg['content'], msg['senderId']);
+          }
         }
       }
     } else if (decodedMessage['type'] == 'receiveMessage' ||
         decodedMessage['type'] == 'messageSent') {
       final message = decodedMessage['message'];
       if (message != null) {
-        _addMessage(message['content'], message['senderId']);
+        final translatedContent =
+            await translateTextToSpanish(message['content']);
+        _addMessage(translatedContent, message['senderId']);
       }
     }
   }
@@ -110,7 +125,7 @@ class MesseageController extends GetxController {
 
   Future<String> translateTextToSpanish(String text) async {
     const apiKey = 'AIzaSyCeCF3mAeGPc1WAAMpGwtQq1Mskp0e7DF8';
-    const String targetLanguage = 'es';
+
     final Uri url = Uri.parse(
         'https://translation.googleapis.com/language/translate/v2?key=$apiKey');
 
@@ -119,13 +134,12 @@ class MesseageController extends GetxController {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'q': text,
-        'target': targetLanguage,
+        'target': language.value,
       }),
     );
     debugPrint("================${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
-      isTranslate.value = true;
       debugPrint("======TranslateText=========${response.body}");
       return jsonResponse['data']['translations'][0]['translatedText'];
     } else {
