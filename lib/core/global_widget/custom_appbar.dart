@@ -11,8 +11,10 @@ import 'package:unforgettable_getaway/feature/profile/controller/profile_control
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String? search;
   const CustomAppBar({
     super.key,
+    this.search,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final FilterController filterController = Get.put(FilterController());
     final ProfileController profileController = Get.put(ProfileController());
     final TextEditingController textEditingController = TextEditingController();
+    textEditingController.text = search ?? '';
     var userData = profileController.userData.value;
     return AppBar(
       scrolledUnderElevation: 0,
@@ -51,7 +54,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         CustomTextPopins(
                           max: 1,
                           textOverflow: TextOverflow.ellipsis,
-                          text: 'Hello, ${userData?.fullName ?? "N/A"} 👋',
+                          text: 'Hello, ${userData?.fullName ?? "No Name"} 👋',
                           color: Colors.white,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -103,7 +106,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 CustomTextFieldSearch(
                   fillColor: const Color(0xff302827),
-                  hintText: 'Cartagena, Colombia',
+                  hintText: "Search here",
                   color: Colors.white,
                   controller: textEditingController,
                   prefixIcon: Image.asset(Assetpath.search),

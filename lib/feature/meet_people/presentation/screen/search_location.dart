@@ -7,6 +7,7 @@ import 'package:unforgettable_getaway/feature/meet_people/controller/custom_text
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../controller/all_profile_controller.dart';
 
 class SearchLocation extends StatelessWidget {
   const SearchLocation({super.key});
@@ -14,30 +15,34 @@ class SearchLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = Get.put(CustomTextFieldSearchController());
-
+    final allprofileController = Get.put(AllProfileController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xff1A1110),
+        appBar: AppBar(
+          toolbarHeight: 80.h,
+          scrolledUnderElevation: 0,
+          backgroundColor: const Color(0xff1A1110),
+          title: const CustomTextFieldSearch(
+            keyboardType: TextInputType.text,
+            color: Colors.white,
+            hintText: 'Search for people by city ',
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color(0xff737268),
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(20.r),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               children: [
-                const CustomTextFieldSearch(
-                  keyboardType: TextInputType.text,
-                  color: Colors.white,
-                  hintText: 'Search for people by city ',
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Color(0xff737268),
-                  ),
-                ),
                 Obx(
                   () {
                     return searchController.filteredSuggestions.isNotEmpty
                         ? Container(
                             width: double.infinity,
-                            margin: const EdgeInsets.only(top: 8),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: AppColors.darkBrown,
@@ -57,14 +62,15 @@ class SearchLocation extends StatelessWidget {
                                           .filteredSuggestions[index],
                                       color: Colors.white,
                                     ),
-                                    onTap: () {
+                                    onTap: () async {
+                                      allprofileController.allProfiles.clear();
                                       searchController.updateTextController(
                                           searchController.search,
                                           searchController
                                               .filteredSuggestions[index]);
-                                      searchController.filteredSuggestions
-                                          .clear();
-                                      Get.to(() => const MeetPeople());
+                                      await allprofileController
+                                          .getUserProfiles();
+                                      Get.offAll(() => const MeetPeople());
                                     },
                                   );
                                 },
@@ -114,7 +120,7 @@ class CustomTextFieldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = Get.put(CustomTextFieldSearchController());
-        final FocusNode focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
 
     return SingleChildScrollView(
       child: Column(

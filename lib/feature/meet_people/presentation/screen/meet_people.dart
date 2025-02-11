@@ -24,7 +24,9 @@ class MeetPeople extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        search: searchController.search.text,
+      ),
       body: Obx(
         () {
           return searchController.filteredSuggestions.isNotEmpty
@@ -50,7 +52,7 @@ class MeetPeople extends StatelessWidget {
                             searchController.updateTextController(
                                 searchController.search,
                                 searchController.filteredSuggestions[index]);
-                            Get.to(() => const MeetPeople());
+                            searchController.filteredSuggestions.clear();
                           },
                         );
                       },

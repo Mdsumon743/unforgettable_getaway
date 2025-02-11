@@ -14,7 +14,7 @@ import '../../../core/network_caller/utils/utils.dart';
 class AllProfileController extends GetxController {
   ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
-
+  String searchQuery = "";
   SubscriptionController subscriptionController =
       Get.put(SubscriptionController());
   NotificationController notificationController =
@@ -29,16 +29,20 @@ class AllProfileController extends GetxController {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
     debugPrint("Token: $token");
+    debugPrint("Search Query:==============>>>>>>>>>> $searchQuery");
 
     if (token != null) {
       isLoading.value = true;
       try {
-        final response = await NetworkCaller()
-            .getRequest(Utils.baseUrl + Utils.profile, token: token);
+        final response = await NetworkCaller().getRequest(
+            Utils.baseUrl + Utils.profile + searchQuery,
+            token: token);
         debugPrint("Response Status: ${response.isSuccess}");
         debugPrint("Response Body: ${response.responseData}");
 
         if (response.isSuccess) {
+          allProfiles.refresh();
+
           final jsonData = response.responseData;
 
           if (jsonData is Map<String, dynamic>) {
@@ -50,10 +54,12 @@ class AllProfileController extends GetxController {
             } else {
               debugPrint("Invalid response data structure");
             }
+            allProfiles.refresh();
           } else if (jsonData is List) {
             await _processProfilesInIsolate(jsonData);
             debugPrint("Profiles retrieved: ${allProfiles.length}");
             debugPrint("Profiles =========: $allProfiles");
+            allProfiles.refresh();
           } else {
             debugPrint("Unexpected response format");
           }
@@ -68,6 +74,7 @@ class AllProfileController extends GetxController {
     } else {
       debugPrint("Token is null");
     }
+    update();
   }
 
   Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
@@ -98,9 +105,8 @@ class AllProfileController extends GetxController {
 
     _pollingTimer = Timer.periodic(interval, (timer) async {
       await chatlistController.getMyChatList();
-      await profileController.getUserProfiles();
       await notificationController.fetchNotifications();
-      
+      await getUserProfiles();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -110,8 +116,8 @@ class AllProfileController extends GetxController {
   void onInit() {
     super.onInit();
     getUserProfiles();
-     subscriptionController.getAllPlan();
+    subscriptionController.getAllPlan();
     chatlistController.getMyChatList();
-    startPolling(interval: const Duration(seconds: 10));
+    startPolling(interval: const Duration(minutes: 10));
   }
 }
