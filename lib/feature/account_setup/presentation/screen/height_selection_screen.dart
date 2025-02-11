@@ -56,6 +56,19 @@ class HeightPickerScreen extends StatelessWidget {
     final accountController = Get.put(AccountController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
+         appBar: AppBar(
+        backgroundColor: AppColors.darkBrown,
+       scrolledUnderElevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +78,7 @@ class HeightPickerScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 50.h),
+                  
                   const ProgressBar(width: 0.75),
                   SizedBox(height: 26.h),
                   Text(

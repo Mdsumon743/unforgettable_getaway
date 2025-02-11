@@ -40,11 +40,23 @@ class NameBirthdayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final acccountController = Get.put(AccountController());
     return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.darkBrown,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+      ),
       backgroundColor: AppColors.darkBrown,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 50.h,
             left: 16.w,
             right: 16.w,
           ),

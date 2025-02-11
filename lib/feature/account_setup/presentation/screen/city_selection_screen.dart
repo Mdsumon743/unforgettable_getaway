@@ -22,16 +22,30 @@ class CitySelectionScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
+      appBar: AppBar(
+        backgroundColor: AppColors.darkBrown,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.0.w,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 16.0),
                   Text(
                     'Choose your City',
                     style: textStyle(

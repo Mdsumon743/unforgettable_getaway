@@ -24,7 +24,7 @@ class CountrySelectionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 12.w, top: 45.h, right: 12.w),
+              padding: EdgeInsets.only(left: 12.w, top: 60.h, right: 12.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
