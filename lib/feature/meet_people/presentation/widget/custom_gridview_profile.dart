@@ -6,14 +6,12 @@ import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile
 import 'package:unforgettable_getaway/feature/meet_people/controller/profile_details_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_profile_view_card.dart';
 
-
-
 class CustomGridviewProfile extends StatelessWidget {
   const CustomGridviewProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final allprofileController = Get.find<AllProfileController>(); // ✅ Use `find` to avoid unnecessary instances
+    final allprofileController = Get.find<AllProfileController>();
     final profileDetailsController = Get.put(ProfileDetailsController());
 
     return Obx(

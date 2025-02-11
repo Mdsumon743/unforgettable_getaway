@@ -48,11 +48,13 @@ class MeetPeople extends StatelessWidget {
                         return ListTile(
                           title:
                               Text(searchController.filteredSuggestions[index]),
-                          onTap: () {
+                          onTap: () async {
                             searchController.updateTextController(
                                 searchController.search,
                                 searchController.filteredSuggestions[index]);
                             searchController.filteredSuggestions.clear();
+                            await allProfileController.getUserCity();
+
                           },
                         );
                       },

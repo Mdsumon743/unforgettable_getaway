@@ -34,9 +34,8 @@ class AllProfileController extends GetxController {
     if (token != null) {
       isLoading.value = true;
       try {
-        final response = await NetworkCaller().getRequest(
-            Utils.baseUrl + Utils.profile + searchQuery,
-            token: token);
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.profile, token: token);
         debugPrint("Response Status: ${response.isSuccess}");
         debugPrint("Response Body: ${response.responseData}");
 
@@ -60,6 +59,57 @@ class AllProfileController extends GetxController {
             debugPrint("Profiles retrieved: ${allProfiles.length}");
             debugPrint("Profiles =========: $allProfiles");
             allProfiles.refresh();
+          } else {
+            debugPrint("Unexpected response format");
+          }
+        } else {
+          debugPrint("Failed to retrieve data: ${response.responseData}");
+        }
+      } catch (e) {
+        debugPrint("Error occurred: $e");
+      } finally {
+        isLoading.value = false;
+      }
+    } else {
+      debugPrint("Token is null");
+    }
+    update();
+  }
+
+  Future<void> getUserCity() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+    debugPrint("Token: $token");
+    debugPrint("Search Query:==============>>>>>>>>>> $searchQuery");
+
+    if (token != null) {
+      isLoading.value = true;
+      try {
+        final response = await NetworkCaller().getRequest(
+            Utils.baseUrl + Utils.profile + searchQuery.trim(),
+            token: token);
+        debugPrint("Response Status: ${response.isSuccess}");
+        debugPrint("Response Body: ${response.responseData}");
+
+        if (response.isSuccess) {
+          allProfiles.clear();
+          allProfiles.refresh();
+
+          final jsonData = response.responseData;
+
+          if (jsonData is Map<String, dynamic>) {
+            if (jsonData['success'] == true && jsonData['data'] is List) {
+              List<dynamic> dataList = jsonData['data'];
+              allProfiles.addAll(
+                  dataList.map((e) => ProfileResponse.fromJson(e)).toList());
+              debugPrint("Profiles retrieved: ${allProfiles.length}");
+            } else {
+              debugPrint("Invalid response data structure");
+            }
+          } else if (jsonData is List) {
+            allProfiles.addAll(
+                jsonData.map((e) => ProfileResponse.fromJson(e)).toList());
+            debugPrint("Profiles retrieved: ${allProfiles.length}");
           } else {
             debugPrint("Unexpected response format");
           }

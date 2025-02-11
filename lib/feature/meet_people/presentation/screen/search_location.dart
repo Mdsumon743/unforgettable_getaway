@@ -69,7 +69,7 @@ class SearchLocation extends StatelessWidget {
                                           searchController
                                               .filteredSuggestions[index]);
                                       await allprofileController
-                                          .getUserProfiles();
+                                          .getUserCity();
                                       Get.offAll(() => const MeetPeople());
                                     },
                                   );
@@ -141,7 +141,7 @@ class CustomTextFieldSearch extends StatelessWidget {
               obscureText: obscureText,
               validator: validator,
               style: GoogleFonts.poppins(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: color ?? const Color(0xff333329),
                 fontWeight: FontWeight.w400,
               ),
@@ -149,7 +149,7 @@ class CustomTextFieldSearch extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
                 hintText: hintText,
                 hintStyle: GoogleFonts.poppins(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: color ?? const Color(0xff333329),
                   fontWeight: FontWeight.w400,
                 ),
