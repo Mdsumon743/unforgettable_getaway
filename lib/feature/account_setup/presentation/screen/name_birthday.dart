@@ -99,21 +99,26 @@ class NameBirthdayScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 50.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.error_outline, color: Color(0xFFFF7167)),
-                  SizedBox(width: 5.w),
-                  Text(
-                    'You must be at least 18 years old to access\n \'Meet People\'',
-                    style: textStyle(
-                      14.sp,
-                      const Color(0xFFFF7167).withOpacity(0.8),
-                      FontWeight.w400,
-                    ),
-                  ),
-                ],
+              Obx(
+                () => acccountController.userAge < 18
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.error_outline,
+                              color: Color(0xFFFF7167)),
+                          SizedBox(width: 5.w),
+                          Text(
+                            'You must be at least 18 years old to access\n \'Meet People\'',
+                            style: textStyle(
+                              14.sp,
+                              const Color(0xFFFF7167).withOpacity(0.8),
+                              FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
               ),
               SizedBox(height: 130.h),
               Obx(() => CustomButton(
@@ -236,6 +241,7 @@ class NameBirthdayScreen extends StatelessWidget {
         AppColors.whiteColor,
         FontWeight.w400,
       ),
+      focusNode: acccountController.nameFocusNode,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 10.sp),
         fillColor: AppColors.whiteColor.withOpacity(0.01),

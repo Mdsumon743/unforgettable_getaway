@@ -14,6 +14,7 @@ import '../../../core/network_caller/utils/utils.dart';
 class AllProfileController extends GetxController {
   ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
+
   SubscriptionController subscriptionController =
       Get.put(SubscriptionController());
   NotificationController notificationController =
@@ -99,6 +100,7 @@ class AllProfileController extends GetxController {
       await chatlistController.getMyChatList();
       await profileController.getUserProfiles();
       await notificationController.fetchNotifications();
+      
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -108,8 +110,8 @@ class AllProfileController extends GetxController {
   void onInit() {
     super.onInit();
     getUserProfiles();
-    subscriptionController.getAllPlan();
+     subscriptionController.getAllPlan();
     chatlistController.getMyChatList();
-    startPolling(interval: const Duration(seconds: 20));
+    startPolling(interval: const Duration(seconds: 10));
   }
 }

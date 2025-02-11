@@ -47,8 +47,11 @@ class SubscriptionPlan extends StatelessWidget {
                 size: 24.sp,
                 color: Colors.white,
               ),
-              const SizedBox(height: 32),
-              ListView.builder(
+              SizedBox(height: 32.h),
+              ListView.separated(
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 10.h,
+                ),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.allPlan.length,
@@ -83,10 +86,10 @@ class SubscriptionPlan extends StatelessWidget {
                   SizedBox(
                     width: 8.h,
                   ),
-                  const CustomTextPopins(
+                  CustomTextPopins(
                     text: 'Unlimited Message',
                     fontWeight: FontWeight.w500,
-                    size: 13,
+                    size: 13.sp,
                     color: Colors.white,
                   ),
                 ],
@@ -104,10 +107,10 @@ class SubscriptionPlan extends StatelessWidget {
                   SizedBox(
                     width: 8.h,
                   ),
-                  const CustomTextPopins(
+                  CustomTextPopins(
                     text: 'Unlimited Audio & Video Call',
                     fontWeight: FontWeight.w500,
-                    size: 13,
+                    size: 13.sp,
                     color: Colors.white,
                   ),
                 ],
@@ -125,10 +128,10 @@ class SubscriptionPlan extends StatelessWidget {
                   SizedBox(
                     width: 8.h,
                   ),
-                  const CustomTextPopins(
+                  CustomTextPopins(
                     text: 'Unlimited Fun & Enjoy',
                     fontWeight: FontWeight.w500,
-                    size: 13,
+                    size: 13.sp,
                     color: Colors.white,
                   ),
                 ],
@@ -155,7 +158,7 @@ class SubscriptionPlan extends StatelessWidget {
                           backgroundColor:
                               controller.selectedPlan.value.isNotEmpty
                                   ? const Color(0xffFFDF00)
-                                  : Colors.grey, 
+                                  : Colors.grey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40.r),
                           ),
