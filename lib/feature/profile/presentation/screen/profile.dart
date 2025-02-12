@@ -15,6 +15,7 @@ import 'package:unforgettable_getaway/feature/profile/presentation/widget/photo_
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/subcription_card.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/widget/verification.dart';
 import '../../../../core/chip_list.dart';
+import '../../../meet_people/controller/all_profile_controller.dart';
 import '../../../payment/presentation/screen/subcription_plan.dart';
 import '../../controller/profile_controller.dart';
 
@@ -25,6 +26,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     final profilecontroller = Get.put(ProfileController());
     final BioController bioController = Get.put(BioController());
+    final allprofileController = Get.find<AllProfileController>();
 
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
@@ -117,13 +119,15 @@ class Profile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    fovoritedMe("42", "Favorited Me", () {
+                    fovoritedMe(allprofileController.fvMe.value.toString(),
+                        "Favorited Me", () {
                       Get.to(() => const FavoritesMe());
                     }),
                     SizedBox(
                       width: 30.w,
                     ),
-                    fovoritedMe("12", "Favorite List", () {
+                    fovoritedMe(allprofileController.fvList.value.toString(),
+                        "Favorite List", () {
                       Get.to(() => const FavoritesList());
                     }),
                   ],

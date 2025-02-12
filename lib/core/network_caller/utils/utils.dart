@@ -17,4 +17,6 @@ class Utils {
   static const notification = "/notifications";
   static const plan = "/plans";
   static const payment = "/payments";
+  static const favoriteMe = "/favorites/favorite-meCount";
+  static const favoriteList = "/favorites/favorite-listCount";
 }

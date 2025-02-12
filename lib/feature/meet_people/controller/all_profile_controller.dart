@@ -26,6 +26,8 @@ class AllProfileController extends GetxController {
   Timer? _pollingTimer;
   final TextEditingController textEditingController = TextEditingController();
   RxList<ProfileResponse> allProfiles = <ProfileResponse>[].obs;
+  RxInt fvMe = 1.obs;
+  RxInt fvList = 2.obs;
 
   Future<void> getUserProfiles() async {
     await preferencesHelper.init();
@@ -76,6 +78,50 @@ class AllProfileController extends GetxController {
       debugPrint("Token is null");
     }
     update();
+  }
+
+  Future<void> favoriteMe() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+    debugPrint("Token: $token");
+    if (token != null) {
+      try {
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.favoriteMe, token: token);
+        debugPrint("Response Status: ${response.isSuccess}");
+        debugPrint("Response Body: ${response.responseData}");
+        if (response.isSuccess) {
+          final data = response.responseData;
+          debugPrint("=========>>>>>>>>>>Data: $data");
+          fvMe.value = data['favoriteMe'];
+          debugPrint("Favorite Me=========>>>>>: $fvMe");
+        }
+      } catch (e) {
+        debugPrint("Error occurred: $e");
+      }
+    }
+  }
+
+  Future<void> favoriteList() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+    debugPrint("Token: $token");
+    if (token != null) {
+      try {
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.favoriteList, token: token);
+        debugPrint("Response Status: ${response.isSuccess}");
+        debugPrint("Response Body: ${response.responseData}");
+        if (response.isSuccess) {
+          final data = response.responseData;
+          debugPrint("=========>>>>>>>>>>Data: $data");
+          fvList.value = data['favoriteList'];
+          debugPrint("Favorite List=========>>>>>: $fvList");
+        }
+      } catch (e) {
+        debugPrint("Error occurred: $e");
+      }
+    }
   }
 
   Future<void> getUserCity() async {
@@ -159,6 +205,8 @@ class AllProfileController extends GetxController {
       await chatlistController.getMyChatList();
       await notificationController.fetchNotifications();
       await getUserProfiles();
+      await favoriteMe();
+      await favoriteList();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -170,6 +218,8 @@ class AllProfileController extends GetxController {
     getUserProfiles();
     subscriptionController.getAllPlan();
     chatlistController.getMyChatList();
+    favoriteMe();
+    favoriteList();
     startPolling(interval: const Duration(minutes: 30));
   }
 }
