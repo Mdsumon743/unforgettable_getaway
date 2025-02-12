@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -234,16 +236,23 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> requestStoragePermission() async {
-    var status = await Permission.manageExternalStorage.status;
-    if (!status.isGranted) {
-      await Permission.manageExternalStorage.request();
+  Future<bool> requestGalleryPermission() async {
+    PermissionStatus status = await Permission.photos.request();
+
+    if (status.isGranted) {
+      return true;
+    } else if (status.isDenied) {
+      return false; 
+    } else if (status.isPermanentlyDenied) {
+      openAppSettings();
+      return false;
     }
+    return false;
   }
 
   Future<void> pickImageFromGallery(bool isProfile) async {
-    await requestStoragePermission();
-    if (await Permission.manageExternalStorage.isGranted) {
+    requestGalleryPermission();
+    if (await Permission.photos.isGranted) {
       if (isProfile) {
         final XFile? image =
             await _picker.pickImage(source: ImageSource.gallery);
@@ -256,7 +265,7 @@ class ProfileController extends GetxController {
           return;
         }
 
-        // ignore: unnecessary_nullable_for_final_variable_declarations
+    
         final List<XFile>? images = await _picker.pickMultiImage();
         if (images != null && images.isNotEmpty) {
           if (selectedImages.length + images.length > 5) {
