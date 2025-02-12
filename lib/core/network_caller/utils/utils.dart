@@ -19,4 +19,6 @@ class Utils {
   static const payment = "/payments";
   static const favoriteMe = "/favorites/favorite-meCount";
   static const favoriteList = "/favorites/favorite-listCount";
+  static const whoFavoriteMe = "/favorites/getProfilesWhoFavoritedMe";
+  static const whoIFavorite = "/favorites/getMyFavoriteList";
 }

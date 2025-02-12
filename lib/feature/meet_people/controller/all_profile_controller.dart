@@ -26,22 +26,19 @@ class AllProfileController extends GetxController {
   Timer? _pollingTimer;
   final TextEditingController textEditingController = TextEditingController();
   RxList<ProfileResponse> allProfiles = <ProfileResponse>[].obs;
+
   RxInt fvMe = 1.obs;
   RxInt fvList = 2.obs;
 
   Future<void> getUserProfiles() async {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
-    debugPrint("Token: $token");
-    debugPrint("Search Query:==============>>>>>>>>>> $searchQuery");
 
     if (token != null) {
       isLoading.value = true;
       try {
         final response = await NetworkCaller()
             .getRequest(Utils.baseUrl + Utils.profile, token: token);
-        debugPrint("Response Status: ${response.isSuccess}");
-        debugPrint("Response Body: ${response.responseData}");
 
         if (response.isSuccess) {
           allProfiles.refresh();
@@ -83,7 +80,7 @@ class AllProfileController extends GetxController {
   Future<void> favoriteMe() async {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
-    debugPrint("Token: $token");
+
     if (token != null) {
       try {
         final response = await NetworkCaller()
@@ -105,7 +102,7 @@ class AllProfileController extends GetxController {
   Future<void> favoriteList() async {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
-    debugPrint("Token: $token");
+
     if (token != null) {
       try {
         final response = await NetworkCaller()
