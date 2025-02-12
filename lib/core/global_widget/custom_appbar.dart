@@ -8,22 +8,21 @@ import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
+import '../../feature/meet_people/controller/all_profile_controller.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? search;
   const CustomAppBar({
     super.key,
-    this.search,
   });
 
   @override
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
+    final allprofileController = Get.put(AllProfileController());
     final FilterController filterController = Get.put(FilterController());
     final ProfileController profileController = Get.put(ProfileController());
-    final TextEditingController textEditingController = TextEditingController();
-    textEditingController.text = search ?? '';
+
     var userData = profileController.userData.value;
     return AppBar(
       scrolledUnderElevation: 0,
@@ -104,18 +103,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomTextFieldSearch(
-                  fillColor: const Color(0xff302827),
-                  hintText: "Search here",
-                  color: Colors.white,
-                  controller: textEditingController,
-                  prefixIcon: Image.asset(Assetpath.search),
-                  suffixIcon: GestureDetector(
-                      onTap: () {
-                        filterController.showCountryPicker(context);
-                      },
-                      child: Image.asset(Assetpath.filter)),
-                ),
+                Obx(() => CustomTextFieldSearch(
+                      fillColor: const Color(0xff302827),
+                      hintText: allprofileController.isSearch.value,
+                      color: Colors.white,
+                      controller: allprofileController.textEditingController,
+                      prefixIcon: Image.asset(Assetpath.search),
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            filterController.showCountryPicker(context);
+                          },
+                          child: Image.asset(Assetpath.filter)),
+                    )),
                 SizedBox(
                   height: 20.h,
                 ),

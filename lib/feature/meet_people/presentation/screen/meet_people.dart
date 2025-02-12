@@ -24,9 +24,7 @@ class MeetPeople extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        search: searchController.search.text,
-      ),
+      appBar: const CustomAppBar(),
       body: Obx(
         () {
           return searchController.filteredSuggestions.isNotEmpty
@@ -53,8 +51,11 @@ class MeetPeople extends StatelessWidget {
                                 searchController.search,
                                 searchController.filteredSuggestions[index]);
                             searchController.filteredSuggestions.clear();
+                            allProfileController.textEditingController.text =
+                                allProfileController.searchQuery;
+                            allProfileController.text.value =
+                                "People around '${allProfileController.searchQuery}'";
                             await allProfileController.getUserCity();
-
                           },
                         );
                       },
@@ -71,11 +72,11 @@ class MeetPeople extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomTextIner(
-                              text: "Nearest people around you ⭐",
-                              fontWeight: FontWeight.w500,
-                              size: 16.sp,
-                            ),
+                            Obx(() => CustomTextIner(
+                                  text: "${allProfileController.text.value} ⭐",
+                                  fontWeight: FontWeight.w500,
+                                  size: 16.sp,
+                                )),
                             SizedBox(
                               height: 10.h,
                             ),

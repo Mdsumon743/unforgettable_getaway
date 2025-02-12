@@ -14,15 +14,17 @@ import '../../../core/network_caller/utils/utils.dart';
 class AllProfileController extends GetxController {
   ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
-  String searchQuery = "";
+  String searchQuery = "".trim();
   SubscriptionController subscriptionController =
       Get.put(SubscriptionController());
   NotificationController notificationController =
       Get.put(NotificationController());
   RxBool isLoading = false.obs;
+  RxString isSearch = "Search Here".obs;
+  RxString text = "Nearest people around you".obs;
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   Timer? _pollingTimer;
-
+  final TextEditingController textEditingController = TextEditingController();
   RxList<ProfileResponse> allProfiles = <ProfileResponse>[].obs;
 
   Future<void> getUserProfiles() async {

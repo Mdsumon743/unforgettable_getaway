@@ -1,9 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/const/const.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+
 import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
 
 class FilterController extends GetxController {
@@ -15,6 +20,7 @@ class FilterController extends GetxController {
 
   void showCountryPicker(BuildContext context) {
     final allprofileData = Get.find<AllProfileController>();
+
     Get.bottomSheet(
       Container(
         decoration: const BoxDecoration(
@@ -68,6 +74,8 @@ class FilterController extends GetxController {
                                   .hasMatch(char))
                               .join();
                           allprofileData.searchQuery = filteredCountry;
+                          allprofileData.text.value =
+                              "People around '${allprofileData.searchQuery}'";
                           debugPrint(
                               "Selected Country: =======>>>${allprofileData.searchQuery}");
                         }
@@ -105,18 +113,23 @@ class FilterController extends GetxController {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Row(
-                      children: [
-                        Image.asset(Assetpath.near),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        CustomTextPopins(
-                          text: "Use my current location",
-                          color: const Color(0xff8C7B00),
-                          size: 16.sp,
-                        )
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        checkLocationPermissionAndGetCountry(allprofileData);
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(Assetpath.near),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          CustomTextPopins(
+                            text: "Use my current location",
+                            color: const Color(0xff8C7B00),
+                            size: 16.sp,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -173,5 +186,43 @@ class FilterController extends GetxController {
         ),
       ),
     );
+  }
+
+  Future<void> checkLocationPermissionAndGetCountry(
+      AllProfileController allProfileController) async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        debugPrint("Location permission denied.");
+        return;
+      }
+    }
+
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      debugPrint("Location services are not enabled.");
+      return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    String country =
+        placemarks.isNotEmpty ? placemarks[0].country ?? "Unknown" : "Unknown";
+
+    debugPrint("Country: $country");
+
+    String storedCountry = country;
+
+    allProfileController.searchQuery = storedCountry.trim();
+    debugPrint("Stored Country:==========>>>>>> $storedCountry");
+    debugPrint(
+        "Controller Country:==========>>>>>> ${allProfileController.searchQuery}");
   }
 }
