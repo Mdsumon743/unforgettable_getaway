@@ -177,6 +177,7 @@ class PhoneNumberVerification extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.r)),
               onPressed: () {
+                phoneController.sendOtp();
                 Get.to(() => const PhoneNumberOTPSubmit());
               },
               child: const Icon(

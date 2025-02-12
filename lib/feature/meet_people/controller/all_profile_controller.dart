@@ -20,7 +20,7 @@ class AllProfileController extends GetxController {
   NotificationController notificationController =
       Get.put(NotificationController());
   RxBool isLoading = false.obs;
-  RxString isSearch = "Search Here".obs;
+  RxString isSearch = "Search Here By City".obs;
   RxString text = "Nearest people around you".obs;
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   Timer? _pollingTimer;
@@ -170,6 +170,6 @@ class AllProfileController extends GetxController {
     getUserProfiles();
     subscriptionController.getAllPlan();
     chatlistController.getMyChatList();
-    startPolling(interval: const Duration(minutes: 10));
+    startPolling(interval: const Duration(minutes: 30));
   }
 }
