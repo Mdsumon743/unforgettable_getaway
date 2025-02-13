@@ -153,7 +153,7 @@ class Profile extends StatelessWidget {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Get.to(() => SubscriptionPlan());
+                                Get.to(() => const SubscriptionPlan());
                               },
                               child: const SubcriptionCard()),
                           Align(

@@ -82,6 +82,7 @@ class ProfileController extends GetxController {
   Future<void> submitUserData({File? profileImage}) async {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
+    bool? isAccoutSetup = preferencesHelper.getBool('FirstTime');
     if (token != null) {
       try {
         isLoading.value = true;
@@ -106,7 +107,11 @@ class ProfileController extends GetxController {
         if (response.statusCode == 200) {
           debugPrint('====Success: ${response.body}');
           debugPrint('====Success: ${avatarFile.value}');
-          Get.offNamed(AppRoute.profile);
+          if (isAccoutSetup == true) {
+            Get.offNamed(AppRoute.profile);
+          } else {
+            Get.offNamed(AppRoute.interestSelectionScreen);
+          }
         } else {
           debugPrint('====Error: ${response.statusCode}, ${response.body}');
         }

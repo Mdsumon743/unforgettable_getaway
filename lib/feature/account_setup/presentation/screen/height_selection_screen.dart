@@ -56,9 +56,9 @@ class HeightPickerScreen extends StatelessWidget {
     final accountController = Get.put(AccountController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
-         appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: AppColors.darkBrown,
-       scrolledUnderElevation: 0,
+        scrolledUnderElevation: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -78,7 +78,6 @@ class HeightPickerScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   const ProgressBar(width: 0.75),
                   SizedBox(height: 26.h),
                   Text(
@@ -172,8 +171,7 @@ class HeightPickerScreen extends StatelessWidget {
                     textColor: AppColors.darkBrown1,
                     backgroundColor: AppColors.yellowColor,
                     onPressed: () {
-                      // Get.to(() => const InterestSelectionScreen());
-                      Get.toNamed(AppRoute.interestSelectionScreen);
+                      Get.toNamed(AppRoute.uploadProfile);
                     },
                     borderRadius: 40,
                   ),
@@ -183,7 +181,7 @@ class HeightPickerScreen extends StatelessWidget {
                     textColor: AppColors.yellowColor,
                     backgroundColor: AppColors.darkBrown,
                     onPressed: () {
-                      Get.toNamed(AppRoute.interestSelectionScreen);
+                      Get.toNamed(AppRoute.uploadProfile);
                     },
                     borderRadius: 40,
                   ),
