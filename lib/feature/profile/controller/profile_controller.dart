@@ -242,7 +242,7 @@ class ProfileController extends GetxController {
     if (status.isGranted) {
       return true;
     } else if (status.isDenied) {
-      return false; 
+      return false;
     } else if (status.isPermanentlyDenied) {
       openAppSettings();
       return false;
@@ -265,7 +265,6 @@ class ProfileController extends GetxController {
           return;
         }
 
-    
         final List<XFile>? images = await _picker.pickMultiImage();
         if (images != null && images.isNotEmpty) {
           if (selectedImages.length + images.length > 5) {
