@@ -109,6 +109,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       color: Colors.white,
                       controller: allprofileController.textEditingController,
                       prefixIcon: Image.asset(Assetpath.search),
+                      
                       suffixIcon: GestureDetector(
                           onTap: () {
                             filterController.showCountryPicker(context);

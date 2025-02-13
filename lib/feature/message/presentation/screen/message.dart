@@ -13,11 +13,15 @@ import '../widget/custom_appbar1.dart';
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
+  final String? userid;
+  final String? reciverId;
   final MesseageController controller = Get.put(MesseageController());
   MessagePage({
     super.key,
     required this.img,
     required this.text,
+    this.userid,
+    this.reciverId,
   });
   @override
   Widget build(BuildContext context) {

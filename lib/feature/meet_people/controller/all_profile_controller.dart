@@ -6,6 +6,7 @@ import 'package:unforgettable_getaway/feature/meet_people/model/all_profile.dart
 import 'package:unforgettable_getaway/feature/message/controller/chatlist_controller.dart';
 import 'package:unforgettable_getaway/feature/notification/controller/notification_controller.dart';
 import 'package:unforgettable_getaway/feature/payment/controller/subcribtion_plan.dart';
+import 'package:unforgettable_getaway/feature/profile/controller/favorite_controller.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
 import 'dart:isolate';
 import '../../../core/helper/shared_prefarences_helper.dart';
@@ -14,11 +15,12 @@ import '../../../core/network_caller/utils/utils.dart';
 class AllProfileController extends GetxController {
   ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
+  FavoriteController favoriteController = Get.put(FavoriteController());
   String searchQuery = "".trim();
   SubscriptionController subscriptionController =
       Get.put(SubscriptionController());
   NotificationController notificationController =
-      Get.put(NotificationController());
+  Get.put(NotificationController());
   RxBool isLoading = false.obs;
   RxString isSearch = "Search Here By City".obs;
   RxString text = "Nearest people around you".obs;
@@ -75,6 +77,69 @@ class AllProfileController extends GetxController {
       debugPrint("Token is null");
     }
     update();
+  }
+
+  Future<void> getUserProfiles2() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+
+    if (token != null) {
+      try {
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.profile, token: token);
+
+        if (response.isSuccess) {
+          allProfiles.refresh();
+
+          final jsonData = response.responseData;
+
+          if (jsonData is Map<String, dynamic>) {
+            if (jsonData['success'] == true && jsonData['data'] is List) {
+              List<dynamic> dataList = jsonData['data'];
+              await _processProfilesInIsolate(dataList);
+              debugPrint("Profiles retrieved: ${allProfiles.length}");
+              debugPrint("===========: ${allProfiles.length}");
+            } else {
+              debugPrint("Invalid response data structure");
+            }
+            allProfiles.refresh();
+          } else if (jsonData is List) {
+            await _processProfilesInIsolate(jsonData);
+            debugPrint("Profiles retrieved: ${allProfiles.length}");
+            debugPrint("Profiles =========: $allProfiles");
+            allProfiles.refresh();
+          } else {
+            debugPrint("Unexpected response format");
+          }
+        } else {
+          debugPrint("Failed to retrieve data: ${response.responseData}");
+        }
+      } catch (e) {
+        debugPrint("Error occurred: $e");
+      } finally {}
+    } else {
+      debugPrint("Token is null");
+    }
+    update();
+  }
+
+  Future<void> itsSubscribe() async {
+    await preferencesHelper.init();
+    var token = preferencesHelper.getString("userToken");
+
+    if (token != null) {
+      try {
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.subcription, token: token);
+
+        if (response.isSuccess) {
+          final data = response.responseData;
+          debugPrint("=========>>>>>>>>>>Data: $data");
+        }
+      } catch (e) {
+        debugPrint("Error occurred: $e");
+      }
+    }
   }
 
   Future<void> favoriteMe() async {
@@ -201,9 +266,11 @@ class AllProfileController extends GetxController {
     _pollingTimer = Timer.periodic(interval, (timer) async {
       await chatlistController.getMyChatList();
       await notificationController.fetchNotifications();
-      await getUserProfiles();
+      await getUserProfiles2();
       await favoriteMe();
       await favoriteList();
+      await favoriteController.myFavoriteList();
+      await favoriteController.whofavoritesMe();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");

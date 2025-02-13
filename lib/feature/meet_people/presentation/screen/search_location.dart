@@ -68,8 +68,7 @@ class SearchLocation extends StatelessWidget {
                                           searchController.search,
                                           searchController
                                               .filteredSuggestions[index]);
-                                      await allprofileController
-                                          .getUserCity();
+                                      await allprofileController.getUserCity();
                                       Get.offAll(() => const MeetPeople());
                                     },
                                   );
@@ -120,6 +119,7 @@ class CustomTextFieldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchController = Get.put(CustomTextFieldSearchController());
+    final allprofileController = Get.put(AllProfileController());
     final FocusNode focusNode = FocusNode();
 
     return SingleChildScrollView(
@@ -134,7 +134,13 @@ class CustomTextFieldSearch extends StatelessWidget {
             child: TextFormField(
               focusNode: focusNode,
               textInputAction: textInputAction,
-              onChanged: (query) => searchController.filterSuggestions(query),
+              onChanged: (query) {
+                searchController.filterSuggestions(query);
+                if (query.isEmpty) {
+                  allprofileController.getUserProfiles();
+                  allprofileController.text.value = 'Nearest people around you';
+                }
+              },
               controller: controller,
               onTap: ontap,
               keyboardType: keyboardType,

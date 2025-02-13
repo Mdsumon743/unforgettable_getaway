@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/global_widget/custom_loading.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
@@ -62,11 +63,7 @@ class Profile extends StatelessWidget {
         ),
         body: Obx(
           () => profilecontroller.isLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.yellowColor,
-                  ),
-                )
+              ? customLoadingDialog()
               : SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.r),
@@ -153,7 +150,7 @@ class Profile extends StatelessWidget {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Get.to(() => const SubscriptionPlan());
+                                Get.to(() => SubscriptionPlan());
                               },
                               child: const SubcriptionCard()),
                           Align(

@@ -21,4 +21,5 @@ class Utils {
   static const favoriteList = "/favorites/favorite-listCount";
   static const whoFavoriteMe = "/favorites/getProfilesWhoFavoritedMe";
   static const whoIFavorite = "/favorites/getMyFavoriteList";
+  static const subcription = "/subscriptions";
 }
