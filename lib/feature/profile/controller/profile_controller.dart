@@ -32,6 +32,7 @@ class ProfileController extends GetxController {
   var isLoading = false.obs;
   var avatarFile = Rx<File?>(null);
   var selectedImages = <File>[].obs;
+ 
   Map<String, dynamic> upadateNewData = {};
 
   updatestaus(String selectedStatus) {
@@ -172,6 +173,7 @@ class ProfileController extends GetxController {
     debugPrint("Token: $token");
 
     if (token != null) {
+      isLoading.value = true;
       try {
         final response = await NetworkCaller()
             .getRequest(Utils.baseUrl + Utils.getme, token: token);
@@ -187,10 +189,14 @@ class ProfileController extends GetxController {
           userData.value = UserData.fromJson(jsonData);
           debugPrint("====HereData======${userData.value}");
         } else {
+          isLoading.value = false;
           debugPrint("Failed to retrieve data: ${response.responseData}");
         }
       } catch (e) {
+        isLoading.value = false;
         debugPrint("Error occurred: $e");
+      }finally{
+        isLoading.value = false;
       }
     } else {
       debugPrint("Token is null");

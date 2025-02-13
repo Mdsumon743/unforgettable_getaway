@@ -24,7 +24,10 @@ class WhoFavoriteMe extends StatelessWidget {
           );
         } else if (favoriteController.whoFavoriteMe.isEmpty) {
           return const Center(
-            child: CustomTextPopins(text: "No Profile Found"),
+            child: CustomTextPopins(
+              text: "No Favorite Profile Found",
+              color: Colors.white,
+            ),
           );
         } else {
           return GridView.builder(
@@ -87,7 +90,10 @@ class MyFavoriteList extends StatelessWidget {
           );
         } else if (favoriteController.favoriteMeList.isEmpty) {
           return const Center(
-            child: CustomTextPopins(text: "No Profile Found"),
+            child: CustomTextPopins(
+              text: "No Favorite Profile Found",
+              color: Colors.white,
+            ),
           );
         } else {
           return GridView.builder(

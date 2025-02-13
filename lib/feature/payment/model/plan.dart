@@ -97,7 +97,7 @@ class Plan {
     return Plan(
       id: json['id'] as String,
       planName: json['planName'] as String,
-      duration: json['duration'] is int ? json['duration'] as int : int.parse(json['duration'].toString()), // Fix for duration
+      duration: json['duration'] is int ? json['duration'] as int : int.parse(json['duration'].toString()),
       price: (json['price'] as num).toDouble(),
       productId: json['productId'] as String,
       description: json['description'] as String?,

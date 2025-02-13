@@ -14,11 +14,11 @@ class LoginController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  Future<void> logIn() async {
+  Future<void> logIn({String? email, String? password}) async {
     preferencesHelper.init();
     Map<String, dynamic> registration = {
-      "email": emailText.text.trim(),
-      "password": passText.text.trim(),
+      "email": email ?? emailText.text.trim(),
+      "password": password ?? passText.text.trim(),
       "fcpmToken": preferencesHelper.getString("fcm_token")
     };
     try {
