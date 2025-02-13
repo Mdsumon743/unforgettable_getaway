@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
 
@@ -11,6 +12,8 @@ class FinalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AllProfileController allProfileController = Get.find<AllProfileController>();
+    allProfileController.itsSubscribe();
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
       appBar: AppBar(

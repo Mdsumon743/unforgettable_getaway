@@ -9,13 +9,14 @@ import '../../../core/network_caller/utils/utils.dart';
 
 class SubscriptionController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  
+
   var selectedPlan = "".obs;
   var subcribtionId = "".obs;
   var price = 0.0.obs;
   RxBool isLoading = false.obs;
 
   RxList<Plan> allPlan = <Plan>[].obs;
-
 
   void selectPlan(String plan, double value, String subId) {
     selectedPlan.value = plan;
@@ -28,7 +29,7 @@ class SubscriptionController extends GetxController {
 
   Future<void> getAllPlan() async {
     debugPrint("Get all plan===================");
-     debugPrint("Get all plan=========$allPlan==========");
+    debugPrint("Get all plan=========$allPlan==========");
 
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
@@ -46,7 +47,8 @@ class SubscriptionController extends GetxController {
           final jsonData = response.responseData;
           if (jsonData is List) {
             allPlan.value = jsonData.map((e) => Plan.fromJson(e)).toList();
-            debugPrint("==========Plans loaded successfully: ${allPlan.length}");
+            debugPrint(
+                "==========Plans loaded successfully: ${allPlan.length}");
             debugPrint("============$allPlan");
           } else {
             debugPrint("Unexpected data format: $jsonData");
@@ -83,6 +85,7 @@ class SubscriptionController extends GetxController {
         if (response.isSuccess) {
           debugPrint("==========>>>>${response.responseData}");
           Get.to(() => const FinalPage());
+        
         }
       } catch (e) {
         isLoading.value = false;
@@ -92,7 +95,4 @@ class SubscriptionController extends GetxController {
       }
     }
   }
-
-
-
 }

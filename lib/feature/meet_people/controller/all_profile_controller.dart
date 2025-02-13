@@ -125,6 +125,7 @@ class AllProfileController extends GetxController {
   }
 
   Future<void> itsSubscribe() async {
+    debugPrint( " fucntion called" );
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
 
