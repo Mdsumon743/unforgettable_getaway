@@ -91,14 +91,14 @@ class ChatListPage extends StatelessWidget {
                             Get.to(() => CompletedPremium(
                                   img: chatData.user.profileImage ??
                                       "https://i.ibb.co.com/nrs3FjM/images.png",
-                                  text: chatData.user.fullName,
+                                  text: chatData.user.fullName ?? "Unknown",
                                   userid: messeageController.userid,
                                   reciverId: chatData.user.userId,
                                 ));
                           },
                           child: ListTile(
                               title: Text(
-                                chatData.user.fullName,
+                                chatData.user.fullName ?? "Unknown",
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFFFFFFFF),
                                     fontWeight: FontWeight.w500,
