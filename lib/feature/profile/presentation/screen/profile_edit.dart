@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/country_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
