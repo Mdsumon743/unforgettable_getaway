@@ -32,7 +32,7 @@ class ProfileController extends GetxController {
   var isLoading = false.obs;
   var avatarFile = Rx<File?>(null);
   var selectedImages = <File>[].obs;
- 
+
   Map<String, dynamic> upadateNewData = {};
 
   updatestaus(String selectedStatus) {
@@ -195,7 +195,7 @@ class ProfileController extends GetxController {
       } catch (e) {
         isLoading.value = false;
         debugPrint("Error occurred: $e");
-      }finally{
+      } finally {
         isLoading.value = false;
       }
     } else {
