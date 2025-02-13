@@ -59,8 +59,7 @@ class AppRoute {
     GetPage(
       name: chatList,
       page: () => const ShowMessageScreen(),
-      transition: 
-      Transition.rightToLeft,
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: uploadProfile,

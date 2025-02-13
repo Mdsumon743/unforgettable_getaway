@@ -67,7 +67,7 @@ class MessagePage extends StatelessWidget {
                 }
                 return ListView.builder(
                   reverse: true,
-                  itemCount: controller.messages.length,
+                  itemCount: controller.messages2.length,
                   itemBuilder: (context, index) {
                     bool isUserMessage = controller.isUserMessage("");
                     return Padding(
@@ -127,7 +127,7 @@ class MessagePage extends StatelessWidget {
                     Expanded(
                         child: TextField(
                       onTap: () {
-                        if (controller.messages.length >= 2) {
+                        if (controller.messages2.length >= 2) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,

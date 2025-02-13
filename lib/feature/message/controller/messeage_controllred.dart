@@ -11,6 +11,7 @@ class MesseageController extends GetxController {
   var selectedOption = ''.obs;
   var callId = ''.obs;
   var isSecondMessageTriggered = false.obs;
+  var messages2 = [].obs;
   var messages = <Map<String, dynamic>>[].obs;
   var chatroomId = ''.obs;
   String userid = '';

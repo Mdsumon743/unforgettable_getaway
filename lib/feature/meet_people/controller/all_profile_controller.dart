@@ -20,7 +20,8 @@ class AllProfileController extends GetxController {
   SubscriptionController subscriptionController =
       Get.put(SubscriptionController());
   NotificationController notificationController =
-  Get.put(NotificationController());
+      Get.put(NotificationController());
+  RxBool subscribe = false.obs;
   RxBool isLoading = false.obs;
   RxString isSearch = "Search Here By City".obs;
   RxString text = "Nearest people around you".obs;
@@ -132,9 +133,11 @@ class AllProfileController extends GetxController {
         final response = await NetworkCaller()
             .getRequest(Utils.baseUrl + Utils.subcription, token: token);
 
-        if (response.isSuccess) {
-          final data = response.responseData;
-          debugPrint("=========>>>>>>>>>>Data: $data");
+        if (response.statusCode == 200) {
+          subscribe.value = response.responseData;
+
+          preferencesHelper.setBool("subscribe", subscribe.value);
+          debugPrint("Subscribe==========>>>>>>>>: $subscribe");
         }
       } catch (e) {
         debugPrint("Error occurred: $e");
@@ -271,6 +274,7 @@ class AllProfileController extends GetxController {
       await favoriteList();
       await favoriteController.myFavoriteList();
       await favoriteController.whofavoritesMe();
+      await itsSubscribe();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -283,6 +287,7 @@ class AllProfileController extends GetxController {
     subscriptionController.getAllPlan();
     chatlistController.getMyChatList();
     favoriteMe();
+    itsSubscribe();
     favoriteList();
     startPolling(interval: const Duration(minutes: 30));
   }
