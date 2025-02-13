@@ -9,6 +9,7 @@ import 'package:unforgettable_getaway/feature/message/presentation/widget/custom
 import '../../../../../core/global_widget/custom_text_popins.dart';
 import '../../../../../core/utils/assetpath.dart';
 import '../../../controller/messeage_controllred.dart';
+import '../../widget/subscription_card1.dart';
 
 class CompletedPremium extends StatelessWidget {
   final String img;
@@ -55,7 +56,7 @@ class CompletedPremium extends StatelessWidget {
               () {
                 if (controller.messages.isEmpty) {
                   return Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(10.r),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -174,11 +175,29 @@ class CompletedPremium extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       if (textController.text.isNotEmpty) {
-                        controller.sendMessage(
-                          userid ?? "",
-                          reciverId ?? "",
-                          textController.text,
-                        );
+                        if (profileController.subscribe.value) {
+                          controller.sendMessage(
+                            userid ?? "",
+                            reciverId ?? "",
+                            textController.text,
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: SubcriptionCard1(
+                                          img: img, text: text),
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+
                         textController.clear();
                       } else {
                         debugPrint("============enter Something");
