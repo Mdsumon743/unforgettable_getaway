@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/core/helper/responsive_helper.dart';
 
 class PhotoGridview extends StatelessWidget {
   final void Function()? ontap;
@@ -19,7 +22,7 @@ class PhotoGridview extends StatelessWidget {
       children: List.generate(6, (index) {
         if (index == 0) {
           return StaggeredGridTile.count(
-            mainAxisCellCount: 2,
+            mainAxisCellCount: ResponsiveHelper.isSmallDevice() ? 1.9 : 2,
             crossAxisCellCount: 2,
             child: imageContainer(
                 main ?? "https://i.ibb.co.com/nrs3FjM/images.png",
@@ -34,7 +37,7 @@ class PhotoGridview extends StatelessWidget {
               crossAxisCellCount: 1,
               mainAxisCellCount: 1,
               child: imageContainer(hasImage ? gallery![index - 1] : "",
-                  '${index + 1}', !hasImage),
+                  '${index + 0}', !hasImage),
             ),
           );
         }
