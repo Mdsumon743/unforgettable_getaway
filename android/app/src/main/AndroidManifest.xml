@@ -24,7 +24,7 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
     <application
-        android:label="UP"
+        android:label="UP FlirtWaves"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         android:enableOnBackInvokedCallback="true"

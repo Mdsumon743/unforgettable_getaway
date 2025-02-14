@@ -21,6 +21,7 @@ class OnboardingController extends GetxController {
       },
     );
   }
+
   Future<void> chekUseravalible() async {
     await preferencesHelper.init();
     bool isAccoutSetup = preferencesHelper.getBool('FirstTime') ?? false;
