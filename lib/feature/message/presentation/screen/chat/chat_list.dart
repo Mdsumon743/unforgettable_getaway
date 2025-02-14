@@ -21,7 +21,6 @@ class ChatListPage extends StatelessWidget {
     String extractTime(String dateTimeString) {
       try {
         final dateTime = DateTime.parse(dateTimeString);
-        // Format only the time as a string
         return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
       } catch (e) {
         return "Visit Your Profile";
@@ -31,6 +30,7 @@ class ChatListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff1A1110),
+        scrolledUnderElevation: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
