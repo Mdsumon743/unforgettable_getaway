@@ -18,6 +18,7 @@ class SubscriptionPlan extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff1A1110),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: const Color(0xff1A1110),
         leading: GestureDetector(
           onTap: () {
@@ -36,18 +37,20 @@ class SubscriptionPlan extends StatelessWidget {
           color: Colors.white,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.r),
+      body: Padding(
+        padding: EdgeInsets.only(left: 20.r, right: 20.r, bottom: 20.r),
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height * 1,
+          width: MediaQuery.sizeOf(context).width * 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomTextPopins(
                 text: "Choose your plan",
                 size: 24.sp,
                 color: Colors.white,
               ),
-              SizedBox(height: 32.h),
               ListView.separated(
                 separatorBuilder: (context, index) => SizedBox(
                   height: 10.h,
@@ -73,71 +76,69 @@ class SubscriptionPlan extends StatelessWidget {
                       ));
                 },
               ),
-              SizedBox(
-                height: 32.h,
-              ),
-              Row(
+              Column(
                 children: [
-                  Image.asset(
-                    Assetpath.blink2,
-                    width: 20.w,
-                    height: 20.h,
+                  Row(
+                    children: [
+                      Image.asset(
+                        Assetpath.blink2,
+                        width: 20.w,
+                        height: 20.h,
+                      ),
+                      SizedBox(
+                        width: 8.h,
+                      ),
+                      CustomTextPopins(
+                        text: 'Unlimited Message',
+                        fontWeight: FontWeight.w500,
+                        size: 13.sp,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    width: 8.h,
+                    height: 12.h,
                   ),
-                  CustomTextPopins(
-                    text: 'Unlimited Message',
-                    fontWeight: FontWeight.w500,
-                    size: 13.sp,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    Assetpath.blink2,
-                    width: 20.w,
-                    height: 20.h,
-                  ),
-                  SizedBox(
-                    width: 8.h,
-                  ),
-                  CustomTextPopins(
-                    text: 'Unlimited Audio & Video Call',
-                    fontWeight: FontWeight.w500,
-                    size: 13.sp,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    Assetpath.blink2,
-                    width: 20.w,
-                    height: 20.h,
+                  Row(
+                    children: [
+                      Image.asset(
+                        Assetpath.blink2,
+                        width: 20.w,
+                        height: 20.h,
+                      ),
+                      SizedBox(
+                        width: 8.h,
+                      ),
+                      CustomTextPopins(
+                        text: 'Unlimited Audio & Video Call',
+                        fontWeight: FontWeight.w500,
+                        size: 13.sp,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    width: 8.h,
+                    height: 12.h,
                   ),
-                  CustomTextPopins(
-                    text: 'Unlimited Fun & Enjoy',
-                    fontWeight: FontWeight.w500,
-                    size: 13.sp,
-                    color: Colors.white,
+                  Row(
+                    children: [
+                      Image.asset(
+                        Assetpath.blink2,
+                        width: 20.w,
+                        height: 20.h,
+                      ),
+                      SizedBox(
+                        width: 8.h,
+                      ),
+                      CustomTextPopins(
+                        text: 'Unlimited Fun & Enjoy',
+                        fontWeight: FontWeight.w500,
+                        size: 13.sp,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                 ],
-              ),
-              SizedBox(
-                height: 75.h,
               ),
               SizedBox(
                 height: 48.h,
