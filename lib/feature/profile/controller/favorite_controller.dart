@@ -10,6 +10,7 @@ class FavoriteController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
   RxList<ProfileResponse> favoriteMeList = <ProfileResponse>[].obs;
   RxList<ProfileResponse> whoFavoriteMe = <ProfileResponse>[].obs;
+
   RxBool isLoading = false.obs;
 
   Future<void> addFavoritList(String id) async {
@@ -25,6 +26,8 @@ class FavoriteController extends GetxController {
 
         if (response.isSuccess) {
           debugPrint("Favorite Added");
+          await whofavoritesMe();
+          await myFavoriteList();
         }
       } catch (e) {
         debugPrint("=============Error: $e");

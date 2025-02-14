@@ -150,7 +150,11 @@ class ProfileController extends GetxController {
 
         if (response.statusCode == 200) {
           debugPrint('Success: ${response.body}');
-          Get.snackbar("Upload Success", "Images uploaded successfully.");
+          Get.snackbar(
+            "Upload Success",
+            "Images uploaded successfully.",
+            backgroundColor: Colors.green,
+          );
         } else {
           debugPrint('Error: ${response.statusCode}, ${response.body}');
           Get.snackbar(

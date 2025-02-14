@@ -272,8 +272,6 @@ class AllProfileController extends GetxController {
       await notificationController.fetchNotifications();
       await favoriteMe();
       await favoriteList();
-      await favoriteController.myFavoriteList();
-      await favoriteController.whofavoritesMe();
       await itsSubscribe();
       await profileController.getUserProfiles2();
     });
@@ -290,6 +288,6 @@ class AllProfileController extends GetxController {
     favoriteMe();
     itsSubscribe();
     favoriteList();
-    startPolling(interval: const Duration(seconds: 5));
+    startPolling(interval: const Duration(seconds: 8));
   }
 }
