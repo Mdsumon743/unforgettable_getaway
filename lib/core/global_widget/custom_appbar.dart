@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/helper/responsive_helper.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
@@ -109,7 +110,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       color: Colors.white,
                       controller: allprofileController.textEditingController,
                       prefixIcon: Image.asset(Assetpath.search),
-                      
                       suffixIcon: GestureDetector(
                           onTap: () {
                             filterController.showCountryPicker(context);
@@ -126,5 +126,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(165.h);
+  Size get preferredSize => ResponsiveHelper.isSmallDevice()
+      ? Size.fromHeight(175.h)
+      : Size.fromHeight(165.h);
 }

@@ -247,51 +247,109 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<bool> requestGalleryPermission() async {
-    PermissionStatus status = await Permission.photos.request();
+  // Future<bool> requestGalleryPermission() async {
+  //   PermissionStatus status = await Permission.photos.request();
 
-    if (status.isGranted) {
-      return true;
-    } else if (status.isDenied) {
-      return false;
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings();
-      return false;
+  //   if (status.isGranted) {
+  //     return true;
+  //   } else if (status.isDenied) {
+  //     return false;
+  //   } else if (status.isPermanentlyDenied) {
+  //     openAppSettings();
+  //     return false;
+  //   }
+  //   return false;
+  // }
+
+  // Future<void> pickImageFromGallery(bool isProfile) async {
+  //   requestGalleryPermission();
+  //   if (await Permission.photos.isGranted) {
+  //     if (isProfile) {
+  //       final XFile? image =
+  //           await _picker.pickImage(source: ImageSource.gallery);
+  //       if (image != null) {
+  //         avatarFile.value = File(image.path);
+  //       }
+  //     } else {
+  //       if (selectedImages.length >= 5) {
+  //         Get.snackbar("Limit Reached", "You can select up to 5 images only.");
+  //         return;
+  //       }
+
+  //       final List<XFile>? images = await _picker.pickMultiImage();
+  //       if (images != null && images.isNotEmpty) {
+  //         if (selectedImages.length + images.length > 5) {
+  //           Get.snackbar(
+  //             "Limit Reached",
+  //             "You can only select up to 5 images in total.",
+  //           );
+  //           return;
+  //         }
+  //         selectedImages
+  //             .addAll(images.map((image) => File(image.path)).toList());
+  //         await uploadMultipleImages();
+  //       }
+  //     }
+  //   } else {
+  //    debugPrint("==========Permission Stroge requried");
+  //   }
+  // }
+  Future<bool> requestGalleryPermission() async {
+    PermissionStatus status;
+
+    if (Platform.isIOS) {
+      status = await Permission.photos.request();
+    } else {
+      if (await Permission.storage.isGranted ||
+          await Permission.mediaLibrary.isGranted) {
+        return true;
+      }
+
+      status = await Permission.storage.request(); // For Android <13
+
+      if (status.isDenied) {
+        debugPrint("Gallery permission denied");
+        return false;
+      } else if (status.isPermanentlyDenied) {
+        openAppSettings();
+        return false;
+      }
     }
-    return false;
+
+    return status.isGranted;
   }
 
   Future<void> pickImageFromGallery(bool isProfile) async {
-    requestGalleryPermission();
-    if (await Permission.photos.isGranted) {
-      if (isProfile) {
-        final XFile? image =
-            await _picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          avatarFile.value = File(image.path);
-        }
-      } else {
-        if (selectedImages.length >= 5) {
-          Get.snackbar("Limit Reached", "You can select up to 5 images only.");
-          return;
-        }
+    bool permissionGranted = await requestGalleryPermission();
 
-        final List<XFile>? images = await _picker.pickMultiImage();
-        if (images != null && images.isNotEmpty) {
-          if (selectedImages.length + images.length > 5) {
-            Get.snackbar(
-              "Limit Reached",
-              "You can only select up to 5 images in total.",
-            );
-            return;
-          }
-          selectedImages
-              .addAll(images.map((image) => File(image.path)).toList());
-          await uploadMultipleImages();
-        }
+    if (!permissionGranted) {
+      debugPrint("Storage permission required for gallery access");
+      return;
+    }
+
+    if (isProfile) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        avatarFile.value = File(image.path);
       }
     } else {
-      Get.snackbar("Permission Denied", "Storage permission is required.");
+      if (selectedImages.length >= 5) {
+        Get.snackbar("Limit Reached", "You can select up to 5 images only.");
+        return;
+      }
+
+      final List<XFile>? images = await _picker.pickMultiImage();
+      if (images != null && images.isNotEmpty) {
+        if (selectedImages.length + images.length > 5) {
+          Get.snackbar(
+            "Limit Reached",
+            "You can only select up to 5 images in total.",
+          );
+          return;
+        }
+        selectedImages.addAll(images.map((image) => File(image.path)).toList());
+        await uploadMultipleImages();
+      }
     }
   }
 
