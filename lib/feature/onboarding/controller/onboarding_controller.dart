@@ -21,13 +21,12 @@ class OnboardingController extends GetxController {
       },
     );
   }
-
   Future<void> chekUseravalible() async {
     await preferencesHelper.init();
     bool isAccoutSetup = preferencesHelper.getBool('FirstTime') ?? false;
     final String? userToken = preferencesHelper.getString("userToken");
     if (userToken != null && isAccoutSetup == true) {
-      Get.offAllNamed(AppRoute.searchLocaiton);
+      Get.offAllNamed(AppRoute.meet);
     } else if (userToken != null && isAccoutSetup == false) {
       Get.offAllNamed(AppRoute.selectCountry);
     } else {
