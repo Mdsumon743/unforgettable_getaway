@@ -290,6 +290,6 @@ class AllProfileController extends GetxController {
     favoriteMe();
     itsSubscribe();
     favoriteList();
-    startPolling(interval: const Duration(minutes: 30));
+    startPolling(interval: const Duration(seconds: 6));
   }
 }
