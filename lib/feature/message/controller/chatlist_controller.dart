@@ -50,6 +50,11 @@ class ChatlistController extends GetxController {
           } else {
             debugPrint("[ERROR] Unexpected response format: $responseData");
           }
+          allChatList.sort((a, b) {
+            if (a.lastMessageDate == null) return 1;
+            if (b.lastMessageDate == null) return -1;
+            return b.lastMessageDate!.compareTo(a.lastMessageDate!);
+          });
         } else {
           debugPrint(
               "[ERROR] Failed to retrieve data: ${response.responseData}");
@@ -64,14 +69,10 @@ class ChatlistController extends GetxController {
     }
   }
 
-
-
   void stopPolling() {
     _pollingTimer?.cancel();
     _pollingTimer = null;
 
     debugPrint("[LOG] Polling stopped.");
   }
-
-
 }

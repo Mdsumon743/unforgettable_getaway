@@ -21,7 +21,7 @@ class ChatListPage extends StatelessWidget {
     String extractTime(String dateTimeString) {
       try {
         final dateTime = DateTime.parse(dateTimeString);
-        return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
+        return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
       } catch (e) {
         return "Visit Your Profile";
       }
