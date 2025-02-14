@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/custom_textfeild_controller.dart';
-import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/meet_people.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../controller/all_profile_controller.dart';
@@ -63,13 +63,20 @@ class SearchLocation extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                     onTap: () async {
-                                      allprofileController.allProfiles.clear();
                                       searchController.updateTextController(
                                           searchController.search,
                                           searchController
                                               .filteredSuggestions[index]);
+
+                                      allprofileController
+                                              .textEditingController.text =
+                                          allprofileController.searchQuery;
+                                      allprofileController.text.value =
+                                          "People around '${allprofileController.searchQuery}'";
                                       await allprofileController.getUserCity();
-                                      Get.offAll(() => const MeetPeople());
+                                      Get.toNamed(AppRoute.meet);
+                                      searchController.filteredSuggestions
+                                          .clear();
                                     },
                                   );
                                 },

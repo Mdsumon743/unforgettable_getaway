@@ -27,7 +27,7 @@ class OnboardingController extends GetxController {
     bool isAccoutSetup = preferencesHelper.getBool('FirstTime') ?? false;
     final String? userToken = preferencesHelper.getString("userToken");
     if (userToken != null && isAccoutSetup == true) {
-      Get.offAllNamed(AppRoute.meet);
+      Get.offAllNamed(AppRoute.searchLocaiton);
     } else if (userToken != null && isAccoutSetup == false) {
       Get.offAllNamed(AppRoute.selectCountry);
     } else {
