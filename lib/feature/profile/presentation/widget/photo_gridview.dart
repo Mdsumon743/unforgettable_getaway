@@ -22,7 +22,7 @@ class PhotoGridview extends StatelessWidget {
       children: List.generate(6, (index) {
         if (index == 0) {
           return StaggeredGridTile.count(
-            mainAxisCellCount: ResponsiveHelper.isSmallDevice() ? 1.9 : 2,
+            mainAxisCellCount: ResponsiveHelper.isMediumDevice() ? 2.1 : 2,
             crossAxisCellCount: 2,
             child: imageContainer(
                 main ?? "https://i.ibb.co.com/nrs3FjM/images.png",
