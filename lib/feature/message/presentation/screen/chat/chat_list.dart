@@ -24,7 +24,7 @@ class ChatListPage extends StatelessWidget {
         // Format only the time as a string
         return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
       } catch (e) {
-        return "Invalid time";
+        return "";
       }
     }
 
