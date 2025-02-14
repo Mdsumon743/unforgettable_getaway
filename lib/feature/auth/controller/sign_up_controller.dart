@@ -4,6 +4,8 @@ import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
 
+import '../../../core/global_widget/custom_dialog.dart';
+
 class SignUpController extends GetxController {
   final logincontroller = Get.put(LoginController());
   final emailText = TextEditingController();
@@ -31,21 +33,20 @@ class SignUpController extends GetxController {
       if (response.isSuccess) {
         logincontroller.logIn(
             email: emailText.text.trim(), password: passText.text.trim());
-        // Get.dialog(
-
-        //   CustomSuccessDialog(
-        //     title: 'Sign Up Successful!',
-        //     message:
-        //         'You are successfully signed up.\nPlease log in to your account.',
-        //     onConfirm: () {
-        //       Get.back();
-        //       Get.offNamed(AppRoute.loginScreen);
-        //     },
-        //   ),
-        //   barrierDismissible: false,
-        //   transitionCurve: Curves.easeOutBack,
-        //   transitionDuration: const Duration(milliseconds: 400),
-        // );
+        Get.dialog(
+          CustomSuccessDialog(
+            title: 'Sign Up Successful!',
+            message:
+                'You are successfully signed up.\nPlease log in to your account.',
+            onConfirm: () {
+              logincontroller.logIn(
+                  email: emailText.text.trim(), password: passText.text.trim());
+            },
+          ),
+          barrierDismissible: false,
+          transitionCurve: Curves.easeOutBack,
+          transitionDuration: const Duration(milliseconds: 400),
+        );
       }
     } catch (e) {
       debugPrint("Error: $e");

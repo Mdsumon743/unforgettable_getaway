@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_loading.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
-import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/bio_controller.dart';
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/favorite_list.dart';
@@ -150,7 +149,7 @@ class Profile extends StatelessWidget {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Get.to(() => SubscriptionPlan());
+                                Get.to(() => const SubscriptionPlan());
                               },
                               child: const SubcriptionCard()),
                           Align(
