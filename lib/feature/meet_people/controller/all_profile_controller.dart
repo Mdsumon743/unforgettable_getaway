@@ -275,7 +275,7 @@ class AllProfileController extends GetxController {
       await favoriteController.myFavoriteList();
       await favoriteController.whofavoritesMe();
       await itsSubscribe();
-      await profileController.getUserProfiles();
+      await profileController.getUserProfiles2();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -290,6 +290,6 @@ class AllProfileController extends GetxController {
     favoriteMe();
     itsSubscribe();
     favoriteList();
-    startPolling(interval: const Duration(seconds: 6));
+    startPolling(interval: const Duration(seconds: 5));
   }
 }
