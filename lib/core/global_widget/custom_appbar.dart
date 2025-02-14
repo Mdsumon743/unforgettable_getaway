@@ -116,9 +116,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           },
                           child: Image.asset(Assetpath.filter)),
                     )),
-                SizedBox(
-                  height: 20.h,
-                ),
+                ResponsiveHelper.isMediumDevice()
+                    ? const SizedBox()
+                    : SizedBox(
+                        height: 20.h,
+                      )
               ],
             ),
           )),
