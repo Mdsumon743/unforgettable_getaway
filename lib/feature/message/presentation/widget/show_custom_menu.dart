@@ -34,6 +34,7 @@ class ShowCustomMenuController extends GetxController {
                         value: controller.isSwitched.value,
                         onChanged: (value) {
                           debugPrint("============$value");
+
                           if (value) {
                             controller.isTranslate.value = true;
                             controller.autoTranslateMessages();
@@ -68,8 +69,8 @@ class ShowCustomMenuController extends GetxController {
                   width: 12.w,
                 ),
                 Image.asset(Assetpath.block),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: 10.w,
                 ),
                 CustomTextPopins(
                   text: "Block User",
