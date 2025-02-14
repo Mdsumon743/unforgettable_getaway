@@ -270,12 +270,12 @@ class AllProfileController extends GetxController {
     _pollingTimer = Timer.periodic(interval, (timer) async {
       await chatlistController.getMyChatList();
       await notificationController.fetchNotifications();
-      await getUserProfiles2();
       await favoriteMe();
       await favoriteList();
       await favoriteController.myFavoriteList();
       await favoriteController.whofavoritesMe();
       await itsSubscribe();
+      await profileController.getUserProfiles();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
