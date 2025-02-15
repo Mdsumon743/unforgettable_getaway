@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/country_list.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_button.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_textfield.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
@@ -64,7 +63,7 @@ class ProfileEdit extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      profileController.showImagePickerDialog(context,true);
+                      profileController.showImagePickerDialog(context, true);
                     },
                     child: Container(
                       height: 40.h,
@@ -140,19 +139,19 @@ class ProfileEdit extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      CustomTextPopins(
-                        text: "Country*",
-                        fontWeight: FontWeight.w400,
-                        size: 14.sp,
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      countrylist(true),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      // CustomTextPopins(
+                      //   text: "Country*",
+                      //   fontWeight: FontWeight.w400,
+                      //   size: 14.sp,
+                      //   color: Colors.white.withOpacity(0.9),
+                      // ),
+                      // SizedBox(
+                      //   height: 5.h,
+                      // ),
+                      // countrylist(true),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
                       CustomTextPopins(
                         text: "Language*",
                         fontWeight: FontWeight.w400,

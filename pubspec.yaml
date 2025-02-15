@@ -64,8 +64,7 @@ dependencies:
   zego_uikit_signaling_plugin: ^2.8.8
   flutter_stripe: ^11.3.0
   dio: ^5.7.0
-  libphonenumber_plugin: ^0.3.3
-  firebase_auth: ^5.4.1
+  firebase_auth: ^5.4.2
 
   
 

@@ -6,7 +6,7 @@ class Utils {
   static const forgotpassword = "/auth/forget-password";
   static const pin = "/auth/verify-otp";
   static const reset = "/auth/reset-password";
-  static const profile = "/profiles";
+  static const profile = "/profiles?search=";
   static const getme = "/profiles/getMe";
   static const getsingleProfile = "/profiles/";
   static const logout = "/auth/logout";
@@ -17,4 +17,9 @@ class Utils {
   static const notification = "/notifications";
   static const plan = "/plans";
   static const payment = "/payments";
+  static const favoriteMe = "/favorites/favorite-meCount";
+  static const favoriteList = "/favorites/favorite-listCount";
+  static const whoFavoriteMe = "/favorites/getProfilesWhoFavoritedMe";
+  static const whoIFavorite = "/favorites/getMyFavoriteList";
+  static const subcription = "/subscriptions";
 }

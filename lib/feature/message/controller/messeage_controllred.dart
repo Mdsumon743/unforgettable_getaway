@@ -11,6 +11,7 @@ class MesseageController extends GetxController {
   var selectedOption = ''.obs;
   var callId = ''.obs;
   var isSecondMessageTriggered = false.obs;
+  var messages2 = [].obs;
   var messages = <Map<String, dynamic>>[].obs;
   var chatroomId = ''.obs;
   String userid = '';
@@ -80,6 +81,7 @@ class MesseageController extends GetxController {
   }
 
   void _handleIncomingMessage(String rawMessage) async {
+    debugPrint("============>>><><>Meeseage${isTranslate.value}");
     final decodedMessage = jsonDecode(rawMessage);
 
     if (decodedMessage['type'] == 'loadMessages') {
@@ -89,10 +91,12 @@ class MesseageController extends GetxController {
         messages.clear();
         for (var msg in conversation['messages']) {
           if (isTranslate.value) {
+            debugPrint("isTranlated ON manm ==============");
             final translatedContent =
                 await translateTextToSpanish(msg['content']);
             _addMessage(translatedContent, msg['senderId']);
           } else {
+            debugPrint("isTranlated Off manm ==============");
             _addMessage(msg['content'], msg['senderId']);
           }
         }
@@ -101,9 +105,13 @@ class MesseageController extends GetxController {
         decodedMessage['type'] == 'messageSent') {
       final message = decodedMessage['message'];
       if (message != null) {
-        final translatedContent =
-            await translateTextToSpanish(message['content']);
-        _addMessage(translatedContent, message['senderId']);
+        if (isTranslate.value) {
+          final translatedContent =
+              await translateTextToSpanish(message['content']);
+          _addMessage(translatedContent, message['senderId']);
+        } else {
+          _addMessage(message['content'], message['senderId']);
+        }
       }
     }
   }

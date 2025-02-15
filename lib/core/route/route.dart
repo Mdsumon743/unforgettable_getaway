@@ -25,6 +25,8 @@ import 'package:unforgettable_getaway/feature/profile/presentation/screen/profil
 import 'package:unforgettable_getaway/feature/profile/presentation/screen/profile_edit.dart';
 import 'package:unforgettable_getaway/feature/tour_book/presentation/screen/tour.dart';
 
+import '../../feature/account_setup/presentation/screen/profile_pic_upload.dart';
+
 class AppRoute {
   static const String onboarding = '/onboarding';
   static const String loginSignUppage = '/loginSignUpPage';
@@ -51,11 +53,17 @@ class AppRoute {
   static const String profileEdit = "/profileEdit";
   static const String emptyMessage = "/emptyMessage";
   static const String chatList = "/chatList";
+  static const String uploadProfile = "/uploadProfile";
 
   static final route = [
     GetPage(
       name: chatList,
       page: () => const ShowMessageScreen(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: uploadProfile,
+      page: () => const ProfilePicUpload(),
       transition: Transition.rightToLeft,
     ),
     GetPage(

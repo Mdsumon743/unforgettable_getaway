@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
+import 'package:unforgettable_getaway/core/helper/responsive_helper.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 import 'package:unforgettable_getaway/feature/meet_people/controller/filter_controller.dart';
 import 'package:unforgettable_getaway/feature/meet_people/presentation/screen/search_location.dart';
 import 'package:unforgettable_getaway/feature/profile/controller/profile_controller.dart';
+import '../../feature/meet_people/controller/all_profile_controller.dart';
 import '../../feature/meet_people/presentation/widget/popup_menu.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,9 +20,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final DropdownMenuController showmenu = Get.put(DropdownMenuController());
+    final allprofileController = Get.put(AllProfileController());
     final FilterController filterController = Get.put(FilterController());
     final ProfileController profileController = Get.put(ProfileController());
-    final TextEditingController textEditingController = TextEditingController();
+
     var userData = profileController.userData.value;
     return AppBar(
       scrolledUnderElevation: 0,
@@ -51,7 +54,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         CustomTextPopins(
                           max: 1,
                           textOverflow: TextOverflow.ellipsis,
-                          text: 'Hello, ${userData?.fullName ?? "N/A"} 👋',
+                          text: 'Hello, ${userData?.fullName ?? "No Name"} 👋',
                           color: Colors.white,
                           size: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -101,21 +104,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                CustomTextFieldSearch(
-                  fillColor: const Color(0xff302827),
-                  hintText: 'Cartagena, Colombia',
-                  color: Colors.white,
-                  controller: textEditingController,
-                  prefixIcon: Image.asset(Assetpath.search),
-                  suffixIcon: GestureDetector(
-                      onTap: () {
-                        filterController.showCountryPicker(context);
-                      },
-                      child: Image.asset(Assetpath.filter)),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                Obx(() => CustomTextFieldSearch(
+                      fillColor: const Color(0xff302827),
+                      hintText: allprofileController.isSearch.value,
+                      color: Colors.white,
+                      controller: allprofileController.textEditingController,
+                      prefixIcon: Image.asset(Assetpath.search),
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            filterController.showCountryPicker(context);
+                          },
+                          child: Image.asset(Assetpath.filter)),
+                    )),
+                ResponsiveHelper.isMediumDevice()
+                    ? const SizedBox()
+                    : SizedBox(
+                        height: 20.h,
+                      )
               ],
             ),
           )),
@@ -123,5 +128,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(165.h);
+  Size get preferredSize => ResponsiveHelper.isSmallDevice()
+      ? Size.fromHeight(175.h)
+      : Size.fromHeight(165.h);
 }

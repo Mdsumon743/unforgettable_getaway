@@ -13,9 +13,9 @@ class VideoCall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZegoUIKitPrebuiltCall(
-      appID: 1986929935,
+      appID: 58036448,
       appSign:
-          "88b6e3057f73c2956905006a16c5dd075f22387fa9feee61fadb6b6135707614",
+          "dba7697d3b5a3848a64e0152a8f1cf1c265d2af3d54bd2bc7b269bbd61e77978",
       userID: id,
       userName: name,
       callID: '112233',
@@ -36,9 +36,9 @@ class AudioCall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ZegoUIKitPrebuiltCall(
-      appID: 1986929935,
+      appID: 58036448,
       appSign:
-          "88b6e3057f73c2956905006a16c5dd075f22387fa9feee61fadb6b6135707614",
+          "dba7697d3b5a3848a64e0152a8f1cf1c265d2af3d54bd2bc7b269bbd61e77978",
       userID: id,
       userName: name,
       callID: '112233',

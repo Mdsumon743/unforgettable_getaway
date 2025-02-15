@@ -34,23 +34,19 @@ class CustomPlan extends StatelessWidget {
         ),
         child: Center(
           child: ListTile(
-            title: Expanded(
-              child: CustomTextPopins(
-                   textOverflow: TextOverflow.ellipsis,
-                text: tittle,
-                size: 20.h,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+            title: CustomTextPopins(
+                 textOverflow: TextOverflow.ellipsis,
+              text: tittle,
+              size: 20.h,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
-            subtitle: Expanded(
-              child: CustomTextPopins(
-                textOverflow: TextOverflow.ellipsis,
-                text: sub,
-                size: 24.h,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
+            subtitle: CustomTextPopins(
+              textOverflow: TextOverflow.ellipsis,
+              text: sub,
+              size: 24.h,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
             ),
             trailing: Transform.scale(
               scale: 1.5,

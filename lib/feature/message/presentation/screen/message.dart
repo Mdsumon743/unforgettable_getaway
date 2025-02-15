@@ -13,11 +13,15 @@ import '../widget/custom_appbar1.dart';
 class MessagePage extends StatelessWidget {
   final String img;
   final String text;
+  final String? userid;
+  final String? reciverId;
   final MesseageController controller = Get.put(MesseageController());
   MessagePage({
     super.key,
     required this.img,
     required this.text,
+    this.userid,
+    this.reciverId,
   });
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,7 @@ class MessagePage extends StatelessWidget {
                 }
                 return ListView.builder(
                   reverse: true,
-                  itemCount: controller.messages.length,
+                  itemCount: controller.messages2.length,
                   itemBuilder: (context, index) {
                     bool isUserMessage = controller.isUserMessage("");
                     return Padding(
@@ -123,7 +127,7 @@ class MessagePage extends StatelessWidget {
                     Expanded(
                         child: TextField(
                       onTap: () {
-                        if (controller.messages.length >= 2) {
+                        if (controller.messages2.length >= 2) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,

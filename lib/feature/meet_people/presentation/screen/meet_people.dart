@@ -46,11 +46,16 @@ class MeetPeople extends StatelessWidget {
                         return ListTile(
                           title:
                               Text(searchController.filteredSuggestions[index]),
-                          onTap: () {
+                          onTap: () async {
                             searchController.updateTextController(
                                 searchController.search,
                                 searchController.filteredSuggestions[index]);
-                            Get.to(() => const MeetPeople());
+                            searchController.filteredSuggestions.clear();
+                            allProfileController.textEditingController.text =
+                                allProfileController.searchQuery;
+                            allProfileController.text.value =
+                                "People around '${allProfileController.searchQuery}'";
+                            await allProfileController.getUserCity();
                           },
                         );
                       },
@@ -67,11 +72,11 @@ class MeetPeople extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomTextIner(
-                              text: "Nearest people around you ⭐",
-                              fontWeight: FontWeight.w500,
-                              size: 16.sp,
-                            ),
+                            Obx(() => CustomTextIner(
+                                  text: "${allProfileController.text.value} ⭐",
+                                  fontWeight: FontWeight.w500,
+                                  size: 16.sp,
+                                )),
                             SizedBox(
                               height: 10.h,
                             ),

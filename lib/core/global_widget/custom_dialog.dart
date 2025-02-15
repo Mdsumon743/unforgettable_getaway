@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:unforgettable_getaway/core/utils/app_colors.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
 
 class CustomSuccessDialog extends StatelessWidget {
   final String title;
@@ -14,6 +17,7 @@ class CustomSuccessDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LoginController loginController = Get.find<LoginController>();
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -44,23 +48,29 @@ class CustomSuccessDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: onConfirm,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    foregroundColor: Colors.white,
-                    elevation: 3,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0, vertical: 12.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  child: const Text(
-                    'Go to Login',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
+                Obx(() => loginController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.yellowColor,
+                        ),
+                      )
+                    : ElevatedButton(
+                        onPressed: onConfirm,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.white,
+                          elevation: 3,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 12.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      )),
               ],
             ),
           ),

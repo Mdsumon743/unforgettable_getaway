@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +50,14 @@ class ProfileDetails extends StatelessWidget {
                     )),
                 elevation: 0,
                 backgroundColor: const Color(0xff1A1110),
-                leading: const SizedBox(),
+                leading: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    )),
                 expandedHeight: 350.h,
                 floating: true,
                 scrolledUnderElevation: 0,
@@ -75,7 +84,6 @@ class ProfileDetails extends StatelessWidget {
                 relationshipStatus: data?.relationship ?? "Unknown",
                 work: data?.work ?? "Unknown",
               ),
-            
             ],
           );
         }

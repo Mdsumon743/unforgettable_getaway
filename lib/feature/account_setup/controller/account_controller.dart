@@ -8,6 +8,7 @@ import 'package:unforgettable_getaway/core/helper/shared_prefarences_helper.dart
 import 'package:http/http.dart' as http;
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
 import 'package:unforgettable_getaway/core/route/route.dart';
+import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/city_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 import 'package:unforgettable_getaway/feature/account_setup/controller/location_controller.dart';
@@ -19,32 +20,53 @@ class AccountController extends GetxController {
   RxInt heightSelectedIndex = 2.obs;
   RxBool isLoading = false.obs;
   RxList favoriteList = [].obs;
+  FocusNode nameFocusNode = FocusNode(); 
   RxString age = "".obs;
   Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   RxInt userAge = 0.obs;
+   final DateTime currentDate = DateTime.now();
   Map<String, dynamic> bodyData = {};
   TextEditingController nameEditingController = TextEditingController();
   final countryController = Get.put(CountrySelectionController());
   final locationcontroller = Get.put(LocationController());
   final cityController = Get.put(CityController());
   final locationController = Get.put(LocationController());
+Future<void> selectDate(BuildContext context, String type) async {
+  final DateTime currentDate = DateTime.now();
 
-  Future<void> selectDate(BuildContext context, String type) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate.value,
-        firstDate: DateTime(1988),
-        lastDate: DateTime(2101),
-        initialDatePickerMode: type == 'date'
-            ? DatePickerMode.day
-            : type == 'year'
-                ? DatePickerMode.year
-                : DatePickerMode.day);
-    if (picked != null) {
-      selectedDate.value = picked;
-    }
-    userAge.value = calculateAgeInYearsMonthsDays();
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: selectedDate.value,
+    firstDate: DateTime(1988),
+    lastDate: DateTime(currentDate.year),
+    initialDatePickerMode: type == 'date'
+        ? DatePickerMode.day
+        : type == 'year'
+            ? DatePickerMode.year
+            : DatePickerMode.day,
+    builder: (BuildContext context, Widget? child) {
+      return Theme(
+        data: ThemeData.light().copyWith(
+          primaryColor: AppColors.yellowColor, 
+          colorScheme: const ColorScheme.light(
+            primary: AppColors.yellowColor,
+            onPrimary: Colors.white, 
+            onSurface: Colors.black, 
+          ),
+          dialogBackgroundColor: Colors.white,
+        ),
+        child: child!,
+      );
+    },
+  );
+
+  if (picked != null) {
+    selectedDate.value = picked;
   }
+
+  userAge.value = calculateAgeInYearsMonthsDays();
+}
+
 
   void showNumberDialog(BuildContext context, Function(int) onNumberSelected) {
     showDialog(
@@ -207,5 +229,11 @@ class AccountController extends GetxController {
         isLoading.value = false;
       }
     }
+  }
+  @override
+  void dispose() {
+
+    super.dispose();
+    nameFocusNode.dispose();
   }
 }
