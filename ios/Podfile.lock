@@ -11,7 +11,6 @@ PODS:
     - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
-    - FlutterMacOS
   - CryptoSwift (1.8.4)
   - device_info_plus (0.0.1):
     - Flutter
@@ -57,51 +56,51 @@ PODS:
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
-  - Firebase/Auth (11.6.0):
+  - Firebase/Auth (11.7.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 11.6.0)
-  - Firebase/CoreOnly (11.6.0):
-    - FirebaseCore (~> 11.6.0)
-  - Firebase/Messaging (11.6.0):
+    - FirebaseAuth (~> 11.7.0)
+  - Firebase/CoreOnly (11.7.0):
+    - FirebaseCore (~> 11.7.0)
+  - Firebase/Messaging (11.7.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 11.6.0)
-  - firebase_auth (5.4.1):
-    - Firebase/Auth (= 11.6.0)
+    - FirebaseMessaging (~> 11.7.0)
+  - firebase_auth (5.4.2):
+    - Firebase/Auth (= 11.7.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.10.1):
-    - Firebase/CoreOnly (= 11.6.0)
+  - firebase_core (3.11.0):
+    - Firebase/CoreOnly (= 11.7.0)
     - Flutter
-  - firebase_messaging (15.1.6):
-    - Firebase/Messaging (= 11.6.0)
+  - firebase_messaging (15.2.2):
+    - Firebase/Messaging (= 11.7.0)
     - firebase_core
     - Flutter
-  - FirebaseAppCheckInterop (11.7.0)
-  - FirebaseAuth (11.6.0):
+  - FirebaseAppCheckInterop (11.8.0)
+  - FirebaseAuth (11.7.0):
     - FirebaseAppCheckInterop (~> 11.0)
     - FirebaseAuthInterop (~> 11.0)
-    - FirebaseCore (~> 11.6.0)
-    - FirebaseCoreExtension (~> 11.6.0)
+    - FirebaseCore (~> 11.7.0)
+    - FirebaseCoreExtension (~> 11.7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GTMSessionFetcher/Core (< 5.0, >= 3.4)
     - RecaptchaInterop (~> 100.0)
-  - FirebaseAuthInterop (11.7.0)
-  - FirebaseCore (11.6.0):
-    - FirebaseCoreInternal (~> 11.6.0)
+  - FirebaseAuthInterop (11.8.0)
+  - FirebaseCore (11.7.0):
+    - FirebaseCoreInternal (~> 11.7.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.6.0):
-    - FirebaseCore (~> 11.6.0)
-  - FirebaseCoreInternal (11.6.0):
+  - FirebaseCoreExtension (11.7.0):
+    - FirebaseCore (~> 11.7.0)
+  - FirebaseCoreInternal (11.7.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseInstallations (11.6.0):
-    - FirebaseCore (~> 11.6.0)
+  - FirebaseInstallations (11.7.0):
+    - FirebaseCore (~> 11.7.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (11.6.0):
-    - FirebaseCore (~> 11.6.0)
+  - FirebaseMessaging (11.7.0):
+    - FirebaseCore (~> 11.7.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleDataTransport (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
@@ -127,7 +126,7 @@ PODS:
     - Flutter
   - flutter_volume_controller (0.0.1):
     - Flutter
-  - flutter_webrtc (0.12.2):
+  - flutter_webrtc (0.12.6):
     - Flutter
     - WebRTC-SDK (= 125.6422.06)
   - geocoding_ios (1.0.5):
@@ -183,6 +182,7 @@ PODS:
     - Flutter
   - just_audio (0.0.1):
     - Flutter
+    - FlutterMacOS
   - libphonenumber_plugin (0.0.1):
     - Flutter
     - PhoneNumberKit
@@ -227,6 +227,25 @@ PODS:
   - stripe_ios (0.0.1):
     - Flutter
     - Stripe (~> 23.30.0)
+    - stripe_ios/stripe_ios (= 0.0.1)
+    - stripe_ios/stripe_objc (= 0.0.1)
+    - StripeApplePay (~> 23.30.0)
+    - StripeFinancialConnections (~> 23.30.0)
+    - StripePayments (~> 23.30.0)
+    - StripePaymentSheet (~> 23.30.0)
+    - StripePaymentsUI (~> 23.30.0)
+  - stripe_ios/stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 23.30.0)
+    - stripe_ios/stripe_objc
+    - StripeApplePay (~> 23.30.0)
+    - StripeFinancialConnections (~> 23.30.0)
+    - StripePayments (~> 23.30.0)
+    - StripePaymentSheet (~> 23.30.0)
+    - StripePaymentsUI (~> 23.30.0)
+  - stripe_ios/stripe_objc (0.0.1):
+    - Flutter
+    - Stripe (~> 23.30.0)
     - StripeApplePay (~> 23.30.0)
     - StripeFinancialConnections (~> 23.30.0)
     - StripePayments (~> 23.30.0)
@@ -265,7 +284,7 @@ PODS:
     - FlutterMacOS
   - zego_callkit (1.0.0):
     - Flutter
-  - zego_express_engine (3.18.1):
+  - zego_express_engine (3.19.0):
     - Flutter
   - zego_uikit (0.0.1):
     - Flutter
@@ -290,7 +309,7 @@ PODS:
 DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
@@ -309,7 +328,7 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
-  - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - libphonenumber_plugin (from `.symlinks/plugins/libphonenumber_plugin/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -381,7 +400,7 @@ EXTERNAL SOURCES:
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/darwin"
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   file_picker:
@@ -419,7 +438,7 @@ EXTERNAL SOURCES:
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   just_audio:
-    :path: ".symlinks/plugins/just_audio/ios"
+    :path: ".symlinks/plugins/just_audio/darwin"
   libphonenumber_plugin:
     :path: ".symlinks/plugins/libphonenumber_plugin/ios"
   native_device_orientation:
@@ -459,9 +478,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
-  audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
+  audio_session: 19e9480dbdd4e5f6c4543826b2e8b0e4ab6145fe
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  connectivity_plus: 18382e7311ba19efcaee94442b23b32507b20695
+  connectivity_plus: 2a701ffec2c0ae28a48cf7540e279787e77c447d
   CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
   device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
@@ -470,19 +489,19 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: ecdb980a24633ccb012700299ceb16d0235e14d2
   FBSDKCoreKit_Basics: 045101c4a9ef10c845347424d73a29aae02c3e43
   FBSDKLoginKit: 69eb59b2f839aba635616df6e422acd0ca88030a
-  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
-  Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
-  firebase_auth: 9927cecefe4daaf92b0fbe5d1d283e9329445177
-  firebase_core: e2aa06dbd854d961f8ce46c2e20933bee1bf2d2b
-  firebase_messaging: 423f0b488a40be4e897213224f228929197e0d9f
-  FirebaseAppCheckInterop: 2376d3ec5cb4267facad4fe754ab4f301a5a519b
-  FirebaseAuth: 0304982cfe00df8d49bf533bc4becd3de36c7122
-  FirebaseAuthInterop: a6973d72aa242ea88ffb6be9c9b06c65455071da
-  FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
-  FirebaseCoreExtension: 2d77d6430c16cf43ca2b04608302ed02b3598361
-  FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
-  FirebaseInstallations: efc0946fc756e4d22d8113f7c761948120322e8c
-  FirebaseMessaging: e1aca1fcc23e8b9eddb0e33f375ff90944623021
+  file_picker: b159e0c068aef54932bb15dc9fd1571818edaf49
+  Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
+  firebase_auth: bcc25c2992fb3e655b59faca6f0f5bc9215d463d
+  firebase_core: aa979ae726f00b3ef4ccf59dfb96170af84efbd4
+  firebase_messaging: 3af84b6a90aeac4d7a67fbf4c43a91e7083bea1f
+  FirebaseAppCheckInterop: 7bf86d55a2b7e9bd91464120eba3e52e4b63b2e2
+  FirebaseAuth: 77e25aa24f3e1c626c5babd3338551fc1669ee0e
+  FirebaseAuthInterop: 651756e70d9a0b9160db39ead71fd5507dbb6c84
+  FirebaseCore: 3227e35f4197a924206fbcdc0349325baf4f5de4
+  FirebaseCoreExtension: 206c1b399f0d103055207c16f299b28e3dbd1949
+  FirebaseCoreInternal: d6c17dafc8dc33614733a8b52df78fcb4394c881
+  FirebaseInstallations: 9347e719c3d52d8d7b9074b2c32407dd027305e9
+  FirebaseMessaging: 00ece041b71ddb52a2862ffdee73fb6e9824bd0c
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_callkit_incoming_yoer: a5936b9f065762a7b422594028d3a20901c88996
   flutter_facebook_auth: 48be46091bd1a5cc5a66055f1228a9d99a28bfaa
@@ -491,17 +510,17 @@ SPEC CHECKSUMS:
   flutter_ringtone_player: 15eba85187230b87b2512f0e1b92225618bc03e7
   flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
   flutter_volume_controller: e4d5832f08008180f76e30faf671ffd5a425e529
-  flutter_webrtc: 1a53bd24f97bcfeff512f13699e721897f261563
+  flutter_webrtc: 90260f83024b1b96d239a575ea4e3708e79344d1
   geocoding_ios: d7460f56e80e118d57678efe5c2cdc888739ff18
   geolocator_apple: 9bcea1918ff7f0062d98345d238ae12718acfbc1
-  google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
+  google_sign_in_ios: 4111e87aa5e24a4404f00ea13479f35e571969cc
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
-  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  just_audio: a42c63806f16995daf5b219ae1d679deb76e6a79
   libphonenumber_plugin: 48bf4078546377eedaab4aa54978cd0f6fa23072
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
@@ -516,7 +535,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   Stripe: 9757efc154de1d9615cbea4836d590bc4034d3a4
-  stripe_ios: 4463f81157e91cbbf441e1b3fdf5edce90787491
+  stripe_ios: 0f7c3610b692868bae78cd5c3c4c219f60bce891
   StripeApplePay: ca33933601302742623762157d587b79b942d073
   StripeCore: 2af250a2366ff2bbf64d4243c5f9bbf2a98b2aaf
   StripeFinancialConnections: 3ab1ef6182ec44e71c29e9a2100b663f9713ac20
@@ -528,9 +547,9 @@ SPEC CHECKSUMS:
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
   wakelock_plus: 373cfe59b235a6dd5837d0fb88791d2f13a90d56
   WebRTC-SDK: 79942c006ea64f6fb48d7da8a4786dfc820bc1db
-  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
+  webview_flutter_wkwebview: a4af96a051138e28e29f60101d094683b9f82188
   zego_callkit: 72593f46ed01779c4cee6bc65d2e0e1cde86b42c
-  zego_express_engine: daca82b090b355ab20fcfae114f75c5ebb3ff9ac
+  zego_express_engine: b2a09737ffc1cc32fb93ade14b6e593abae758f1
   zego_uikit: 6ceebb00df6af92b2a7a16b15f98330035a5d911
   zego_uikit_prebuilt_call: 13173d7a3c6dcc1695cbdff15d19463acd1ca39c
   zego_uikit_signaling_plugin: 7fdfcd9f796b591c9cb8770609f4fa85178aa40e
@@ -541,6 +560,6 @@ SPEC CHECKSUMS:
   ZIPFoundation: b8c29ea7ae353b309bc810586181fd073cb3312c
   ZPNs: 73bad0046a74e37315201053f9a0e7ac625d9436
 
-PODFILE CHECKSUM: d8acc2adb3f6df15c0794870dbaeb6aaac6a2164
+PODFILE CHECKSUM: 4c01737af74b4d6205cb291702f35bec1e887ed6
 
 COCOAPODS: 1.16.2
