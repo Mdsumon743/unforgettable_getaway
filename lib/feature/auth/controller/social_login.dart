@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -23,20 +22,16 @@ class SocialLogin extends GetxController {
           "email": user.email.toString(),
           "profileImage": user.photoUrl.toString(),
           "fcpmToken": preferencesHelper.getString("fcm_token"),
-          "fcpmToken": preferencesHelper.getString("fcm_token"),
         };
 
         final response = await NetworkCaller().postRequest(
           Utils.baseUrl + Utils.googleLogin,
           body: userCredintial,
         );
-          Utils.baseUrl + Utils.googleLogin,
-          body: userCredintial,
-        );
 
         if (response.isSuccess) {
           final responseData = response.responseData as Map<String, dynamic>;
-          final responseData = response.responseData as Map<String, dynamic>;
+
           await preferencesHelper.setString(
               "userToken", responseData['accessToken']);
           await preferencesHelper.setString("userId", responseData['id']);
@@ -49,9 +44,6 @@ class SocialLogin extends GetxController {
               Get.offAllNamed(AppRoute.meet);
             }
           });
-              "userToken", responseData['accessToken']);
-          await preferencesHelper.setString("userId", responseData['id']);
-          bool accountSetup = responseData["accountSetup"] ?? false;
 
           profileController.getUserProfiles().then((value) {
             if (!accountSetup) {
@@ -137,7 +129,6 @@ class SocialLogin extends GetxController {
     }
   }
 
-
   Future<void> loginWithFacebooIosk() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
@@ -158,7 +149,7 @@ class SocialLogin extends GetxController {
     }
   }
 
-  Future<UserCredential> signInGoogleIos() async {
+  Future<UserCredential> signInGoogleIos2() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -219,25 +210,6 @@ class SocialLogin extends GetxController {
     } catch (error) {
       debugPrint("Error during Google Sign-In: $error");
       return Future.error(error);
-    }
-  }
-
-  Future<void> loginWithFacebooIosk() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-
-      if (result.status == LoginStatus.success) {
-        final AccessToken accessToken = result.accessToken!;
-        debugPrint("Access Token: ${accessToken.tokenString}");
-
-        final userData = await FacebookAuth.instance
-            .getUserData(fields: "name,email,picture");
-        debugPrint("User Data: $userData");
-      } else {
-        debugPrint("Login failed: ${result.message}");
-      }
-    } catch (e) {
-      debugPrint("Error during Facebook login: $e");
     }
   }
 
