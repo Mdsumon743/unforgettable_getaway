@@ -11,7 +11,7 @@ import 'package:unforgettable_getaway/feature/account_setup/controller/city_cont
 import 'package:unforgettable_getaway/feature/account_setup/controller/country_selection_controller.dart';
 
 class LocationController extends GetxController {
-  final selectCity = Get.put(CityController());
+  final selectCityController = Get.put(CityController());
   final selectCountry = Get.put(CountrySelectionController());
   var country = "".obs;
   var city = "".obs;
@@ -68,9 +68,14 @@ class LocationController extends GetxController {
           country.value = placemark.country ?? "Unknown";
           city.value = placemark.locality ?? "Unknown";
           flag.value = countryToEmoji(country.value);
-          debugPrint('City: ${city.value}');
-          debugPrint('Country: ${country.value}');
-          debugPrint('Country: ${flag.value}');
+          selectCityController.selectedCity.value = city.value;
+          selectCountry.selectedCountry.value = country.value;
+          selectCountry.flag.value = flag.value;
+        debugPrint("========>>>>>>${selectCityController.selectedCity.value}");
+        debugPrint("========>>>>>${selectCountry.selectedCountry.value}");
+        debugPrint("========>>>>>${selectCountry.flag}");
+        debugPrint("========>>>>>>$latitude");
+        debugPrint("========>>>>>>$longitude");
           Get.toNamed(AppRoute.namebirthScreen);
         } else {
           debugPrint('No placemarks found for the location.');
@@ -163,14 +168,10 @@ class LocationController extends GetxController {
     } catch (e) {
       debugPrint('Error fetching location: $e');
     } finally {
-      selectCity.selectedCity.value = city.value;
+      selectCityController.selectedCity.value = city.value;
       selectCountry.selectedCountry.value = country.value;
       selectCountry.flag.value = flag.value;
-      debugPrint("========$city");
-      debugPrint("========$country");
-      debugPrint("========$flag");
-      debugPrint("========$latitude");
-      debugPrint("========$longitude");
+      
       isLoading.value = false;
     }
   }
