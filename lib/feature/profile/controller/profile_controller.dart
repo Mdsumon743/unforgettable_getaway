@@ -338,14 +338,16 @@ class ProfileController extends GetxController {
     PermissionStatus status;
 
     if (Platform.isIOS) {
+      // iOS requires the permission for photos specifically
       status = await Permission.photos.request();
     } else {
+      // Android requires storage or media library permission
       if (await Permission.storage.isGranted ||
           await Permission.mediaLibrary.isGranted) {
         return true;
       }
 
-      status = await Permission.storage.request(); // For Android <13
+      status = await Permission.storage.request();
 
       if (status.isDenied) {
         debugPrint("Gallery permission denied");
@@ -359,14 +361,25 @@ class ProfileController extends GetxController {
     return status.isGranted;
   }
 
-  Future<void> pickImageFromGallery(bool isProfile) async {
-    bool permissionGranted = await requestGalleryPermission();
-
-    if (!permissionGranted) {
-      debugPrint("Storage permission required for gallery access");
-      return;
+  Future<void> pickImageIos() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      avatarFile.value = File(pickedFile.path);
     }
+  }
 
+  Future<void> pickImageIosCamera() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      avatarFile.value = File(pickedFile.path);
+    }
+  }
+
+  Future<void> pickImageFromGallery(bool isProfile) async {
     if (isProfile) {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
@@ -437,7 +450,7 @@ class ProfileController extends GetxController {
                 leading: const Icon(Icons.camera),
                 title: const Text("Camera"),
                 onTap: () {
-                  pickImageFromCamera(isProfile);
+                  pickImageIosCamera();
                   Navigator.of(context).pop();
                 },
               ),
