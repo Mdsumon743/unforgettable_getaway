@@ -184,7 +184,7 @@ class CompletedPremium extends StatelessWidget {
                         } else {
                           showDialog(
                               context: context,
-                              barrierDismissible: false,
+                              barrierDismissible: true,
                               builder: (BuildContext context) {
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

@@ -71,11 +71,12 @@ class LocationController extends GetxController {
           selectCityController.selectedCity.value = city.value;
           selectCountry.selectedCountry.value = country.value;
           selectCountry.flag.value = flag.value;
-        debugPrint("========>>>>>>${selectCityController.selectedCity.value}");
-        debugPrint("========>>>>>${selectCountry.selectedCountry.value}");
-        debugPrint("========>>>>>${selectCountry.flag}");
-        debugPrint("========>>>>>>$latitude");
-        debugPrint("========>>>>>>$longitude");
+          debugPrint(
+              "========>>>>>>${selectCityController.selectedCity.value}");
+          debugPrint("========>>>>>${selectCountry.selectedCountry.value}");
+          debugPrint("========>>>>>${selectCountry.flag}");
+          debugPrint("========>>>>>>$latitude");
+          debugPrint("========>>>>>>$longitude");
           Get.toNamed(AppRoute.namebirthScreen);
         } else {
           debugPrint('No placemarks found for the location.');
@@ -171,7 +172,7 @@ class LocationController extends GetxController {
       selectCityController.selectedCity.value = city.value;
       selectCountry.selectedCountry.value = country.value;
       selectCountry.flag.value = flag.value;
-      
+
       isLoading.value = false;
     }
   }
