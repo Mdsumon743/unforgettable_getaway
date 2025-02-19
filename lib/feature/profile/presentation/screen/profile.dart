@@ -166,7 +166,7 @@ class Profile extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   CustomTextPopins(
-                                    text: "Pick some taht show the real you",
+                                    text: "Pick some that show the real you",
                                     fontWeight: FontWeight.w400,
                                     size: 14.sp,
                                     color: Colors.white,

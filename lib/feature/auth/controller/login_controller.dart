@@ -48,7 +48,25 @@ class LoginController extends GetxController {
         );
         Get.snackbar(
           "Succes",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
           "Login Succesfull",
+        );
+      } else if (response.statusCode == 400) {
+        Get.snackbar(
+          "Error",
+          "Password incorrect",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+        );
+      } else if (response.statusCode == 404) {
+        Get.snackbar(
+          "Error",
+          "Account Not Found ",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
         );
       }
     } catch (e) {

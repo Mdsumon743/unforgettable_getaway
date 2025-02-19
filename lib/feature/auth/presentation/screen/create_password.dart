@@ -57,6 +57,8 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField2(
+                      obscureText: true,
+                      max: 1,
                       controller: forgotPasswordController.newPassword,
                       hintText: '***********',
                       validator: FormValidation.validatePassword,
@@ -72,6 +74,8 @@ class CreatePasswordScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField2(
+                      obscureText: true,
+                      max: 1,
                       controller: forgotPasswordController.newConfirmPass,
                       hintText: '***********',
                       validator: forgotPasswordController.validatePasswordMatch,

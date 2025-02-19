@@ -32,6 +32,7 @@ class AllProfileController extends GetxController {
 
   RxInt fvMe = 1.obs;
   RxInt fvList = 2.obs;
+   int currentPage = 1;
 
   Future<void> getUserProfiles() async {
     await preferencesHelper.init();
