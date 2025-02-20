@@ -57,17 +57,17 @@ class ChatListPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() => CustomTextFieldSearch2(
-                hintText: chatlistController.search.value,
-                color: Colors.white.withOpacity(0.8),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white.withOpacity(0.8),
-                  weight: 18.w,
-                ),
-                onChanged: (query) {
-                  chatlistController.searchQuery.value = query;
-                },
-              )),
+                    hintText: chatlistController.search.value,
+                    color: Colors.white.withOpacity(0.8),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white.withOpacity(0.8),
+                      weight: 18.w,
+                    ),
+                    onChanged: (query) {
+                      chatlistController.searchQuery.value = query;
+                    },
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -81,7 +81,8 @@ class ChatListPage extends StatelessWidget {
             Obx(() => Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
-                        var chatData = chatlistController.filteredChatList[index];
+                        var chatData =
+                            chatlistController.filteredChatList[index];
                         var time =
                             extractTime((chatData.lastMessageDate.toString()));
                         return GestureDetector(
