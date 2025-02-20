@@ -177,3 +177,85 @@ class CustomTextFieldSearch extends StatelessWidget {
     );
   }
 }
+
+
+class CustomTextFieldSearch2 extends StatelessWidget {
+  final String? hintText;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final TextEditingController? controller;
+  final TextInputType keyboardType;
+  final bool obscureText;
+  final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
+  final Color? color;
+  final Color? fillColor;
+  final void Function()? ontap;
+  final void Function(String)? onChanged;
+
+  const CustomTextFieldSearch2({
+    super.key,
+    this.hintText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.controller,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.validator,
+    this.textInputAction,
+    this.color,
+    this.fillColor,
+    this.ontap,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final FocusNode focusNode = FocusNode();
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: fillColor ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: const Color(0xff737268), width: 1.5),
+            ),
+            child: TextFormField(
+              focusNode: focusNode,
+              textInputAction: textInputAction,
+              onChanged: (query) {
+                if (onChanged != null) {
+                  onChanged!(query);
+                }
+              },
+              controller: controller,
+              onTap: ontap,
+              keyboardType: keyboardType,
+              obscureText: obscureText,
+              validator: validator,
+              style: GoogleFonts.poppins(
+                fontSize: 16.sp,
+                color: color ?? const Color(0xff333329),
+                fontWeight: FontWeight.w400,
+              ),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                hintText: hintText,
+                hintStyle: GoogleFonts.poppins(
+                  fontSize: 16.sp,
+                  color: color ?? const Color(0xff333329),
+                  fontWeight: FontWeight.w400,
+                ),
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
