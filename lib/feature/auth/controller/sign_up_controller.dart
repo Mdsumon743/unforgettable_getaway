@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
-import 'package:unforgettable_getaway/core/route/route.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
 
 import '../../../core/global_widget/custom_dialog.dart';
