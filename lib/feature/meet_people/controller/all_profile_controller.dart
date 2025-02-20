@@ -13,7 +13,7 @@ import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
 class AllProfileController extends GetxController {
-  ChatlistController chatlistController = Get.put(ChatlistController());
+ ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
   FavoriteController favoriteController = Get.put(FavoriteController());
   String searchQuery = "".trim();
@@ -32,21 +32,23 @@ class AllProfileController extends GetxController {
 
   RxInt fvMe = 1.obs;
   RxInt fvList = 2.obs;
-   int currentPage = 1;
+  RxInt currentPage = 1.obs;
+  late RxString page = "&page=${currentPage.toString()}".obs;
 
   Future<void> getUserProfiles() async {
+    if(isLoading.value)return;
+    debugPrint("===========<><><><><<<><>${page.value}");
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
 
     if (token != null) {
       isLoading.value = true;
       try {
-        final response = await NetworkCaller()
-            .getRequest(Utils.baseUrl + Utils.profile, token: token);
+        final response = await NetworkCaller().getRequest(
+            Utils.baseUrl + Utils.profile + page.value,
+            token: token);
 
         if (response.isSuccess) {
-          allProfiles.refresh();
-
           final jsonData = response.responseData;
 
           if (jsonData is Map<String, dynamic>) {
@@ -55,6 +57,9 @@ class AllProfileController extends GetxController {
               await _processProfilesInIsolate(dataList);
               debugPrint("Profiles retrieved: ${allProfiles.length}");
               debugPrint("===========: ${allProfiles.length}");
+              currentPage.value++;
+              page.value = "&page=${currentPage.toString()}";
+              debugPrint("=====int====>>>$currentPage");
             } else {
               debugPrint("Invalid response data structure");
             }
@@ -63,6 +68,9 @@ class AllProfileController extends GetxController {
             await _processProfilesInIsolate(jsonData);
             debugPrint("Profiles retrieved: ${allProfiles.length}");
             debugPrint("Profiles =========: $allProfiles");
+            currentPage.value++;
+            page.value = "&page=${currentPage.toString()}";
+            debugPrint("=========>>>$currentPage");
             allProfiles.refresh();
           } else {
             debugPrint("Unexpected response format");
@@ -74,6 +82,11 @@ class AllProfileController extends GetxController {
         debugPrint("Error occurred: $e");
       } finally {
         isLoading.value = false;
+      }
+      if (allProfiles.isEmpty) {
+        currentPage.value = 1;
+        page.value = "&page=${currentPage.toString()}";
+        await getUserProfiles();
       }
     } else {
       debugPrint("Token is null");
@@ -242,7 +255,30 @@ class AllProfileController extends GetxController {
     update();
   }
 
-  Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
+  // Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
+  //   final receivePort = ReceivePort();
+
+  //   await Isolate.spawn<List<dynamic>>(
+  //     _isolateEntry,
+  //     [receivePort.sendPort, dataList],
+  //   );
+
+  //   final result = await receivePort.first as List<ProfileResponse>;
+  //   allProfiles.value = result;
+  // }
+
+  // static void _isolateEntry(List<dynamic> args) {
+  //   final sendPort = args[0] as SendPort;
+  //   final dataList = args[1] as List<dynamic>;
+
+  //   final processedProfiles = dataList
+  //       .map((profileData) => ProfileResponse.fromJson(profileData))
+  //       .toList();
+
+  //   sendPort.send(processedProfiles);
+  // }
+
+    Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
     final receivePort = ReceivePort();
 
     await Isolate.spawn<List<dynamic>>(
@@ -251,7 +287,7 @@ class AllProfileController extends GetxController {
     );
 
     final result = await receivePort.first as List<ProfileResponse>;
-    allProfiles.value = result;
+    allProfiles.addAll(result);
   }
 
   static void _isolateEntry(List<dynamic> args) {
@@ -274,7 +310,6 @@ class AllProfileController extends GetxController {
       await favoriteMe();
       await favoriteList();
       await itsSubscribe();
-      await profileController.getUserProfiles2();
     });
 
     debugPrint("[LOG] Polling started with interval: $interval");
@@ -289,6 +324,6 @@ class AllProfileController extends GetxController {
     favoriteMe();
     itsSubscribe();
     favoriteList();
-    startPolling(interval: const Duration(seconds: 10));
+    startPolling(interval: const Duration(minutes: 10));
   }
 }
