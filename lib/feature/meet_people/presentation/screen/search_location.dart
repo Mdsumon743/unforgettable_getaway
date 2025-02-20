@@ -178,7 +178,6 @@ class CustomTextFieldSearch extends StatelessWidget {
   }
 }
 
-
 class CustomTextFieldSearch2 extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;

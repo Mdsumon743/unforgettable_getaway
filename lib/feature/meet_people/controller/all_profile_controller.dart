@@ -13,7 +13,7 @@ import '../../../core/helper/shared_prefarences_helper.dart';
 import '../../../core/network_caller/utils/utils.dart';
 
 class AllProfileController extends GetxController {
- ChatlistController chatlistController = Get.put(ChatlistController());
+  ChatlistController chatlistController = Get.put(ChatlistController());
   ProfileController profileController = Get.put(ProfileController());
   FavoriteController favoriteController = Get.put(FavoriteController());
   String searchQuery = "".trim();
@@ -33,10 +33,10 @@ class AllProfileController extends GetxController {
   RxInt fvMe = 1.obs;
   RxInt fvList = 2.obs;
   RxInt currentPage = 1.obs;
-  late RxString page = "&page=${currentPage.toString()}".obs;
+  late RxString page = "&page=".obs;
 
   Future<void> getUserProfiles() async {
-    if(isLoading.value)return;
+    if (isLoading.value) return;
     debugPrint("===========<><><><><<<><>${page.value}");
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
@@ -58,7 +58,7 @@ class AllProfileController extends GetxController {
               debugPrint("Profiles retrieved: ${allProfiles.length}");
               debugPrint("===========: ${allProfiles.length}");
               currentPage.value++;
-              page.value = "&page=${currentPage.toString()}";
+              // page.value = "&page=${currentPage.toString()}";
               debugPrint("=====int====>>>$currentPage");
             } else {
               debugPrint("Invalid response data structure");
@@ -69,7 +69,7 @@ class AllProfileController extends GetxController {
             debugPrint("Profiles retrieved: ${allProfiles.length}");
             debugPrint("Profiles =========: $allProfiles");
             currentPage.value++;
-            page.value = "&page=${currentPage.toString()}";
+            // page.value = "&page=${currentPage.toString()}";
             debugPrint("=========>>>$currentPage");
             allProfiles.refresh();
           } else {
@@ -278,7 +278,7 @@ class AllProfileController extends GetxController {
   //   sendPort.send(processedProfiles);
   // }
 
-    Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
+  Future<void> _processProfilesInIsolate(List<dynamic> dataList) async {
     final receivePort = ReceivePort();
 
     await Isolate.spawn<List<dynamic>>(
