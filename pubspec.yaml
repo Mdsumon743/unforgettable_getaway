@@ -63,7 +63,8 @@ dependencies:
   flutter_stripe: ^11.3.0
   dio: ^5.7.0
   firebase_auth: ^5.4.2
-  
+  agora_rtc_engine: ^6.5.0
+
   
 
  

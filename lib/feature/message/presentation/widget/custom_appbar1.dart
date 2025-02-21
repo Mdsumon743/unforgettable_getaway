@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/feature/message/controller/messeage_controllred.dart';
+import 'package:unforgettable_getaway/feature/message/presentation/screen/chat/zego_call.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/widget/show_custom_menu.dart';
 import '../../../../core/utils/assetpath.dart';
 import '../../controller/audio_video_controller.dart';
@@ -93,6 +94,8 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               IconButton(
                 onPressed: () {
+
+                  Get.to(()=>CallingPage());
                   // Get.to(
                   //     () => VideoCall(name: userName, id: receiverId ?? '122'));
                 },
@@ -101,6 +104,7 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               SizedBox(height: 5.h),
               IconButton(
                 onPressed: () {
+                   Get.to(()=>CallingPage());
                   // Get.to(() => AudioCall(
                   //       name: userName,
                   //       id: receiverId ?? '122',
