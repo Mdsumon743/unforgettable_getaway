@@ -137,7 +137,11 @@ class CallingPage extends StatelessWidget {
                     onPressed: controller.switchCamera,
                     child: const Icon(Icons.switch_camera, color: Colors.white),
                   ),
-              
+                  // FloatingActionButton(
+                  //   backgroundColor: Colors.green,
+                  //   onPressed: controller.joinChannel,
+                  //   child: const Icon(Icons.add, color: Colors.white),
+                  // ),
                 ],
               ),
             ),
