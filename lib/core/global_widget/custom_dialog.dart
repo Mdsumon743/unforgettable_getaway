@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
@@ -38,11 +39,11 @@ class CustomSuccessDialog extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Text(
                   message,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: 16.sp,
                     color: Colors.black54,
                   ),
                   textAlign: TextAlign.center,
@@ -54,23 +55,28 @@ class CustomSuccessDialog extends StatelessWidget {
                           color: AppColors.yellowColor,
                         ),
                       )
-                    : ElevatedButton(
-                        onPressed: onConfirm,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber,
-                          foregroundColor: Colors.white,
-                          elevation: 3,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 12.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
+                    : Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.yellowColor,
                         ),
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      )),
+                      ))
+                // : ElevatedButton(
+                //     onPressed: onConfirm,
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.amber,
+                //       foregroundColor: Colors.white,
+                //       elevation: 3,
+                //       padding: const EdgeInsets.symmetric(
+                //           horizontal: 24.0, vertical: 12.0),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(12.0),
+                //       ),
+                //     ),
+                //     child: const Text(
+                //       'Login',
+                //       style: TextStyle(fontSize: 16),
+                //     ),
+                //   )),
               ],
             ),
           ),

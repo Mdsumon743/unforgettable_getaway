@@ -94,13 +94,21 @@ class ProfilePicUpload extends StatelessWidget {
                     )
                   : CustomButton(
                       onPressed: () {
-                      
-                        profileController.submitUserData(
-                            profileImage: profileController.avatarFile.value);
+                        if (profileController.avatarFile.value == null) {
+                          Get.snackbar("Upload Image", "Upload a picture",
+                              colorText: Colors.white,
+                              backgroundColor: Colors.green);
+                        } else {
+                          profileController.submitUserData(
+                              profileImage: profileController.avatarFile.value);
+                        }
                       },
                       text: "Upload Profile",
                       borderRadius: 30.r,
-                      backgroundColor: const Color(0xffFFDF00),
+                      backgroundColor:
+                          profileController.avatarFile.value == null
+                              ? Colors.grey
+                              : const Color(0xffFFDF00),
                       textColor: Colors.black,
                     ))
             ],

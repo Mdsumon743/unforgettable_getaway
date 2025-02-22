@@ -60,11 +60,18 @@ dependencies:
   image_picker: ^1.1.2
   permission_handler: ^11.3.1
   flutter_webrtc: ^0.12.5+hotfix.1
-  zego_uikit_prebuilt_call: ^4.16.19
-  zego_uikit_signaling_plugin: ^2.8.8
   flutter_stripe: ^11.3.0
   dio: ^5.7.0
   firebase_auth: ^5.4.2
+  agora_rtc_engine: ^6.5.0
+
+
+  
+
+ 
+  
+  
+
 
   
 
@@ -79,7 +86,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

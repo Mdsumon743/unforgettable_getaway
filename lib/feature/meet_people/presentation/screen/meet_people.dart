@@ -19,8 +19,20 @@ class MeetPeople extends StatelessWidget {
         Get.put(AllProfileController());
 
     Future<void> refreshData() async {
+      allProfileController.currentPage.value = 1;
+      allProfileController.allProfiles.clear();
       await allProfileController.getUserProfiles();
     }
+
+    final ScrollController scrollController = ScrollController();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          !allProfileController.isLoading.value) {
+        allProfileController.getUserProfiles();
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -65,10 +77,23 @@ class MeetPeople extends StatelessWidget {
               : RefreshIndicator(
                   color: Colors.amber,
                   onRefresh: refreshData,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.all(15.r),
-                      child: SingleChildScrollView(
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemCount: allProfileController.allProfiles.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == allProfileController.allProfiles.length) {
+                        return Obx(() {
+                          return allProfileController.isLoading.value
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.amber,
+                                  ),
+                                )
+                              : SizedBox.shrink();
+                        });
+                      }
+                      return Padding(
+                        padding: EdgeInsets.all(15.r),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -80,11 +105,11 @@ class MeetPeople extends StatelessWidget {
                             SizedBox(
                               height: 10.h,
                             ),
-                            const CustomGridviewProfile()
+                            CustomGridviewProfile(),
                           ],
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 );
         },

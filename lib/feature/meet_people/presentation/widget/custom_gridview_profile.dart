@@ -27,13 +27,11 @@ class CustomGridviewProfile extends StatelessWidget {
             child: CustomTextPopins(text: "No Profile Found"),
           );
         } else {
-          return GridView.builder(
+          return ListView.builder(
             itemCount: allprofileController.allProfiles.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
             itemBuilder: (context, index) {
               var data = allprofileController.allProfiles[index];
               String svg = data.isVerified == "NEW"

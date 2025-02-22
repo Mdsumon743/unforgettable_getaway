@@ -47,6 +47,15 @@ class SignUpController extends GetxController {
           transitionCurve: Curves.easeOutBack,
           transitionDuration: const Duration(milliseconds: 400),
         );
+      
+      } else if (response.statusCode == 400) {
+        Get.snackbar(
+          "Error",
+          "This email is already registered.",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+        );
       }
     } catch (e) {
       debugPrint("Error: $e");

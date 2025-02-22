@@ -28,6 +28,14 @@ class FavoriteController extends GetxController {
           debugPrint("Favorite Added");
           await whofavoritesMe();
           await myFavoriteList();
+          Get.snackbar(
+            "Success",
+            " added to your favorite list.",
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+            snackPosition: SnackPosition.TOP,
+            duration: Duration(seconds: 2),
+          );
         }
       } catch (e) {
         debugPrint("=============Error: $e");

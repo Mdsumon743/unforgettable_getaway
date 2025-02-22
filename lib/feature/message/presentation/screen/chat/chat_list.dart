@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,15 +56,18 @@ class ChatListPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: CustomTextFieldSearch(
-                hintText: "Search",
-                color: Colors.white.withOpacity(0.8),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white.withOpacity(0.8),
-                  weight: 18.w,
-                ),
-              ),
+              child: Obx(() => CustomTextFieldSearch2(
+                    hintText: chatlistController.search.value,
+                    color: Colors.white.withOpacity(0.8),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.white.withOpacity(0.8),
+                      weight: 18.w,
+                    ),
+                    onChanged: (query) {
+                      chatlistController.searchQuery.value = query;
+                    },
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -80,7 +81,8 @@ class ChatListPage extends StatelessWidget {
             Obx(() => Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
-                        var chatData = chatlistController.allChatList[index];
+                        var chatData =
+                            chatlistController.filteredChatList[index];
                         var time =
                             extractTime((chatData.lastMessageDate.toString()));
                         return GestureDetector(
@@ -130,25 +132,6 @@ class ChatListPage extends StatelessWidget {
                                       color: Colors.white.withOpacity(0.9),
                                     ),
                                   ),
-                                  // Flexible(
-                                  //   child: Container(
-                                  //     height: 15.h,
-                                  //     width: 15.w,
-                                  //     decoration: BoxDecoration(
-                                  //       color: const Color(0xFFFFDF00),
-                                  //       borderRadius: BorderRadius.circular(12.r),
-                                  //     ),
-                                  //     alignment: Alignment.center,
-                                  //     child: Text(
-                                  //       "2",
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF1A1110),
-                                  //         fontSize: 12.sp,
-                                  //         fontWeight: FontWeight.w400,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               )),
                         );
@@ -158,7 +141,7 @@ class ChatListPage extends StatelessWidget {
                           height: 5.h,
                         );
                       },
-                      itemCount: chatlistController.allChatList.length),
+                      itemCount: chatlistController.filteredChatList.length),
                 )),
           ],
         ),

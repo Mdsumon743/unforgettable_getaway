@@ -30,13 +30,11 @@ class WhoFavoriteMe extends StatelessWidget {
             ),
           );
         } else {
-          return GridView.builder(
+          return ListView.builder(
             itemCount: favoriteController.whoFavoriteMe.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
             itemBuilder: (context, index) {
               var data = favoriteController.whoFavoriteMe[index];
               String svg = data.isVerified == "NEW"
@@ -96,13 +94,11 @@ class MyFavoriteList extends StatelessWidget {
             ),
           );
         } else {
-          return GridView.builder(
+          return ListView.builder(
             itemCount: favoriteController.favoriteMeList.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
             itemBuilder: (context, index) {
               var data = favoriteController.favoriteMeList[index];
               String svg = data.isVerified == "NEW"
