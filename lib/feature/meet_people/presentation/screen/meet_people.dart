@@ -83,12 +83,12 @@ class MeetPeople extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == allProfileController.allProfiles.length) {
                         return Obx(() {
-                          return allProfileController.isLoading.value
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.amber,
-                                  ),
-                                )
+                          return allProfileController.isLoading.value ? SizedBox()
+                              // ? Center(
+                              //     child: CircularProgressIndicator(
+                              //       color: Colors.amber,
+                              //     ),
+                              //   )
                               : SizedBox.shrink();
                         });
                       }
