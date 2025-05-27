@@ -1,5 +1,5 @@
 class Utils {
-  static const baseUrl = "http://167.99.119.39:5003/api/v1";
+  static const baseUrl = "base url";
   static const user = "/users";
   static const login = "/auth/login";
   static const googleLogin = "/auth/socialLogin";
