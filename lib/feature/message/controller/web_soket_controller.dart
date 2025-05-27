@@ -45,7 +45,7 @@ class WebSoketController extends GetxController {
 
   void initSocket() {
     _channel = WebSocketChannel.connect(
-      Uri.parse('ws://167.99.119.39:5003'),
+      Uri.parse('websoket'),
     );
 
     _channel?.stream.listen(

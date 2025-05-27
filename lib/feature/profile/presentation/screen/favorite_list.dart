@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/feature/meet_people/presentation/widget/custom_gridview_profile.dart';
+import 'package:unforgettable_getaway/feature/profile/presentation/widget/favorite_gridview.dart';
 import '../../../../core/global_widget/custom_text_popins.dart';
 
 class FavoritesList extends StatelessWidget {
@@ -31,7 +31,7 @@ class FavoritesList extends StatelessWidget {
             )),
       ),
       body: const SingleChildScrollView(
-        child: CustomGridviewProfile(),
+        child: MyFavoriteList()
       ),
     );
   }

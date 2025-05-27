@@ -1,18 +1,26 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:unforgettable_getaway/core/const/const.dart';
 import 'package:unforgettable_getaway/core/global_widget/custom_text_popins.dart';
 import 'package:unforgettable_getaway/core/utils/assetpath.dart';
 
+import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
+
 class FilterController extends GetxController {
-  var selectedCountry = Rxn<String>(); // Use Rxn<String> for nullable observables
+  var selectedCountry = Rxn<String>();
 
   void updateCountry(String country) {
     selectedCountry.value = country;
   }
 
   void showCountryPicker(BuildContext context) {
+    final allprofileData = Get.find<AllProfileController>();
+
     Get.bottomSheet(
       Container(
         decoration: const BoxDecoration(
@@ -42,7 +50,7 @@ class FilterController extends GetxController {
               fontWeight: FontWeight.w600,
               size: 24.sp,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.r),
             Obx(() {
               return Center(
                 child: Column(
@@ -60,6 +68,16 @@ class FilterController extends GetxController {
                       onChanged: (String? newValue) {
                         if (newValue != null) {
                           updateCountry(newValue);
+                          String filteredCountry = newValue.characters
+                              .where((char) => RegExp(
+                                      r'[\u0020-\u007E\u00A0-\u00FF\u0100-\u017F\u0180-\u024F]')
+                                  .hasMatch(char))
+                              .join();
+                          allprofileData.searchQuery = filteredCountry;
+                          allprofileData.text.value =
+                              "People around '${allprofileData.searchQuery}'";
+                          debugPrint(
+                              "Selected Country: =======>>>${allprofileData.searchQuery}");
                         }
                       },
                       items: Const.countries
@@ -95,18 +113,23 @@ class FilterController extends GetxController {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Row(
-                      children: [
-                        Image.asset(Assetpath.near),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        CustomTextPopins(
-                          text: "Use my current location",
-                          color: const Color(0xff8C7B00),
-                          size: 16.sp,
-                        )
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        checkLocationPermissionAndGetCountry(allprofileData);
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(Assetpath.near),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          CustomTextPopins(
+                            text: "Use my current location",
+                            color: const Color(0xff8C7B00),
+                            size: 16.sp,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -116,33 +139,44 @@ class FilterController extends GetxController {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  padding: EdgeInsets.all(15.r),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffFFDF00),
-                    borderRadius: BorderRadius.circular(48.r),
-                  ),
-                  child: Center(
-                    child: CustomTextPopins(
-                      text: "Apply Filters",
-                      fontWeight: FontWeight.w500,
-                      size: 16.sp,
-                      color: Colors.black,
+                GestureDetector(
+                  onTap: () {
+                    allprofileData.getUserCity();
+                    Get.back();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(15.r),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffFFDF00),
+                      borderRadius: BorderRadius.circular(48.r),
+                    ),
+                    child: Center(
+                      child: CustomTextPopins(
+                        text: "Apply Filters",
+                        fontWeight: FontWeight.w500,
+                        size: 16.sp,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(15.r),
-                  decoration: BoxDecoration(
-                      color: const Color(0xffFFFFFF),
-                      borderRadius: BorderRadius.circular(48.r),
-                      border: Border.all(color: const Color(0xff8C7B00))),
-                  child: Center(
-                    child: CustomTextPopins(
-                      text: "Reset Filters",
-                      fontWeight: FontWeight.w500,
-                      size: 16.sp,
-                      color: const Color(0xff8C7B00),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(15.r),
+                    decoration: BoxDecoration(
+                        color: const Color(0xffFFFFFF),
+                        borderRadius: BorderRadius.circular(48.r),
+                        border: Border.all(color: const Color(0xff8C7B00))),
+                    child: Center(
+                      child: CustomTextPopins(
+                        text: "Reset Filters",
+                        fontWeight: FontWeight.w500,
+                        size: 16.sp,
+                        color: const Color(0xff8C7B00),
+                      ),
                     ),
                   ),
                 ),
@@ -152,5 +186,43 @@ class FilterController extends GetxController {
         ),
       ),
     );
+  }
+
+  Future<void> checkLocationPermissionAndGetCountry(
+      AllProfileController allProfileController) async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        debugPrint("Location permission denied.");
+        return;
+      }
+    }
+
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      debugPrint("Location services are not enabled.");
+      return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    String country =
+        placemarks.isNotEmpty ? placemarks[0].country ?? "Unknown" : "Unknown";
+
+    debugPrint("Country: $country");
+
+    String storedCountry = country;
+
+    allProfileController.searchQuery = storedCountry.trim();
+    debugPrint("Stored Country:==========>>>>>> $storedCountry");
+    debugPrint(
+        "Controller Country:==========>>>>>> ${allProfileController.searchQuery}");
   }
 }

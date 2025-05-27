@@ -17,16 +17,32 @@ class InterestSelectionScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        backgroundColor: AppColors.darkBrown,
+       
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding:
-              EdgeInsets.only(top: 60.h, left: 16.w, right: 16.w, bottom: 10.h),
+              EdgeInsets.only( left: 16.w, right: 16.w, bottom: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  
+                 
                   const ProgressBar(width: 1),
                   SizedBox(height: 26.h),
                   Text(
@@ -119,7 +135,6 @@ class InterestSelectionScreen extends StatelessWidget {
                                 : AppColors.whiteColor.withOpacity(0.5),
                         onPressed: () {
                           if (accountController.favoriteList.length >= 5) {
-                            
                             accountController.saveUserInformation();
                             accountController.submitUserData();
                           }
@@ -132,7 +147,6 @@ class InterestSelectionScreen extends StatelessWidget {
                 textColor: AppColors.yellowColor,
                 backgroundColor: AppColors.darkBrown,
                 onPressed: () {
-                 
                   accountController.saveUserInformation();
                   accountController.submitUserData();
                 },

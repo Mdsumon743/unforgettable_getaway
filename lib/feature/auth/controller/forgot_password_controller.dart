@@ -94,6 +94,8 @@ class ForgotPasswordController extends GetxController {
             transitionDuration: const Duration(milliseconds: 400),
           );
         }
+
+        Get.offAllNamed(AppRoute.loginScreen);
       }
     } catch (e) {
       debugPrint("======$e");

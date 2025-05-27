@@ -10,6 +10,8 @@ class ShowMessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChatlistController chatlistController = Get.put(ChatlistController());
+    chatlistController.getMyChatList();
+    debugPrint("===================>>>>>>>${chatlistController.allChatList.length}");
     return Obx(
       () {
         if (chatlistController.allChatList.isNotEmpty) {

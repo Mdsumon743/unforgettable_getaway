@@ -94,18 +94,21 @@ class CustomChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Get.to(
-                      () => VideoCall(name: userName, id: receiverId ?? '122'));
+
+                  Get.to(()=>CallingPage());
+                  // Get.to(
+                  //     () => VideoCall(name: userName, id: receiverId ?? '122'));
                 },
                 icon: Image.asset(Assetpath.video),
               ),
               SizedBox(height: 5.h),
               IconButton(
                 onPressed: () {
-                  Get.to(() => AudioCall(
-                        name: userName,
-                        id: receiverId ?? '122',
-                      ));
+                   Get.to(()=>CallingPage());
+                  // Get.to(() => AudioCall(
+                  //       name: userName,
+                  //       id: receiverId ?? '122',
+                  //     ));
                 },
                 icon: Image.asset(Assetpath.audio),
               ),

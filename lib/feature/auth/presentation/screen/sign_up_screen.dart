@@ -36,7 +36,18 @@ class SignUpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 40.h),
+                SizedBox(height: 20.h),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
+                ),
                 Image.asset('assets/images/logo_image.png'),
                 SizedBox(height: 25.h),
                 const TextWidget(

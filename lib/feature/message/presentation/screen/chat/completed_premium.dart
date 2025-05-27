@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unforgettable_getaway/feature/meet_people/controller/all_profile_controller.dart';
 import 'package:unforgettable_getaway/feature/message/presentation/widget/custom_appbar1.dart';
 import '../../../../../core/global_widget/custom_text_popins.dart';
 import '../../../../../core/utils/assetpath.dart';
 import '../../../controller/messeage_controllred.dart';
+import '../../widget/subscription_card1.dart';
 
 class CompletedPremium extends StatelessWidget {
   final String img;
@@ -27,6 +29,8 @@ class CompletedPremium extends StatelessWidget {
   Widget build(BuildContext context) {
     final MesseageController controller = Get.put(MesseageController());
     final TextEditingController textController = TextEditingController();
+    final AllProfileController profileController =
+        Get.put(AllProfileController());
     final ScrollController scrollController = ScrollController();
     controller.messages.listen((_) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,7 +46,7 @@ class CompletedPremium extends StatelessWidget {
         userName: text,
         receiverId: reciverId,
         statusText: 'Active now',
-        showCallIcon: true,
+        showCallIcon: profileController.subscribe.value,
       ),
       backgroundColor: const Color(0xff1A1110),
       body: Column(
@@ -52,7 +56,7 @@ class CompletedPremium extends StatelessWidget {
               () {
                 if (controller.messages.isEmpty) {
                   return Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(10.r),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -60,16 +64,24 @@ class CompletedPremium extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(Icons.error_outline_rounded,
-                                color: Color(0xFFFFFDE7)),
+                            Icon(Icons.error_outline_rounded,
+                                color: profileController.subscribe.value
+                                    ? const Color(0xFFFFFDE7)
+                                    : Colors.red),
                             SizedBox(width: 5.w),
-                            CustomTextPopins(
-                              textAlign: TextAlign.start,
-                              text:
-                                  "Your Premium upgrade was successful! You now have\nunlimited messages. Start chatting!",
-                              color: const Color(0xFFFFFDE7),
-                              fontWeight: FontWeight.w400,
-                              size: 11.sp,
+                            Expanded(
+                              child: CustomTextPopins(
+                                textOverflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.start,
+                                text: profileController.subscribe.value
+                                    ? "Your Premium upgrade was successful! You now have\nunlimited messages. Start chatting!"
+                                    : "You've reached your limit of 1 free message. To continue\nchatting, upgrade to Premium for unlimited messages!",
+                                color: profileController.subscribe.value
+                                    ? const Color(0xFFFFFDE7)
+                                    : Colors.red,
+                                fontWeight: FontWeight.w400,
+                                size: 11.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -163,11 +175,29 @@ class CompletedPremium extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       if (textController.text.isNotEmpty) {
-                        controller.sendMessage(
-                          userid ?? "",
-                          reciverId ?? "",
-                          textController.text,
-                        );
+                        if (profileController.subscribe.value) {
+                          controller.sendMessage(
+                            userid ?? "",
+                            reciverId ?? "",
+                            textController.text,
+                          );
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: SubcriptionCard1(
+                                          img: img, text: text),
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+
                         textController.clear();
                       } else {
                         debugPrint("============enter Something");

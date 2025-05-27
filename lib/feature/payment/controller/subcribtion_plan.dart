@@ -9,6 +9,8 @@ import '../../../core/network_caller/utils/utils.dart';
 
 class SubscriptionController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
+  
+
   var selectedPlan = "".obs;
   var subcribtionId = "".obs;
   var price = 0.0.obs;
@@ -26,6 +28,9 @@ class SubscriptionController extends GetxController {
   }
 
   Future<void> getAllPlan() async {
+    debugPrint("Get all plan===================");
+    debugPrint("Get all plan=========$allPlan==========");
+
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
     debugPrint("Token: $token");
@@ -38,10 +43,12 @@ class SubscriptionController extends GetxController {
         debugPrint("Response Body: ${response.responseData}");
 
         if (response.isSuccess) {
+          debugPrint("===================Data Get Successfully");
           final jsonData = response.responseData;
           if (jsonData is List) {
             allPlan.value = jsonData.map((e) => Plan.fromJson(e)).toList();
-            debugPrint("Plans loaded successfully: ${allPlan.length}");
+            debugPrint(
+                "==========Plans loaded successfully: ${allPlan.length}");
             debugPrint("============$allPlan");
           } else {
             debugPrint("Unexpected data format: $jsonData");
@@ -51,7 +58,9 @@ class SubscriptionController extends GetxController {
         }
       } catch (e) {
         debugPrint("Error occurred: $e");
-      } finally {}
+      } finally {
+        debugPrint("Finally block executed===========$allPlan");
+      }
     } else {
       debugPrint("Token is null");
     }
@@ -76,6 +85,7 @@ class SubscriptionController extends GetxController {
         if (response.isSuccess) {
           debugPrint("==========>>>>${response.responseData}");
           Get.to(() => const FinalPage());
+        
         }
       } catch (e) {
         isLoading.value = false;

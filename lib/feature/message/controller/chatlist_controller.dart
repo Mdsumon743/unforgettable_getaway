@@ -1,3 +1,5 @@
+// import 'dart:async';
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -10,11 +12,19 @@ import '../../../core/network_caller/utils/utils.dart';
 
 class ChatlistController extends GetxController {
   SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper();
-
+  RxString search = "Search".obs;
   RxBool isLoading = false.obs;
   RxList<ChatData> allChatList = <ChatData>[].obs;
+  RxList<ChatData> filteredChatList = <ChatData>[].obs;
+  RxString searchQuery = ''.obs;
 
   Timer? _pollingTimer;
+
+  @override
+  void onInit() {
+    super.onInit();
+    debounce(searchQuery, (_) => filterChatList(), time: Duration(milliseconds: 300));
+  }
 
   Future<void> getMyChatList() async {
     try {
@@ -50,6 +60,12 @@ class ChatlistController extends GetxController {
           } else {
             debugPrint("[ERROR] Unexpected response format: $responseData");
           }
+          allChatList.sort((a, b) {
+            if (a.lastMessageDate == null) return 1;
+            if (b.lastMessageDate == null) return -1;
+            return b.lastMessageDate!.compareTo(a.lastMessageDate!);
+          });
+          filterChatList();
         } else {
           debugPrint(
               "[ERROR] Failed to retrieve data: ${response.responseData}");
@@ -64,7 +80,15 @@ class ChatlistController extends GetxController {
     }
   }
 
-
+  void filterChatList() {
+    if (searchQuery.value.isEmpty) {
+      filteredChatList.value = allChatList;
+    } else {
+      filteredChatList.value = allChatList.where((chat) {
+        return chat.user.fullName?.toLowerCase().contains(searchQuery.value.toLowerCase()) ?? false;
+      }).toList();
+    }
+  }
 
   void stopPolling() {
     _pollingTimer?.cancel();
@@ -72,6 +96,4 @@ class ChatlistController extends GetxController {
 
     debugPrint("[LOG] Polling stopped.");
   }
-
-
 }

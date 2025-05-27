@@ -14,11 +14,11 @@ class LoginController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  Future<void> logIn() async {
+  Future<void> logIn({String? email, String? password}) async {
     preferencesHelper.init();
     Map<String, dynamic> registration = {
-      "email": emailText.text.trim(),
-      "password": passText.text.trim(),
+      "email": email ?? emailText.text.trim(),
+      "password": password ?? passText.text.trim(),
       "fcpmToken": preferencesHelper.getString("fcm_token")
     };
     try {
@@ -48,7 +48,25 @@ class LoginController extends GetxController {
         );
         Get.snackbar(
           "Succes",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
           "Login Succesfull",
+        );
+      } else if (response.statusCode == 400) {
+        Get.snackbar(
+          "Error",
+          "Password incorrect",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+        );
+      } else if (response.statusCode == 404) {
+        Get.snackbar(
+          "Error",
+          "Account Not Found ",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
         );
       }
     } catch (e) {

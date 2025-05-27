@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unforgettable_getaway/core/global_widget/custom_dialog.dart';
 import 'package:unforgettable_getaway/core/network_caller/service/service.dart';
 import 'package:unforgettable_getaway/core/network_caller/utils/utils.dart';
-import 'package:unforgettable_getaway/core/route/route.dart';
+import 'package:unforgettable_getaway/feature/auth/controller/login_controller.dart';
+
+import '../../../core/global_widget/custom_dialog.dart';
 
 class SignUpController extends GetxController {
+  final logincontroller = Get.put(LoginController());
   final emailText = TextEditingController();
   final passText = TextEditingController();
   final confirmPaassText = TextEditingController();
@@ -29,19 +31,30 @@ class SignUpController extends GetxController {
       );
 
       if (response.isSuccess) {
+        logincontroller.logIn(
+            email: emailText.text.trim(), password: passText.text.trim());
         Get.dialog(
           CustomSuccessDialog(
             title: 'Sign Up Successful!',
             message:
                 'You are successfully signed up.\nPlease log in to your account.',
             onConfirm: () {
-              Get.back();
-              Get.offNamed(AppRoute.loginScreen);
+              logincontroller.logIn(
+                  email: emailText.text.trim(), password: passText.text.trim());
             },
           ),
           barrierDismissible: false,
           transitionCurve: Curves.easeOutBack,
           transitionDuration: const Duration(milliseconds: 400),
+        );
+      
+      } else if (response.statusCode == 400) {
+        Get.snackbar(
+          "Error",
+          "This email is already registered.",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
         );
       }
     } catch (e) {

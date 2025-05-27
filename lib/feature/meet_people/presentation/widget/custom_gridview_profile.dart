@@ -11,7 +11,7 @@ class CustomGridviewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allprofileController = Get.put(AllProfileController());
+    final allprofileController = Get.find<AllProfileController>();
     final profileDetailsController = Get.put(ProfileDetailsController());
 
     return Obx(
@@ -22,35 +22,28 @@ class CustomGridviewProfile extends StatelessWidget {
               color: Colors.amber,
             ),
           );
-        } else if (allprofileController.isLoading.value == false) {
-          return GridView.builder(
+        } else if (allprofileController.allProfiles.isEmpty) {
+          return const Center(
+            child: CustomTextPopins(text: "No Profile Found"),
+          );
+        } else {
+          return ListView.builder(
             itemCount: allprofileController.allProfiles.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 0.5 / 0.68),
             itemBuilder: (context, index) {
-              String svg = "";
-              String love = "";
               var data = allprofileController.allProfiles[index];
-              var userId = data.userId;
+              String svg = data.isVerified == "NEW"
+                  ? "assets/images/new.svg"
+                  : "assets/images/level.svg";
 
-              if (data.isVerified == "NEW") {
-                svg = "assets/images/new.svg";
-              } else {
-                svg = "assets/images/level.svg";
-              }
-              if (data.isFavorite == true) {
-                love = "assets/images/love.svg";
-              } else {
-                love = "assets/images/unlove.svg";
-              }
+              String love = data.isFavorite == true
+                  ? "assets/images/love.svg"
+                  : "assets/images/unlove.svg";
 
               return GestureDetector(
                 onTap: () {
-                  debugPrint("=========${data.country}");
-
                   profileDetailsController
                       .getSignleProfileDetails(data.userId.toString());
                   Get.toNamed(AppRoute.profileDetils);
@@ -58,21 +51,17 @@ class CustomGridviewProfile extends StatelessWidget {
                 child: CustomProfileViewCard(
                   image: data.profileImage ??
                       "https://i.ibb.co.com/nrs3FjM/images.png",
-                  adress: "${data.city} ${data.country} ",
+                  adress: "${data.city} ${data.country}",
                   age: data.age.toString(),
                   country: data.flag ?? "🇧🇩",
                   distance: "3 km from you",
                   level: svg,
                   love: love,
-                  userId: userId.toString(),
+                  userId: data.userId.toString(),
                   name: data.fullName,
                 ),
               );
             },
-          );
-        } else {
-          return const Center(
-            child: CustomTextPopins(text: "No Data Foound"),
           );
         }
       },

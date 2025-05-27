@@ -8,6 +8,7 @@ import 'package:unforgettable_getaway/core/utils/app_colors.dart';
 import 'package:unforgettable_getaway/core/utils/text_style.dart';
 
 import '../../../../core/global_widget/custom_text_popins.dart';
+import '../../controller/phone_number_input.dart';
 
 class PhoneNumberOTPSubmit extends StatelessWidget {
   const PhoneNumberOTPSubmit({super.key});
@@ -18,6 +19,7 @@ class PhoneNumberOTPSubmit extends StatelessWidget {
     // const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
     // const fillColor = Color.fromRGBO(243, 246, 249, 0);
     // const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
+    final phonecontroller = Get.put(PhoneVerificationController());
 
     final defaultPinTheme = PinTheme(
       width: 50,
@@ -77,7 +79,7 @@ class PhoneNumberOTPSubmit extends StatelessWidget {
                       CustomTextPopins(
                         textAlign: TextAlign.start,
                         text:
-                            "Enter the code we’ve sent by text to\n+123456789",
+                            "Enter the code we’ve sent by text to\n${phonecontroller.phonenumbertotal}",
                         fontWeight: FontWeight.w400,
                         size: 14.sp,
                         color: Colors.white,

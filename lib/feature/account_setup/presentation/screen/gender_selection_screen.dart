@@ -16,10 +16,23 @@ class GenderSelectionScreen extends StatelessWidget {
     final accountController = Get.put(AccountController());
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
+      appBar: AppBar(
+        backgroundColor: AppColors.darkBrown,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.only(top: 60.h, left: 16.w, right: 16.w, bottom: 10.h),
+          padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +42,7 @@ class GenderSelectionScreen extends StatelessWidget {
                   const ProgressBar(width: 0.50),
                   SizedBox(height: 26.h),
                   Text(
-                    'Welcome Jhoney,',
+                    'Welcome ${accountController.nameEditingController.text},',
                     style: textStyle(
                       30.sp,
                       AppColors.whiteColor,

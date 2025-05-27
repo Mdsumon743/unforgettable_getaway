@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -30,6 +32,7 @@ class ProfileController extends GetxController {
   var isLoading = false.obs;
   var avatarFile = Rx<File?>(null);
   var selectedImages = <File>[].obs;
+
   Map<String, dynamic> upadateNewData = {};
 
   updatestaus(String selectedStatus) {
@@ -79,6 +82,7 @@ class ProfileController extends GetxController {
   Future<void> submitUserData({File? profileImage}) async {
     await preferencesHelper.init();
     var token = preferencesHelper.getString("userToken");
+    bool? isAccoutSetup = preferencesHelper.getBool('FirstTime');
     if (token != null) {
       try {
         isLoading.value = true;
@@ -103,7 +107,11 @@ class ProfileController extends GetxController {
         if (response.statusCode == 200) {
           debugPrint('====Success: ${response.body}');
           debugPrint('====Success: ${avatarFile.value}');
-          Get.offNamed(AppRoute.profile);
+          if (isAccoutSetup == true) {
+            Get.offNamed(AppRoute.profile);
+          } else {
+            Get.offNamed(AppRoute.interestSelectionScreen);
+          }
         } else {
           debugPrint('====Error: ${response.statusCode}, ${response.body}');
         }
@@ -142,7 +150,11 @@ class ProfileController extends GetxController {
 
         if (response.statusCode == 200) {
           debugPrint('Success: ${response.body}');
-          Get.snackbar("Upload Success", "Images uploaded successfully.");
+          Get.snackbar(
+            "Upload Success",
+            "Images uploaded successfully.",
+            backgroundColor: Colors.green,
+          );
         } else {
           debugPrint('Error: ${response.statusCode}, ${response.body}');
           Get.snackbar(
@@ -170,6 +182,7 @@ class ProfileController extends GetxController {
     debugPrint("Token: $token");
 
     if (token != null) {
+      isLoading.value = true;
       try {
         final response = await NetworkCaller()
             .getRequest(Utils.baseUrl + Utils.getme, token: token);
@@ -185,10 +198,50 @@ class ProfileController extends GetxController {
           userData.value = UserData.fromJson(jsonData);
           debugPrint("====HereData======${userData.value}");
         } else {
+          isLoading.value = false;
           debugPrint("Failed to retrieve data: ${response.responseData}");
         }
       } catch (e) {
+        isLoading.value = false;
         debugPrint("Error occurred: $e");
+      } finally {
+        isLoading.value = false;
+      }
+    } else {
+      debugPrint("Token is null");
+    }
+  }
+
+  Future<void> getUserProfiles2() async {
+    await preferencesHelper.init();
+
+    var token = preferencesHelper.getString("userToken");
+    debugPrint("Token: $token");
+
+    if (token != null) {
+      try {
+        final response = await NetworkCaller()
+            .getRequest(Utils.baseUrl + Utils.getme, token: token);
+        debugPrint("Response Status: ${response.isSuccess}");
+        debugPrint("Response Body: ${response.responseData}");
+        if (response.isSuccess) {
+          debugPrint("===========${response.responseData}");
+          final Map<String, dynamic> jsonData =
+              response.responseData is Map<String, dynamic>
+                  ? response.responseData
+                  : jsonDecode(response.responseData);
+
+          userData.value = UserData.fromJson(jsonData);
+          debugPrint("====HereData======${userData.value}");
+        } else {
+          isLoading.value = false;
+          debugPrint("Failed to retrieve data: ${response.responseData}");
+        }
+      } catch (e) {
+        isLoading.value = false;
+        debugPrint("Error occurred: $e");
+      } finally {
+        isLoading.value = false;
       }
     } else {
       debugPrint("Token is null");
@@ -234,45 +287,109 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> requestStoragePermission() async {
-    var status = await Permission.manageExternalStorage.status;
-    if (!status.isGranted) {
-      await Permission.manageExternalStorage.request();
+  // Future<bool> requestGalleryPermission() async {
+  //   PermissionStatus status = await Permission.photos.request();
+
+  //   if (status.isGranted) {
+  //     return true;
+  //   } else if (status.isDenied) {
+  //     return false;
+  //   } else if (status.isPermanentlyDenied) {
+  //     openAppSettings();
+  //     return false;
+  //   }
+  //   return false;
+  // }
+
+  // Future<void> pickImageFromGallery(bool isProfile) async {
+  //   requestGalleryPermission();
+  //   if (await Permission.photos.isGranted) {
+  //     if (isProfile) {
+  //       final XFile? image =
+  //           await _picker.pickImage(source: ImageSource.gallery);
+  //       if (image != null) {
+  //         avatarFile.value = File(image.path);
+  //       }
+  //     } else {
+  //       if (selectedImages.length >= 5) {
+  //         Get.snackbar("Limit Reached", "You can select up to 5 images only.");
+  //         return;
+  //       }
+
+  //       final List<XFile>? images = await _picker.pickMultiImage();
+  //       if (images != null && images.isNotEmpty) {
+  //         if (selectedImages.length + images.length > 5) {
+  //           Get.snackbar(
+  //             "Limit Reached",
+  //             "You can only select up to 5 images in total.",
+  //           );
+  //           return;
+  //         }
+  //         selectedImages
+  //             .addAll(images.map((image) => File(image.path)).toList());
+  //         await uploadMultipleImages();
+  //       }
+  //     }
+  //   } else {
+  //    debugPrint("==========Permission Stroge requried");
+  //   }
+  // }
+  Future<bool> requestGalleryPermission() async {
+    PermissionStatus status;
+
+    if (Platform.isIOS) {
+      status = await Permission.photos.request();
+    } else {
+      if (await Permission.storage.isGranted ||
+          await Permission.mediaLibrary.isGranted) {
+        return true;
+      }
+
+      status = await Permission.storage.request(); // For Android <13
+
+      if (status.isDenied) {
+        debugPrint("Gallery permission denied");
+        return false;
+      } else if (status.isPermanentlyDenied) {
+        openAppSettings();
+        return false;
+      }
     }
+
+    return status.isGranted;
   }
 
   Future<void> pickImageFromGallery(bool isProfile) async {
-    await requestStoragePermission();
-    if (await Permission.manageExternalStorage.isGranted) {
-      if (isProfile) {
-        final XFile? image =
-            await _picker.pickImage(source: ImageSource.gallery);
-        if (image != null) {
-          avatarFile.value = File(image.path);
-        }
-      } else {
-        if (selectedImages.length >= 5) {
-          Get.snackbar("Limit Reached", "You can select up to 5 images only.");
-          return;
-        }
+    bool permissionGranted = await requestGalleryPermission();
 
-        // ignore: unnecessary_nullable_for_final_variable_declarations
-        final List<XFile>? images = await _picker.pickMultiImage();
-        if (images != null && images.isNotEmpty) {
-          if (selectedImages.length + images.length > 5) {
-            Get.snackbar(
-              "Limit Reached",
-              "You can only select up to 5 images in total.",
-            );
-            return;
-          }
-          selectedImages
-              .addAll(images.map((image) => File(image.path)).toList());
-          await uploadMultipleImages();
-        }
+    if (!permissionGranted) {
+      debugPrint("Storage permission required for gallery access");
+      return;
+    }
+
+    if (isProfile) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        avatarFile.value = File(image.path);
       }
     } else {
-      Get.snackbar("Permission Denied", "Storage permission is required.");
+      if (selectedImages.length >= 5) {
+        Get.snackbar("Limit Reached", "You can select up to 5 images only.");
+        return;
+      }
+
+      final List<XFile>? images = await _picker.pickMultiImage();
+      if (images != null && images.isNotEmpty) {
+        if (selectedImages.length + images.length > 5) {
+          Get.snackbar(
+            "Limit Reached",
+            "You can only select up to 5 images in total.",
+          );
+          return;
+        }
+        selectedImages.addAll(images.map((image) => File(image.path)).toList());
+        await uploadMultipleImages();
+      }
     }
   }
 

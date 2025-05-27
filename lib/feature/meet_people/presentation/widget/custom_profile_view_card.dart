@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,20 +40,20 @@ class CustomProfileViewCard extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
-            width: 170.w,
-            height: 230.h,
+            width: 350.w,
+            height: 250.h,
           ),
           Positioned(
             left: 3,
             child: Container(
-              height: 220.h,
-              width: 160.w,
+              height: 240.h,
+              width: 330.w,
               padding: EdgeInsets.all(5.r),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
                   image: DecorationImage(
                       repeat: ImageRepeat.repeat,
-                      image: NetworkImage(
+                      image: CachedNetworkImageProvider(
                           image ?? "https://i.ibb.co.com/nrs3FjM/images.png"),
                       fit: BoxFit.fill)),
               child: Column(
@@ -75,20 +76,21 @@ class CustomProfileViewCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: CustomTextPopins(
-                              max: 1,
-                              textOverflow: TextOverflow.ellipsis,
-                              text: "$name, $age $country ",
-                              fontWeight: FontWeight.w600,
-                              size: 13.sp,
-                              color: Colors.white,
-                            ),
+                          CustomTextPopins(
+                            max: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                            text: "$name, $age $country ",
+                            fontWeight: FontWeight.w600,
+                            size: 13.sp,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5.w,
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 2),
-                            width: 8.w,
-                            height: 8.h,
+                            width: 10.w,
+                            height: 10.h,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: Color(0xFF17B26A),
